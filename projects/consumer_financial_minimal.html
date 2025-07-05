@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EDA – Consumer Complaints (2011–2024)</title>
+  <meta name="description" content="Minimalist EDA page for CFPB consumer complaints 2011‑2024" />
+  <meta name="author" content="Juan Camilo Sierra Escobar" />
+
+  <!-- Google Fonts → Inter for clean, legible UI -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome for social icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    /* ─────────── CSS RESET ─────────── */
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+    /* ─────────── DESIGN TOKENS ─────────── */
+    :root{
+      /* palette */
+      --clr-bg:#fafbfc;
+      --clr-surface:#ffffff;
+      --clr-text:#1e1e1e;
+      --clr-muted:#6b7280; /* gray‑500 */
+      --clr-accent:#ff6b00; /* orange */
+      --clr-border:rgba(0,0,0,0.06);
+
+      /* typography */
+      --ff-base:'Inter',system-ui,-apple-system,"Segoe UI",sans-serif;
+      --lh-body:1.6;
+    }
+
+    /* ─────────── GLOBAL ─────────── */
+    html{scroll-behavior:smooth;}
+    body{
+      background:var(--clr-bg);
+      font-family:var(--ff-base);
+      color:var(--clr-text);
+      line-height:var(--lh-body);
+      -webkit-font-smoothing:antialiased;
+    }
+    img{display:block;max-width:100%;}
+    a{color:var(--clr-accent);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+
+    /* Containers */
+    .container{width:90%;max-width:1024px;margin-inline:auto;padding:1.5rem 0;}
+
+    /* ─────────── NAVBAR ─────────── */
+    .navbar{
+      background:var(--clr-surface);
+      border-bottom:1px solid var(--clr-border);
+      position:sticky;top:0;z-index:100;
+    }
+    .navbar .container{display:flex;justify-content:space-between;align-items:center;}
+    .navbar h1{font-size:1.25rem;font-weight:600;}
+    .nav-right{display:flex;gap:1rem;font-size:.925rem;}
+    .nav-right a{font-weight:500;color:var(--clr-text);transition:color .2s ease;}
+    .nav-right a:hover{color:var(--clr-accent);}
+
+    /* ─────────── HERO ─────────── */
+    .hero{text-align:center;margin:3rem auto 2.5rem;max-width:48rem;}
+    .hero h2{font-size:clamp(1.5rem,3vw,2.25rem);font-weight:600;margin-bottom:.25rem;}
+    .hero .meta{font-size:.9rem;color:var(--clr-muted);margin-bottom:1.75rem;}
+    .hero-img{border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,0.04);}
+    .lead{font-size:1.05rem;margin-top:1.5rem;color:var(--clr-text);}
+
+    /* ─────────── CONTENT SECTIONS ─────────── */
+    section{margin-top:2.5rem;}
+    h3{font-size:1.25rem;font-weight:600;margin-bottom:.75rem;}
+    p+pre,pre+P,ul+P{margin-top:1rem;}
+    pre{background:var(--clr-surface);padding:1rem;border:1px solid var(--clr-border);border-radius:8px;overflow-x:auto;font-size:.9rem;}
+    ul{margin-left:1rem;list-style:disc;}
+    li{margin-bottom:.5rem;}
+
+    figure{margin:2rem auto;}
+    figcaption{font-size:.825rem;color:var(--clr-muted);text-align:center;margin-top:.5rem;}
+
+    /* ─────────── FOOTER ─────────── */
+    .footer{border-top:1px solid var(--clr-border);padding:1rem 0;text-align:center;font-size:.85rem;color:var(--clr-muted);}
+
+    /* ─────────── MODAL (unchanged) ─────────── */
+    .modal{display:none;position:fixed;z-index:200;left:0;top:0;width:100%;height:100%;overflow:auto;background:rgba(0,0,0,0.8);}
+    .modal-content{margin:auto;display:block;max-width:90%;max-height:90%;}
+    .close{position:absolute;top:1.2rem;right:1.5rem;font-size:2rem;font-weight:700;color:#fff;cursor:pointer;}
+  </style>
+</head>
+<body>
+  <!-- ========= NAVBAR ========= -->
+  <header class="navbar">
+    <div class="container">
+      <h1>Camilo Sierra E.</h1>
+      <nav class="nav-right">
+        <a href="../index.html">Home</a>
+        <a href="../index.html#about">About me</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="https://github.com/Deunich" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/deunich" target="_blank"><i class="fab fa-linkedin"></i></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- ========= HERO ========= -->
+    <section class="hero">
+      <h2>EDA of CFPB Consumer Complaints (2011 – 2024)</h2>
+      <p class="meta">Juan Camilo Sierra Escobar · December 2024</p>
+      <img src="../img/MapEEUU.png" alt="Heat map of CFPB complaints across the U.S." class="hero-img" />
+      <p class="lead">
+        Interactive exploration of 6.9 million complaints to uncover product hot‑spots, temporal surges, and state‑level patterns driving consumer dissatisfaction in the U.S. financial sector.
+      </p>
+    </section>
+
+    <!-- ========= DETAILS ========= -->
+    <section>
+      <h3>Overview</h3>
+      <p>This Exploratory Data Analysis (EDA) examines <strong>6.9 million consumer complaints</strong> lodged with the CFPB from 2011 through 2024. It seeks to uncover <em>when</em>, <em>where</em>, and <em>why</em> U.S. consumers raise issues with financial institutions.</p>
+
+      <h3>Library Installation</h3>
+      <pre><code>install.packages(c(
+  "readr", "dplyr", "ggplot2", "scales", "ggpubr",
+  "gtsummary", "lubridate", "tidyverse", "usmap",
+  "sf", "maps", "leaflet"))</code></pre>
+      <p>Key packages enable data import (<code>readr</code>), wrangling (<code>dplyr</code>), visualisation (<code>ggplot2</code>), and mapping (<code>leaflet</code>, <code>usmap</code>).</p>
+
+      <h3>Data Import & Transformation</h3>
+      <pre><code>complaints <- read_csv("complaints.csv")
+complaints <- complaints %>%
+  rename(Date_received = `Date received`) %>%
+  mutate(Date_received = as.Date(Date_received),
+         Year  = year(Date_received),
+         Month = month(Date_received, label = TRUE))</code></pre>
+      <p>Standardising dates to <code>YYYY‑MM‑DD</code> allows monthly, quarterly, and yearly aggregations.</p>
+
+      <h3>Grouping & Aggregation</h3>
+      <pre><code># yearly counts
+yearly <- complaints %>%
+  count(Year, name = "Number_Complaints")</code></pre>
+      <p>Similar logic produces monthly and quarterly counts, plus summaries by product and state.</p>
+
+      <h3>Key Findings</h3>
+      <ul>
+        <li><strong>Credit Reporting</strong> remains the #1 complaint category (32 %).</li>
+        <li><strong>Post‑2020 spike:</strong> total complaints doubled compared with pre‑pandemic levels.</li>
+        <li><strong>Geographical hotspots:</strong> Florida, Texas, and California together generate 27 % of all complaints.</li>
+      </ul>
+
+      <h3>Visual Highlights</h3>
+      <ul>
+        <li><strong>Top 10 Product Categories</strong> – bar chart reveals data‑quality issues in credit reports as the dominant pain‑point.</li>
+        <li><strong>Quarterly Trend (2011 Q4 – 2024 Q4)</strong> – steady rise then acceleration after 2020, likely tied to pandemic‑era financial stress.</li>
+        <li><strong>Complaint Map</strong> – choropleth pinpoints states with systemic consumer‑finance challenges.</li>
+      </ul>
+
+      <figure>
+        <img src="../img/top_product_categories.png" alt="Top complaint categories" />
+        <figcaption>Top 10 complaint categories (2011‑2024).</figcaption>
+      </figure>
+
+      <h3>Conclusions</h3>
+      <p>The CFPB dataset highlights persistent issues in credit reporting and debt collection. Geographic analysis shows disproportionate complaint volumes in populous, financially complex states. The pronounced uptick post‑2020 underscores how economic shocks translate into consumer‑finance friction.</p>
+
+      <h3>Credits</h3>
+      <p>Analysis by Juan Camilo Sierra Escobar, December 2024. Data sourced from the Consumer Financial Protection Bureau (CFPB).</p>
+
+      <h3>Repository</h3>
+      <p><a href="https://github.com/Deunich/cfpb‑complaints‑eda" target="_blank">View full code on GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
+    </section>
+  </main>
+
+  <!-- ========= FOOTER ========= -->
+  <footer class="footer">
+    <p>&copy; 2025 Juan Camilo Sierra Escobar – Master's Business Analyst</p>
+  </footer>
+
+  <!-- ========= Image modal ========= -->
+  <div id="img-modal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modal-img" />
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const modal   = document.getElementById("img-modal");
+      const modalImg= document.getElementById("modal-img");
+      const closeBtn= document.querySelector(".close");
+      document.querySelectorAll("img.hero-img, figure img").forEach(img => {
+        img.classList.add("clickable-img");
+        img.addEventListener("click", () => {
+          modal.style.display = "block";
+          modalImg.src = img.src;
+        });
+      });
+      closeBtn.onclick = () => (modal.style.display = "none");
+      window.onclick   = e => { if (e.target === modal) modal.style.display = "none"; };
+    });
+  </script>
+</body>
+</html>

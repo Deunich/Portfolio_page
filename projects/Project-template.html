@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><!-- Project Title --></title>
+  <meta name="description" content="Project details for Camilo Sierra’s portfolio" />
+  <meta name="author" content="Camilo Sierra" />
+  <!-- Font Awesome for icons (optional) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Main shared stylesheet: adjust relative path if needed -->
+  <!-- MANTEMOS EL LINK DEL CSS PARA CADA PAGINA NUEVA ----------------------------------------------------------------------------------------------->
+ <link rel="stylesheet" href="../css/style.css" />
+  <!-- MANTEMOS EL LINK DEL CSS PARA CADA PAGINA NUEVA ----------------------------------------------------------------------------------------------->
+
+<body>
+ <!-- ========= NAV BAR (identical to index) ========= -->
+  <header class="navbar">
+    <div class="container" style="position: relative;">
+      <h1>Camilo Sierra E.</h1>
+      <nav class="nav-right">
+        <a href="../index.html">Home</a>
+        <a href="../index.html#about">About me</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="https://github.com/Deunich" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/deunich" target="_blank"><i class="fab fa-linkedin"></i></a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========= MAIN CONTENT ========= -->
+  <main class="container">
+    <!-- Hero / header section for the project -->
+    <section class="project-hero" style="margin-bottom:2rem; text-align:center;">
+      <h2><!-- Project Title --></h2>
+      <!-- Replace with a representative image -->
+      <img src="../img/placeholder.png" alt="Project hero" style="max-width:100%; border-radius:12px; margin:1.5rem 0;"/>
+      <p class="lead" style="font-size:1.1rem; max-width:800px; margin:auto;">
+        <!-- One‑sentence pitch / TL;DR for the project -->
+      </p>
+    </section>
+
+    <!-- Detailed sections -->
+    <section class="project-details" style="margin-bottom:3rem;">
+      <h3>Overview</h3>
+      <p><!-- Context, goals, key questions answered --></p>
+
+      <h3>Data & Methodology</h3>
+      <p><!-- Data source, cleaning steps, analytical techniques, libraries --></p>
+
+      <h3>Key Findings</h3>
+      <ul>
+        <li><!-- Insight 1 --></li>
+        <li><!-- Insight 2 --></li>
+        <li><!-- Insight 3 --></li>
+      </ul>
+
+      <h3>Tech Stack</h3>
+      <p><span class="tech-tag">Python</span> <span class="tech-tag">BeautifulSoup</span> <!-- etc. --></p>
+
+      <!-- Optional embed / image gallery -->
+      <!-- <img src="../img/result.png" alt="Results" style="max-width:100%; border-radius:8px;"/> -->
+
+      <h3>Repository</h3>
+      <p>
+        <a href="#" target="_blank">View code on GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      </p>
+    </section>
+  </main>
+
+  <!-- ========= FOOTER ========= -->
+  <footer class="footer">
+    <p>&copy; 2025 Camilo Sierra - Master's Business Analyst</p>
+  </footer>
+
+  <!-- ========= Optional JS: modal reuse ========= -->
+  <script>
+    // If you want the same image‑modal behaviour, keep the snippet below; otherwise, remove it
+    document.addEventListener("DOMContentLoaded", function () {
+      const modal = document.getElementById("img-modal");
+      const modalImg = document.getElementById("modal-img");
+      const closeBtn = document.querySelector(".close");
+      document.querySelectorAll(".clickable-img").forEach((img) => {
+        img.addEventListener("click", () => {
+          modal.style.display = "block";
+          modalImg.src = img.getAttribute("data-img");
+        });
+      });
+      closeBtn.onclick = () => (modal.style.display = "none");
+      window.onclick = (e) => {
+        if (e.target === modal) modal.style.display = "none";
+      };
+    });
+  </script>
+
+  <!-- Modal markup (hidden until used) -->
+  <div id="img-modal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modal-img" />
+  </div>
+</body>
+</html>

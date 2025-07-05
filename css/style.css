@@ -1,0 +1,402 @@
+/* --- V3.0 | CSS Completo con Mejoras de Diseño | @CamiloSierra --- */
+
+/* ----------- GLOBAL ----------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --clr-bg: #fafbfc;
+  --clr-surface: #ffffff;
+  --clr-text: #1e1e1e;
+  --clr-muted: #6b7280;
+  --clr-accent: #ff6b00;
+  --clr-border: rgba(0, 0, 0, 0.06);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+body {
+  background-color: var(--clr-bg);
+  color: var(--clr-text);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ----------- NAVBAR ----------- */
+.navbar {
+  background-color: var(--clr-surface);
+  border-bottom: 1px solid var(--clr-border);
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: box-shadow 0.2s ease;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--clr-text);
+  margin: 0;
+}
+
+.navbar a {
+  color: var(--clr-text);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navbar a:hover {
+  color: var(--clr-accent);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-right a .fab {
+  font-size: 1.2rem; /* Aumentar ligeramente el tamaño del icono */
+  transition: transform 0.2s ease-out;
+}
+
+.nav-right a:hover .fab {
+  transform: scale(1.15);
+}
+
+/* ----------- SOLUCIÓN ANCLAJES ----------- */
+section[id] {
+  scroll-margin-top: 100px;
+}
+
+/* ----------- TÍTULOS CON JERARQUÍA ----------- */
+h2 {
+  font-size: 2.2em; /* Ligeramente más grande */
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--clr-text);
+  margin-bottom: 1.5rem;
+  text-align: left; /* Títulos de sección alineados a la izquierda */
+}
+
+h3 {
+  font-size: 1.2em;
+  font-weight: 600; /* Semi-bold para títulos de tarjeta */
+  color: var(--clr-text);
+  margin-bottom: 10px;
+}
+
+/* ----------- SECCIÓN "ABOUT ME" ----------- */
+#about {
+  background-color: var(--clr-surface);
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid var(--clr-border);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+  margin-bottom: 40px;
+}
+
+#about strong {
+  color: var(--clr-text);
+  font-weight: 600;
+}
+
+.about-photo {
+  width: 120px;
+  height: 120px; /* Asegurar que sea un círculo perfecto */
+  border-radius: 50%;
+  margin: auto;
+  margin-bottom: 1rem;
+  object-fit: cover;
+  display: block;
+}
+
+/* ----------- TEXTO Y ENLACES GENERALES ----------- */
+p {
+  text-align: justify;
+  margin-bottom: 15px;
+  color: var(--clr-text);
+}
+
+a {
+  color: var(--clr-accent);
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ----------- CONTENEDORES ----------- */
+.container {
+  max-width: 1024px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+main.container {
+  padding-top: 4rem; /* Espacio extra al inicio del contenido principal */
+  padding-bottom: 4rem;
+}
+
+/* ----------- TARJETAS (CARDS) CON PROFUNDIDAD ----------- */
+.card {
+  background-color: var(--clr-surface);
+  border-radius: 12px;
+  border: 1px solid var(--clr-border);
+  border-top: 4px solid var(--clr-accent); /* Borde de acento */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+  padding: 30px;
+  margin-bottom: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.07), 0 3px 6px rgba(0,0,0,0.04);
+}
+
+.card-link,
+.card-link:hover,
+.card-link:focus {
+  color: inherit;
+  text-decoration: none !important;
+}
+
+.card-link:hover .card-text p {
+  color: var(--clr-muted) !important;
+}
+
+.card-link .card-text h3,
+.card-link:hover .card-text h3 {
+  color: var(--clr-text) !important;
+  text-decoration: none !important;
+}
+
+.card-text p {
+  color: var(--clr-muted); /* Descripción de tarjeta con texto más suave */
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.card-text {
+  flex: 2;
+}
+
+.card-image {
+  flex: 1;
+  max-width: 150px;
+}
+
+.card-image img {
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.card-footer {
+  padding-top: 20px;
+  text-align: left;
+}
+
+.tech-tag {
+  display: inline-block;
+  background-color: rgba(0,0,0,0.05);
+  color: var(--clr-muted);
+  padding: 4px 10px;
+  margin-right: 6px;
+  margin-bottom: 4px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: default;
+}
+
+.tech-tag:hover {
+  background-color: var(--clr-accent);
+  color: var(--clr-surface);
+}
+
+/* ----------- SECCIÓN DE CONTACTO ----------- */
+#contact img {
+  transition: transform 0.2s ease-out;
+}
+
+#contact a:hover img {
+  transform: scale(1.15);
+}
+
+/* ----------- FOOTER ----------- */
+.footer {
+  background-color: transparent;
+  color: var(--clr-muted);
+  padding: 2rem 0;
+  font-size: 0.9em;
+  margin-top: 40px;
+  border-top: 1px solid var(--clr-border);
+}
+
+/* Esta regla asegura que el párrafo dentro del footer esté centrado */
+.footer p {
+  text-align: center;
+  margin-bottom: 0; /* Quitamos el margen inferior para que se vea mejor */
+}
+
+/* ----------- MODAL DE IMAGEN ----------- */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+}
+
+.close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.close:hover {
+  opacity: 1;
+}
+
+/* ----------- RESPONSIVE ----------- */
+@media screen and (max-width: 800px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  h2 {
+    font-size: 1.8em;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .card-content {
+    flex-direction: column;
+  }
+
+  .card-image {
+    max-width: 100%;
+    margin-top: 1rem;
+  }
+}
+
+/* ----------- SECCIÓN "ABOUT ME" (DISEÑO CONCISO) ----------- */
+#about {
+  background-color: var(--clr-surface);
+  padding: 40px;
+  border-radius: 16px;
+  border: 1px solid var(--clr-border);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+  margin-bottom: 40px;
+}
+
+.about-container {
+  display: flex;
+  align-items: center; /* Centra verticalmente texto y foto */
+  gap: 40px;
+  margin-bottom: 2.5rem; /* Espacio antes de las etiquetas de habilidades */
+}
+
+.about-text {
+  flex: 2.5;
+}
+
+.about-photo-container {
+  flex: 1;
+}
+
+.about-photo {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 12px; /* Mantenemos las esquinas redondeadas */
+}
+
+.about-text h2 {
+  margin-top: 0;
+}
+
+/* --- Nueva sección de Habilidades con Etiquetas --- */
+.skills-showcase h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--clr-text);
+  margin-bottom: 1rem;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap; /* Permite que las etiquetas pasen a la siguiente línea */
+  justify-content: center; /* Centra las etiquetas */
+  gap: 10px;
+}
+
+/* --- Ajuste para móviles --- */
+@media screen and (max-width: 800px) {
+  .about-container {
+    flex-direction: column-reverse;
+    gap: 20px;
+    margin-bottom: 2rem;
+    align-items: center;
+  }
+
+  .about-text {
+    text-align: center;
+  }
+
+  .about-text p {
+    text-align: justify; /* Mantenemos el párrafo justificado */
+  }
+
+  .about-photo {
+    max-width: 150px;
+  }
+}

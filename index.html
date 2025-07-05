@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master's Business Analyst - Camilo Sierra</title>
+  <meta name="description" content="Juan Camilo Sierra - Master's Business Analyst">
+  <meta name="author" content="Camilo">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script>
+    // Ajusta el padding del body para que el contenido no quede debajo del navbar
+    window.addEventListener("load", function() {
+      const navbar = document.querySelector(".navbar");
+      if (navbar) {
+        const navbarHeight = navbar.offsetHeight;
+        document.body.style.paddingTop = navbarHeight + "px";
+      }
+    });
+  </script>
+</head>
+
+<body>
+
+<header class="navbar">
+  <div class="container">
+    <h1>Camilo Sierra E.</h1>
+    <nav class="nav-right">
+      <a href="#">Home</a>
+      <a href="#about">About me</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+      <a href="https://github.com/Deunich/" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/deunich" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <section id="about">
+    <div class="about-container">
+
+      <div class="about-text">
+        <h2>About Me</h2>
+        <p>I'm an economist and Business Analytics professional with over four years of experience in financial analysis, data-driven research, and analytics. I enjoy turning data into insights and solving problems through a mix of technical skills and critical thinking. This portfolio showcases some of my academic and professional projects, I hope you enjoy exploring them.</p>
+      </div>
+
+      <div class="about-photo-container">
+        <img src="img/Camilo.png" alt="Camilo Sierra" class="about-photo">
+      </div>
+
+    </div>
+
+    <div class="skills-showcase">
+      <h4>Core Skills</h4>
+      <div class="tags-container">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">R</span>
+        <span class="tech-tag">SQL</span>
+        <span class="tech-tag">Power BI</span>
+        <span class="tech-tag">Tableau</span>
+        <span class="tech-tag">Business Analytics</span>
+        <span class="tech-tag">Data Visualization</span>
+        <span class="tech-tag">Statistical Analysis</span>
+        <span class="tech-tag">Data Mining</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+
+    <a href="projects/consumer_financial.html" class="card-link">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-text">
+            <h3>Consumer Financial Protection</h3>
+            <p>Analizamos datos de los consumidores financieros en EEUU</p>
+          </div>
+          <div class="card-image">
+            <img src="img/MapEEUU.png" alt="Consumer Financial" class="clickable-img" data-img="img/MapEEUU.png">
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="tech-tag">R</span>
+          <span class="tech-tag">ggplot2</span>
+          <span class="tech-tag">usmap</span>
+          <span class="tech-tag">tidyverse</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="projects/web_scraping_mls.html" class="card-link">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-text">
+            <h3>Web Scraping MLS 2023</h3>
+            <p>Scraped and analyzed soccer league data to extract insights on player stats and team performance using Python and BeautifulSoup.</p>
+          </div>
+          <div class="card-image">
+            <img src="img/download.png" alt="MLS Scraping" class="clickable-img" data-img="img/mls_project.png">
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">BeautifulSoup</span>
+        </div>
+      </div>
+    </a>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <ul style="list-style: none; padding-left: 0;">
+      <li>Email: sierra@camiloanalytics.dev</li>
+      <li style="margin-bottom: 10px;">
+        <a href="https://github.com/Deunich" target="_blank" style="text-decoration: none; color: inherit;">
+          <img src="img/github.png" alt="GitHub" style="width: 30px; vertical-align: middle; margin-right: 8px;">
+          Deunich
+        </a>
+      </li>
+      <li style="margin-bottom: 10px;">
+        <a href="https://www.linkedin.com/in/deunich" target="_blank" style="text-decoration: none; color: inherit;">
+          <img src="img/linkedin.png" alt="LinkedIn" style="width: 30px; vertical-align: middle; margin-right: 8px;">
+          Camilo Sierra
+        </a>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2025 Camilo Sierra - Master's Business Analyst</p>
+  </div>
+</footer>
+
+<div id="img-modal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modal-img">
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("img-modal");
+    const modalImg = document.getElementById("modal-img");
+    const closeBtn = document.querySelector(".close");
+
+    document.querySelectorAll(".clickable-img").forEach(img => {
+      img.addEventListener("click", () => {
+        if (modal) {
+          modal.style.display = "block";
+          modalImg.src = img.getAttribute("data-img");
+        }
+      });
+    });
+
+    if(closeBtn) {
+      closeBtn.onclick = () => modal.style.display = "none";
+    }
+
+    window.onclick = (e) => {
+      if (e.target === modal) modal.style.display = "none";
+    };
+  });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
