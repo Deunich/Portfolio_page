@@ -151,8 +151,8 @@ a:hover {
 }
 
 main.container {
-  padding-top: 4rem; /* Espacio extra al inicio del contenido principal */
-  padding-bottom: 4rem;
+  padding-top: 0; /* Espacio extra al inicio del contenido principal */
+  padding-bottom: 2rem;
 }
 
 /* ----------- TARJETAS (CARDS) CON PROFUNDIDAD ----------- */
@@ -239,7 +239,7 @@ main.container {
   color: var(--clr-surface);
 }
 
-/* ----------- SECCIÓN DE CONTACTO ----------- */
+/* ----------- SECCIÓN DE CONTACTO --------------------------------------------------- */
 #contact img {
   transition: transform 0.2s ease-out;
 }
@@ -247,6 +247,31 @@ main.container {
 #contact a:hover img {
   transform: scale(1.15);
 }
+
+/* ----------- CONTACT MANUAL SPACING ----------- */
+
+/* Separar “Email:” del enlace */
+#contact li:first-child strong {
+  margin-right: 0.5rem;
+}
+
+/* Espacio vertical entre cada línea de contacto */
+#contact ul li {
+  margin-bottom: 1rem;
+}
+
+/* Separar icono de la etiqueta (o texto) */
+#contact img {
+  margin-right: 0.5rem;   /* ya tenías tu transition aquí, se lo añadimos */
+  transition: transform 0.2s ease-out;
+}
+
+/* Hover sobre el icono */
+#contact a:hover img {
+  transform: scale(1.15);
+}
+/* ----------- SECCIÓN DE CONTACTO ----------------------------------------------------------- */
+
 
 /* ----------- FOOTER ----------- */
 .footer {
@@ -301,7 +326,7 @@ main.container {
   opacity: 1;
 }
 
-/* ----------- RESPONSIVE ----------- */
+/* ----------- RESPONSIVE --------------------------------------------------------- */
 @media screen and (max-width: 800px) {
   .container {
     padding: 0 15px;
@@ -324,6 +349,61 @@ main.container {
     margin-top: 1rem;
   }
 }
+/* ----------- CARD IMAGES RESPONSIVE ----------------------------------------------- */
+@media screen and (max-width: 600px) {
+  /* Apila texto e imagen en vertical */
+  .card-content {
+    flex-direction: column;
+  }
+
+  /* Limita el ancho de la imagen y conserva proporción */
+  .card-image img,
+  .card-image .clickable-img {
+    width: 100%;
+    max-width: 200px;   /* nunca más grande que 200px */
+    height: auto;       /* mantiene la proporción original */
+    margin: 0 auto;     /* centra horizontalmente */
+    display: block;
+  }
+
+  /* Opcional: reduce el gap interno si hace falta */
+  .card-content {
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  img, table, iframe { width: 100%; height: auto; }
+  .card-content { flex-direction: column; gap: 1rem; }
+  body, .container { padding: 0 1rem; }
+  h1,h2,h3 { font-size: 1.2rem; }
+  p { font-size: 0.95rem; }
+}
+
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+
+/* 1) Navbar más “apretada” */
+.navbar {
+  padding: 3px 0;          /* antes 10px 0, ahora 5px 0 */
+}
+
+/* 2) Reducir margen que trae por defecto el primer <section> */
+main.container > section:first-child {
+  margin-top: 2.0rem;      /* antes venía “0” + padding, ahora un poco menos */
+}
+
+/* 3) Quitar margen interno extra de #about */
+#about {
+  margin-top: 0.5rem;      /* si quieres cero, pon 0 */
+}
+
+/* 4) Asegúrate que no haya padding-top en el wrapper */
+main.container {
+  padding-top: 0;
+}
+
+/*----------------------------------------------------------------------------------------------------------------------------------*/
+
 
 /* ----------- SECCIÓN "ABOUT ME" (DISEÑO CONCISO) ----------- */
 #about {
@@ -400,3 +480,127 @@ main.container {
     max-width: 150px;
   }
 }
+
+
+
+/* 1. Hacer que el fondo general sea blanco para que no se vea la franja gris-clara */
+body {
+  background-color: var(--clr-surface);
+}
+
+/* 2. Eliminar cualquier margen extra que pudiera mostrar el fondo root */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* 3. (Opcional) Si hay un elemento “header” adicional, ocultarlo */
+header:not(.navbar) {
+  display: none;
+}
+/* --- AJUSTE MÁRGENES Y PADDINGS A LA MITAD --- */
+
+/* Contenedor principal */
+.container {
+  padding: 0 10px; /* de 20px a 10px */
+}
+main.container {
+  padding-top: 2rem;   /* de 4rem a 2rem */
+  padding-bottom: 2rem;/* de 4rem a 2rem */
+}
+
+/* Sección About */
+#about {
+  padding: 20px;       /* de 40px a 20px */
+  margin-bottom: 20px; /* de 40px a 20px */
+}
+
+/* Tarjetas */
+.card {
+  padding: 15px;       /* de 30px a 15px */
+  margin-bottom: 15px; /* de 30px a 15px */
+}
+
+/* Títulos */
+h2 {
+  margin-bottom: .75rem; /* de 1.5rem a 0.75rem */
+}
+
+/* About-container */
+.about-container {
+  gap: 20px;           /* de 40px a 20px */
+  margin-bottom: 1.25rem; /* de 2.5rem a 1.25rem */
+}
+
+/* Footer */
+.footer {
+  padding: 1rem 0;     /* de 2rem a 1rem */
+  margin-top: 20px;    /* de 40px a 20px */
+}
+
+/* Responsive muy pequeño */
+@media screen and (max-width: 400px) {
+  .container {
+    padding: 0 5px;    /* de 10px a 5px */
+  }
+  main.container {
+    padding-top: 1rem;   /* de 2rem a 1rem */
+    padding-bottom: 1rem;/* de 2rem a 1rem */
+  }
+  #about {
+    padding: 10px;       /* de 20px a 10px */
+    margin-bottom: 10px; /* de 20px a 10px */
+  }
+  .card {
+    padding: 7.5px;      /* de 15px a 7.5px */
+    margin-bottom: 7.5px;/* de 15px a 7.5px */
+  }
+  h2 {
+    margin-bottom: .375rem; /* de .75rem a .375rem */
+  }
+  .about-container {
+    gap: 10px;           /* de 20px a 10px */
+    margin-bottom: .625rem; /* de 1.25rem a .625rem */
+  }
+  .footer {
+    padding: .5rem 0;    /* de 1rem a .5rem */
+    margin-top: 10px;    /* de 20px a 10px */
+  }
+}
+
+/* ----- MOBILE HEADER FIX (<= 600px) ----- */
+@media screen and (max-width: 600px) {
+  .navbar .container {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;               /* menos separación vertical */
+    padding: 5px 0;
+  }
+
+  .navbar h1 {
+    font-size: 1.1rem;      /* nombre más pequeño */
+    text-align: center;
+    line-height: 1.2;       /* evitar cajas demasiado altas */
+  }
+
+  .nav-right {
+    display: flex;
+    flex-wrap: wrap;        /* permite que los enlaces bajen de línea */
+    justify-content: center;
+    gap: 8px;               /* menos espacio entre ítems */
+    width: 100%;
+  }
+
+  .nav-right a {
+    padding: 6px 8px;       /* reducir área clicable sin pasarse */
+    font-size: 0.9rem;
+  }
+
+  /* Ajuste extra para iconos */
+  .nav-right a .fab,
+  .nav-right a .fab + svg {
+    font-size: 1rem;        /* iconos más pequeños */
+  }
+}
+
+
