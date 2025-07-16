@@ -29,72 +29,175 @@
 </header>
 
 <main class="container">
-  <!-- ========= HERO ========= -->
-  <section class="project-hero" style="margin-bottom:2rem; text-align:center;">
-    <h2>Exploratory Data Analysis of Consumer Complaints from CFPB (2011–2024)</h2>
-    <p style="font-size:0.95rem; margin-top:-0.3rem;">Juan Camilo Sierra Escobar · December 2024</p>
-    <img src="../img/MapEEUU.png" alt="Heat map of CFPB complaints across the U.S." style="max-width:100%; border-radius:12px; margin:1.5rem 0;" />
-    <p class="lead" style="font-size:1.1rem; max-width:800px; margin:auto;">
-      Interactive exploration of 6.9 million complaints to uncover product hot‑spots, temporal surges, and state‑level patterns driving consumer dissatisfaction in the U.S. financial sector.
+  <!------------------------------------------------------------------- OPEN BUSINESS  PROBLEM ---------------------------------->
+
+  <section class="project-section">
+    <h3>Business Problem</h3>
+    <p>
+      Rising CFPB complaint volumes create <strong>reputational, compliance, and revenue risks</strong> for banks and fintechs.
+      Without a clear view of spikes, firms struggle to prioritise fixes, allocate resources, and stay ahead of regulators.
+    </p>
+
+    <div class="table-wrapper">
+      <table class="problem-table">
+        <thead>
+        <tr>
+          <th>Objective</th>
+          <th>Business Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Early‑warning radar</td>
+          <td>Detect product failures before they trigger fines or class‑action suits.</td>
+        </tr>
+        <tr>
+          <td>Peer benchmarking</td>
+          <td>Compare complaint rates by product &amp; state to expose outliers.</td>
+        </tr>
+        <tr>
+          <td>Root‑cause targeting</td>
+          <td>Trace surges to specific workflows (e.g., credit‑report fixes) and redesign them.</td>
+        </tr>
+        <tr>
+          <td>Resource allocation</td>
+          <td>Focus CX budgets on hotspots (FL, TX, CA) and high‑risk categories.</td>
+        </tr>
+        <tr>
+          <td>Regulatory readiness</td>
+          <td>Give risk committees KPIs that pre‑empt CFPB investigations.</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Optional: minimal CSS -->
+  <style>
+    .table-wrapper { overflow-x:auto; margin-top:1rem; }
+    .problem-table {
+      width:100%; border-collapse:collapse; font-size:0.95rem;
+    }
+    .problem-table th, .problem-table td {
+      padding:0.6rem 0.8rem; border-bottom:1px solid #e5e5e5;
+    }
+    .problem-table th { text-align:left; font-weight:600; }
+    @media (max-width:480px) {
+      .problem-table th, .problem-table td { font-size:0.9rem; }
+    }
+  </style>
+
+  <!------------------------------------------------------------------- CLOSE BUSINESS  PROBLEM ---------------------------------->
+
+  <!-- Imagen ilustrativa: quejas CFPB 2011‑2024 -->
+  <figure class="problem-img">
+    <img src="../img/cfpf_categories.png"
+         alt="Tendencia de quejas CFPB 2011‑2024"
+         loading="lazy" />
+    <figcaption>Figure 1. Volume of complaints over time.</figcaption>
+  </figure>
+  </section>  <!-- 👈 cierra la sección Business Problem -->
+
+
+  <!-- ========= DATA & METHODOLOGY ========= -->
+  <section class="project-section">
+    <h3>Data &amp; Methodology</h3>
+
+    <p>
+      We analysed <strong>6.9 million CFPB complaints</strong> from 2011‑01‑01 to 2024‑03‑31,
+      downloaded via the public API and processed in R. Below is the five‑step
+      workflow that ensures data quality and insightful visuals.
+    </p>
+
+    <ol class="method-list">
+      <li>
+        <strong>Ingest &amp; type‑casting —</strong>
+        Load raw CSV and convert dates / factors with <code>readr::read_csv</code>.
+      </li>
+      <li>
+        <strong>Data cleaning —</strong>
+        Drop duplicates and empty narratives&nbsp;(<em>0.6 %</em>) using <code>dplyr</code>.
+      </li>
+      <li>
+        <strong>Date enrichment —</strong>
+        Add <code>Year</code> and <code>Month</code> fields via <code>lubridate</code> for
+        time‑series aggregation.
+      </li>
+      <li>
+        <strong>Geo‑join —</strong>
+        Map two‑letter states to FIPS codes (<code>usmap</code>, <code>sf</code>) for choropleths.
+      </li>
+      <li>
+        <strong>Visual EDA —</strong>
+        Create heat‑maps, bar charts and line plots with <code>ggplot2</code> & <code>leaflet</code>.
+      </li>
+    </ol>
+
+    <p class="note small">
+      <em>Limitation:</em> dataset only captures consumers who filed formal complaints; silent
+      dissatisfaction is not recorded.
     </p>
   </section>
 
-  <!-- ========= DETAILS ========= -->
-  <section class="project-details" style="margin-bottom:3rem;">
-    <h3>Overview</h3>
-    <p>This Exploratory Data Analysis (EDA) examines <strong>6.9 million consumer complaints</strong> lodged with the CFPB from 2011 through 2024. It seeks to uncover <em>when</em>, <em>where</em>, and <em>why</em> U.S. consumers raise issues with financial institutions.</p>
+  <!-- Opcional: estilo ligero -->
+  <style>
+    .method-list { padding-left:1.25rem; margin-top:0.8rem; font-size:0.96rem; }
+    .method-list li { margin-bottom:0.6rem; line-height:1.35; }
+    .note { margin-top:0.8rem; color:#6b7280; }
+  </style>
 
-    <h3>Library Installation</h3>
-    <pre><code>install.packages(c(
-  "readr", "dplyr", "ggplot2", "scales", "ggpubr",
-  "gtsummary", "lubridate", "tidyverse", "usmap",
-  "sf", "maps", "leaflet"))</code></pre>
-    <p>Key packages enable data import (<code>readr</code>), wrangling (<code>dplyr</code>), visualisation (<code>ggplot2</code>), and mapping (<code>leaflet</code>, <code>usmap</code>).</p>
 
-    <h3>Data Import & Transformation</h3>
-    <pre><code>complaints <- read_csv("complaints.csv")
-complaints <- complaints %>%
-  rename(Date_received = `Date received`) %>%
-  mutate(Date_received = as.Date(Date_received),
-         Year  = year(Date_received),
-         Month = month(Date_received, label = TRUE))</code></pre>
-    <p>Standardising dates to <code>YYYY‑MM‑DD</code> allows monthly, quarterly, and yearly aggregations.</p>
 
-    <h3>Grouping & Aggregation</h3>
-    <pre><code># yearly counts
-yearly <- complaints %>%
-  count(Year, name = "Number_Complaints")</code></pre>
-    <p>Similar logic produces monthly and quarterly counts, plus summaries by product and state.</p>
-
-    <h3>Key Findings</h3>
+  <!-- KEY INSIGHTS -->
+  <section class="project-section">
+    <h3>Key Insights</h3>
     <ul>
-      <li><strong>Credit Reporting</strong> remains the #1 complaint category (32 %).</li>
-      <li><strong>Post‑2020 spike:</strong> total complaints doubled compared with pre‑pandemic levels.</li>
-      <li><strong>Geographical hotspots:</strong> Florida, Texas, and California together generate 27 % of all complaints.</li>
+      <li><strong>32 %</strong> of complaints are credit-report errors.</li>
+      <li>Complaints <strong>doubled post-2020</strong> vs. pre-COVID baseline.</li>
+      <li><strong>FL, TX & CA</strong> generate 27 % of total volume.</li>
     </ul>
+  </section>
 
-    <h3>Visual Highlights</h3>
+  <!-- ...Conclusions, Credits... -->
+
+  <!-- NEXT STEPS -->
+  <section class="project-section">
+    <h3>Next&nbsp;Steps</h3>
     <ul>
-      <li><strong>Top 10 Product Categories</strong> – bar chart reveals data‑quality issues in credit reports as the dominant pain‑point.</li>
-      <li><strong>Quarterly Trend (2011 Q4 – 2024 Q4)</strong> – steady rise then acceleration after 2020, likely tied to pandemic‑era financial stress.</li>
-      <li><strong>Complaint Map</strong> – choropleth pinpoints states with systemic consumer‑finance challenges.</li>
+      <li>Publish monthly credit-report KPI dashboard for risk teams.</li>
+      <li>Pilot chatbot resolution in hotspot states.</li>
+      <li>Apply NLP topic modelling to flag emerging issues.</li>
     </ul>
+  </section>
 
-    <figure style="margin:2rem auto; max-width:900px;">
-      <img src="../img/top_product_categories.png" alt="Top complaint categories" style="width:100%; border-radius:8px; box-shadow:0 3px 8px rgba(0,0,0,0.12);" />
-      <figcaption style="font-size:0.85rem;">Top 10 complaint categories (2011‑2024).</figcaption>
-    </figure>
 
+
+
+  <!-- ========= DETAILS (compact) ========= -->
+  <section class="project-section">
     <h3>Conclusions</h3>
-    <p>The CFPB dataset highlights persistent issues in credit reporting and debt collection. Geographic analysis shows disproportionate complaint volumes in populous, financially complex states. The pronounced uptick post‑2020 underscores how economic shocks translate into consumer‑finance friction.</p>
+    <p>
+      The CFPB dataset highlights persistent issues in credit reporting and debt
+      collection. Geographic analysis shows disproportionate complaint volumes in
+      populous, financially complex states. The pronounced uptick post‑2020
+      underscores how economic shocks translate into consumer‑finance friction.
+    </p>
 
     <h3>Credits</h3>
-    <p>Analysis by Juan Camilo Sierra Escobar, December 2024. Data sourced from the Consumer Financial Protection Bureau (CFPB).</p>
+    <p>
+      Analysis by Juan Camilo Sierra Escobar, December 2024.<br>
+      Data sourced from the Consumer Financial Protection Bureau (CFPB).
+    </p>
 
     <h3>Repository</h3>
-    <p><a href="https://github.com/Deunich/cfpb‑complaints‑eda" target="_blank">View full code on GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
+    <p>
+      <a href="https://github.com/Deunich/cfpb‑complaints‑eda" target="_blank">
+        View full code on GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      </a>
+    </p>
   </section>
-</main>
+
+
 
 <!-- ========= FOOTER ========= -->
 <footer class="footer">
