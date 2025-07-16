@@ -649,3 +649,48 @@ h2 {
 
 /* Tabla consumer imagen */
 
+/* style.css consumer_financial ──────────── */
+
+/* espacio entre secciones */
+.project-section {              /* aplica a todos */
+  margin: 2.5rem 0;             /* ↑↓ separación */
+}
+
+/* …o, si solo quieres separar a partir del segundo bloque… */
+.project-section + .project-section {
+  margin-top: 2.5rem;           /* solo hacia arriba */
+}
+
+/* opcional: línea suave para reforzar separación */
+.project-section:not(:last-child) {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+
+
+
+/* Tabla consumer imagen */
+
+.problem-img{
+  margin:1.5rem 0;
+  text-align:center;
+}
+
+.problem-img img{
+  width:92%;          /* ⇦ ocupa solo el 85 % del contenedor */
+  max-width:600px;    /* tope opcional para monitores grandes */
+  height:auto;
+  border-radius:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,.08);
+  display:block;      /* mantiene la imagen centrada */
+  margin:0 auto;
+}
+
+.problem-img figcaption{
+  margin-top:.4rem;
+  font-size:.9rem;
+  color:#6b7280;
+}
+
+/* Tabla consumer imagen */
+
