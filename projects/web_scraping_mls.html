@@ -143,6 +143,215 @@ warnings.filterwarnings('ignore')
   </code></pre>
 </section>
 
+  <section class="methodology">
+    <h2>1. Data Collection</h2>
+    <p>
+      To gather the necessary data for this project, we utilized web‑scraping
+      techniques. The <code>pandas</code> library in Python provides the
+      <code>read_html</code> function, which was employed to extract structured
+      data directly from the MLS website. The specific URL targeted contains the
+      scores and fixtures for the&nbsp;2023&nbsp;Major&nbsp;League&nbsp;Soccer
+      season. By specifying the <code>id</code> attribute of the desired table
+      (<code>sched_all</code>), we ensured precise extraction of the relevant
+      dataset. This approach allows us to work with a clean and organized table
+      for further analysis.
+    </p>
+
+
+
+  <table class="data-table compact">
+    <thead>
+    <tr>
+      <th>Wk</th><th>Day</th><th>Date</th><th>Time</th>
+      <th>Home</th><th>xG</th><th>Score</th><th>xG (Away)</th><th>Away</th>
+      <th>Attendance</th><th>Venue</th><th>Match Report</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr><td>1</td><td>Wed</td><td>2024-02-21</td><td>20:00</td>
+      <td>Inter Miami</td><td>1.4</td><td>2–0</td><td>0.8</td><td>Real Salt Lake</td>
+      <td>21 137</td><td>Chase Stadium</td><td>Match Report</td></tr>
+
+    <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>13:45</td>
+      <td>LAFC</td><td>1.5</td><td>2–1</td><td>1.8</td><td>Seattle Sounders</td>
+      <td>22 214</td><td>BMO Stadium</td><td>Match Report</td></tr>
+
+    <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>14:00</td>
+      <td>Columbus Crew</td><td>1.8</td><td>1–0</td><td>0.5</td><td>Atlanta Utd</td>
+      <td>20 406</td><td>Lower.com Field</td><td>Match Report</td></tr>
+
+    <tr><td>1</td><td>Sun</td><td>2024-02-25</td><td>14:30</td>
+      <td>FC Cincinnati</td><td>0.9</td><td>0–0</td><td>0.5</td><td>Toronto FC</td>
+      <td>25 513</td><td>TQL Stadium</td><td>Match Report</td></tr>
+
+    <tr><td>1</td><td>Sun</td><td>2024-02-25</td><td>16:00</td>
+      <td>Nashville SC</td><td>0.1</td><td>0–0</td><td>1.4</td><td>NY Red Bulls</td>
+      <td>30 109</td><td>Geodis Park</td><td>Match Report</td></tr>
+
+    <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td>
+      <td>Austin</td><td>1.1</td><td>1–2</td><td>3.0</td><td>Minnesota Utd</td>
+      <td>20 738</td><td>Q2 Stadium</td><td>Match Report</td></tr>
+
+    <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td>
+      <td>Orlando City</td><td>0.9</td><td>0–0</td><td>1.0</td><td>CF Montréal</td>
+      <td>24 249</td><td>Inter&amp;Co Stadium</td><td>Match Report</td></tr>
+
+    <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td>
+      <td>Portland Timbers</td><td>0.5</td><td>4–1</td><td>1.2</td><td>Colorado Rapids</td>
+      <td>21 411</td><td>Providence Park</td><td>Match Report</td></tr>
+
+    <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td>
+      <td>Houston Dynamo</td><td>1.0</td><td>1–1</td><td>0.2</td><td>Sporting KC</td>
+      <td>18 818</td><td>Shell Energy Stadium</td><td>Match Report</td></tr>
+
+    <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td>
+      <td>Philadelphia Union</td><td>2.1</td><td>2–2</td><td>1.6</td><td>Chicago Fire</td>
+      <td>18 734</td><td>Subaru Park</td><td>Match Report</td></tr>
+    </tbody>
+  </table>
+
+  <style>
+    /* BASE -------------------------------------------------------------- */
+    .data-table{width:100%;border-collapse:collapse;margin:1.5rem 0}
+    .data-table th,.data-table td{border:1px solid #e5e5e5;text-align:left}
+    .data-table thead{background:#fafafa;font-weight:600}
+    .data-table tbody tr:nth-child(even){background:#f7f7f7}
+
+    /* COMPACT (-35 % font, -19 % width) -------------------------------- */
+    .data-table.compact{
+      font-size:0.58rem;   /* texto reducido */
+      width:100%;           /* 19 % más angosta */
+      margin:auto;
+    }
+    .data-table.compact th,
+    .data-table.compact td{padding:2px 4px}
+
+    /* Responsive ≤ 600 px */
+    @media(max-width:600px){
+      .data-table.compact{font-size:0.72rem;width:100%}
+      .data-table.compact th,
+      .data-table.compact td{padding:2px 3px}
+    }
+  </style>
+
+
+
+  <h2>2. Data Cleaning</h2>
+  <p>
+    This step ensures that all values in the <code>Date</code> column are
+    converted into a standard datetime format, allowing for consistent handling
+    of dates across the dataset. By using <code>pd.to_datetime()</code> with
+    <code>errors='coerce'</code>, invalid or improperly formatted dates are
+    replaced with <em>NaT</em> (<strong>N</strong>ot <strong>a</strong>
+    <strong>T</strong>ime), preventing errors during the conversion process.
+    This transformation is crucial for enabling chronological analysis,
+    filtering by date, and performing time‑based calculations efficiently.
+  </p>
+
+
+  <!-- ▸ Rows that failed the date‑parse check -->
+  <table class="data-table error">
+    <thead>
+    <tr>
+      <th>Index</th><th>Round</th><th>Wk</th><th>Day</th><th>Date</th><th>Time</th>
+      <th>Home</th><th>xG</th><th>Score</th><th>xG&nbsp;(Away)</th><th>Away</th>
+      <th>Attendance</th><th>Venue</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- only the first 10 blank rows shown for brevity -->
+    <tr><td>15</td><td colspan="12">— all NaN —</td></tr>
+    <tr><td>30</td><td colspan="12">— all NaN —</td></tr>
+    <tr><td>44</td><td colspan="12">— all NaN —</td></tr>
+    <tr><td>59</td><td colspan="12">— all NaN —</td></tr>
+    <tr><td>73</td><td colspan="12">— all NaN —</td></tr>
+    <tr><td>88</td><td colspan="12">— all NaN —</td></tr>
+    <tr><td>103</td><td colspan="12">— all NaN —</td></tr>
+    <tr><td>118</td><td colspan="12">— all NaN —</td></tr>
+    <tr><td>133</td><td colspan="12">— all NaN —</td></tr>
+    <tr><td>148</td><td colspan="12">— all NaN —</td></tr>
+    </tbody>
+  </table>
+
+  <style>
+    /* simple highlight for “error” table */
+    .data-table.error{
+      width:88%;
+      margin:1rem auto 2rem;
+      border-collapse:collapse;
+      font-size:0.75rem;
+    }
+    .data-table.error th,
+    .data-table.error td{
+      border:1px solid #e0dede;
+      padding:4px 6px;
+      text-align:left;
+    }
+    .data-table.error thead{background:#fff4f4;font-weight:600}
+    .data-table.error tbody tr:nth-child(even){background:#fdf7f7}
+  </style>
+
+
+
+
+  <p>
+    To ensure the dataset contained only valid match rows, we applied two focused
+    filters to the <code>Date</code> column. First,
+    <code><strong>MLS = MLS[MLS["Date"].notna()]</strong></code> removes every
+    row where the parsed value is <em>NaT</em>—these are blank separator lines
+    that FBref inserts between rounds. Second,
+    <code><strong>MLS = MLS[MLS["Date"] != "Date"]</strong></code> drops the
+    occasional row where the literal text <code>"Date"</code> reappears as a
+    repeated header inside the table. After these two steps, the DataFrame
+    contains only genuine match records with proper datetime values, eliminating
+    noise and preventing downstream errors in time‑based analyses.
+  </p>
+
+
+    <!-- ▸ MLS 2024 – Week 1 snapshot (Round, Referee, Notes removed) -->
+    <table class="data-table compact">
+      <thead>
+      <tr>
+        <th>Wk</th><th>Day</th><th>Date</th><th>Time</th>
+        <th>Home</th><th>xG</th><th>Score</th><th>xG (Away)</th><th>Away</th>
+        <th>Attendance</th><th>Venue</th>
+        <th>Match Report</th>
+        <th>Home Goals</th><th>Away Goals</th><th>Total Match Goals</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr><td>1</td><td>Wed</td><td>2024‑02‑21</td><td>20:00</td>
+        <td>Inter Miami</td><td>1.4</td><td>2–0</td><td>0.8</td><td>Real Salt Lake</td>
+        <td>21 137</td><td>Chase Stadium</td>
+        <td>Match Report</td><td>2</td><td>0</td><td>2</td></tr>
+
+      <tr><td>1</td><td>Sat</td><td>2024‑02‑24</td><td>13:45</td>
+        <td>LAFC</td><td>1.5</td><td>2–1</td><td>1.8</td><td>Seattle Sounders</td>
+        <td>22 214</td><td>BMO Stadium</td>
+        <td>Match Report</td><td>2</td><td>1</td><td>3</td></tr>
+
+      <tr><td>1</td><td>Sat</td><td>2024‑02‑24</td><td>14:00</td>
+        <td>Columbus Crew</td><td>1.8</td><td>1–0</td><td>0.5</td><td>Atlanta Utd</td>
+        <td>20 406</td><td>Lower.com Field</td>
+        <td>Match Report</td><td>1</td><td>0</td><td>1</td></tr>
+
+      <tr><td>1</td><td>Sun</td><td>2024‑02‑25</td><td>14:30</td>
+        <td>FC Cincinnati</td><td>0.9</td><td>0–0</td><td>0.5</td><td>Toronto FC</td>
+        <td>25 513</td><td>TQL Stadium</td>
+        <td>Match Report</td><td>0</td><td>0</td><td>0</td></tr>
+
+      <tr><td>1</td><td>Sun</td><td>2024‑02‑25</td><td>16:00</td>
+        <td>Nashville SC</td><td>0.1</td><td>0–0</td><td>1.4</td><td>NY Red Bulls</td>
+        <td>30 109</td><td>Geodis Park</td>
+        <td>Match Report</td><td>0</td><td>0</td><td>0</td></tr>
+      </tbody>
+    </table>
+
+
+
+
+  </section>
+
 
 <!-- ----------------------------------------------------------------------------▸ FIN del proyecto 2023 -->
 
@@ -178,6 +387,7 @@ warnings.filterwarnings('ignore')
 </script>
 </body>
 </html>
+
 
 
 
