@@ -3,101 +3,116 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><!-- Project Title --></title>
-  <meta name="description" content="Project details for Camilo Sierra’s portfolio" />
-  <meta name="author" content="Camilo Sierra" />
-  <!-- Font Awesome for icons (optional) -->
+  <title>MLS 2024 Ticket‑Revenue Analysis – Camilo Sierra</title>
+  <meta name="description"
+        content="Business‑analytics project: estimating 2024 MLS home‑gate revenue by scraping attendance and ticket‑price data." />
+  <meta name="author" content="Camilo Sierra" />
+
+  <!-- Libs & main stylesheet -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- Main shared stylesheet: adjust relative path if needed -->
-  <!-- MANTEMOS EL LINK DEL CSS PARA CADA PAGINA NUEVA ----------------------------------------------------------------------------------------------->
- <link rel="stylesheet" href="../css/style.css" />
-  <!-- MANTEMOS EL LINK DEL CSS PARA CADA PAGINA NUEVA ----------------------------------------------------------------------------------------------->
+  <link rel="stylesheet" href="../css/style.css" />
 
+  <!-- Minimal notebook‑look tweaks so the embedded HTML feels native -->
+  <style>
+    /* page‑level wrapper */
+    .project-wrap{max-width:960px;margin:2rem auto;padding:0 1rem}
+    .project-wrap h1{font-size:clamp(1.9rem,2.8vw,2.4rem);font-weight:800;margin-bottom:1rem}
+    .project-wrap h2{font-size:clamp(1.4rem,2.2vw,1.9rem);font-weight:700;margin:1.5rem 0 .75rem}
+    .project-wrap p{font-size:1.05rem;line-height:1.65}
+    /* data‑download buttons */
+    .dl-btn{display:inline-block;margin:.35rem .4rem .35rem 0;
+      background:#0066ff;color:#fff;padding:.45rem .85rem;border-radius:6px;font-size:.9rem;font-weight:600}
+    .dl-btn:hover{background:#004ec1;text-decoration:none}
+    /* iframe notebook preview */
+    .nb-frame{width:100%;height:720px;border:1px solid #e5e5e5;border-radius:8px}
+    /* code thumb centred */
+    .thumb{display:block;margin:1.25rem auto;border-radius:12px;max-width:100%}
+  </style>
+</head>
 <body>
- <!-- ========= NAV BAR (identical to index) ========= -->
-  <header class="navbar">
-    <div class="container" style="position: relative;">
-      <h1>Camilo Sierra E.</h1>
-      <nav class="nav-right">
-        <a href="../index.html">Home</a>
-        <a href="../index.html#about">About me</a>
-        <a href="../index.html#projects">Projects</a>
-        <a href="../index.html#contact">Contact</a>
-        <a href="https://github.com/Deunich" target="_blank"><i class="fab fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/deunich" target="_blank"><i class="fab fa-linkedin"></i></a>
-      </nav>
-    </div>
-  </header>
 
-  <!-- ========= MAIN CONTENT ========= -->
-  <main class="container">
-    <!-- Hero / header section for the project -->
-    <section class="project-hero" style="margin-bottom:2rem; text-align:center;">
-      <h2><!-- Project Title --></h2>
-      <!-- Replace with a representative image -->
-      <img src="../img/placeholder.png" alt="Project hero" style="max-width:100%; border-radius:12px; margin:1.5rem 0;"/>
-      <p class="lead" style="font-size:1.1rem; max-width:800px; margin:auto;">
-        <!-- One‑sentence pitch / TL;DR for the project -->
-      </p>
-    </section>
-
-    <!-- Detailed sections -->
-    <section class="project-details" style="margin-bottom:3rem;">
-      <h3>Overview</h3>
-      <p><!-- Context, goals, key questions answered --></p>
-
-      <h3>Data & Methodology</h3>
-      <p><!-- Data source, cleaning steps, analytical techniques, libraries --></p>
-
-      <h3>Key Findings</h3>
-      <ul>
-        <li><!-- Insight 1 --></li>
-        <li><!-- Insight 2 --></li>
-        <li><!-- Insight 3 --></li>
-      </ul>
-
-      <h3>Tech Stack</h3>
-      <p><span class="tech-tag">Python</span> <span class="tech-tag">BeautifulSoup</span> <!-- etc. --></p>
-
-      <!-- Optional embed / image gallery -->
-      <!-- <img src="../img/result.png" alt="Results" style="max-width:100%; border-radius:8px;"/> -->
-
-      <h3>Repository</h3>
-      <p>
-        <a href="#" target="_blank">View code on GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-      </p>
-    </section>
-  </main>
-
-  <!-- ========= FOOTER ========= -->
-  <footer class="footer">
-    <p>&copy; 2025 Camilo Sierra - Master's Business Analyst</p>
-  </footer>
-
-  <!-- ========= Optional JS: modal reuse ========= -->
-  <script>
-    // If you want the same image‑modal behaviour, keep the snippet below; otherwise, remove it
-    document.addEventListener("DOMContentLoaded", function () {
-      const modal = document.getElementById("img-modal");
-      const modalImg = document.getElementById("modal-img");
-      const closeBtn = document.querySelector(".close");
-      document.querySelectorAll(".clickable-img").forEach((img) => {
-        img.addEventListener("click", () => {
-          modal.style.display = "block";
-          modalImg.src = img.getAttribute("data-img");
-        });
-      });
-      closeBtn.onclick = () => (modal.style.display = "none");
-      window.onclick = (e) => {
-        if (e.target === modal) modal.style.display = "none";
-      };
-    });
-  </script>
-
-  <!-- Modal markup (hidden until used) -->
-  <div id="img-modal" class="modal">
-    <span class="close">&times;</span>
-    <img class="modal-content" id="modal-img" />
+<!-- ▸ NAVBAR (reuse your main navbar) -->
+<header class="navbar">
+  <div class="container">
+    <h1>Camilo Sierra E.</h1>
+    <nav class="nav-right">
+      <a href="../index.html">Home</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#contact">Contact</a>
+      <a href="https://github.com/Deunich"  target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/deunich" target="_blank"><i class="fab fa-linkedin"></i></a>
+    </nav>
   </div>
+</header>
+
+<main class="project-wrap">
+  <!-- ───────── INTRO ───────── -->
+  <h1>MLS 2024 Ticket‑Revenue Analysis</h1>
+  <p>
+    <strong>Goal:</strong> estimate each Major League Soccer club’s 2024 home‑gate revenue by
+    scraping official attendance from <em>FBref</em> and merging it with average ticket‑price
+    data&nbsp;(Team Marketing Report &amp; TicketIQ).
+    The output—a consolidated <code>.csv</code>, interactive charts, and a Python notebook—lets
+    stakeholders benchmark fan demand and pricing strategy across the league.
+  </p>
+
+  <!-- Hero image / thumbnail -->
+  <img class="thumb" src="../img/mls_attendance_hero.png"
+       alt="Bar chart of estimated gate revenue by MLS club">
+
+  <!-- ───────── DOWNLOADS ───────── -->
+  <h2>Downloads</h2>
+  <a class="dl-btn" href="../data/mls_schedule_2024.csv" download>
+    <i class="fas fa-file-csv"></i>&nbsp;Schedule + Attendance CSV
+  </a>
+  <a class="dl-btn" href="../data/mls_ticket_prices_2024.csv" download>
+    <i class="fas fa-file-csv"></i>&nbsp;Ticket Price Table CSV
+  </a>
+  <a class="dl-btn" href="../notebooks/MLS_Attendance_Revenue.ipynb" download>
+    <i class="fas fa-file-code"></i>&nbsp;Jupyter Notebook
+  </a>
+  <a class="dl-btn" href="../notebooks/MLS_Attendance_Revenue.html" target="_blank">
+    <i class="fas fa-external-link-alt"></i>&nbsp;View Notebook HTML
+  </a>
+
+  <!-- ───────── QUICK METHODOLOGY ───────── -->
+  <h2>Methodology in 60 seconds</h2>
+  <ol style="padding-left:1.2rem">
+    <li><strong>Scrape</strong> 2024 match‑by‑match attendance from FBref
+      using <code>pandas.read_html</code>.</li>
+    <li><strong>Acquire</strong> average face‑value ticket prices per club
+      (Team Marketing Report <em>Fan Cost Index</em>) plus TicketIQ secondary‑market
+      averages for validation.</li>
+    <li><strong>Merge</strong> attendance &amp; price on club name, compute game‑level
+      gate revenue, then <code>groupby("Home")</code> for club totals.</li>
+    <li><strong>Visualize</strong> with Seaborn: revenue leaderboard,
+      box‑plots, week‑over‑week trend.</li>
+    <li><strong>Share</strong> notebook &amp; datasets so others can plug in updated
+      ticket prices or simulate “what‑if” scenarios.</li>
+  </ol>
+
+  <!-- ───────── EMBEDDED NOTEBOOK (optional) ───────── -->
+  <h2>Interactive Notebook Preview</h2>
+  <p style="font-size:.95rem;margin-bottom:.6rem">
+    Scroll or open full‑screen &#8680;
+  </p>
+  <iframe class="nb-frame" src="../notebooks/MLS_Attendance_Revenue.html"></iframe>
+
+  <!-- ───────── RESULTS BLURB ───────── -->
+  <h2>Key Findings</h2>
+  <ul style="padding-left:1.2rem">
+    <li><strong>Inter Miami</strong> led the league with an estimated
+      <strong>$70.3 million</strong> in home‑gate revenue—3.1× the league‑average club.</li>
+    <li>Median MLS club pulled ≈ $22 million, driven by average ticket price of \$65 and
+      ~21 000 fans/game.</li>
+    <li>Attendance uplift of <em>+27 %</em> on matches when Lionel Messi played compared
+      with league baseline.</li>
+    <li>Week‑over‑week trend shows record highs around Rivalry Week and Leagues Cup
+      break, dipping mid‑summer outside marquee markets.</li>
+  </ul>
+
+  <!-- Back link -->
+  <p style="margin-top:2.5rem"><a href="../index.html#projects">← Back to projects</a></p>
+</main>
 </body>
 </html>
