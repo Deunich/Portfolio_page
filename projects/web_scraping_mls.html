@@ -88,6 +88,65 @@
   </div>
 </section>
 
+<!-- ----------------------------------------------------------------------------▸ Introducción del proyecto 2023 -->
+<section class="mls-intro">
+  <h1>WebScraping MLS‑2023</h1>
+  <p>
+    Data exploration and analysis of the 2023 Major League Soccer season.
+    The 2023 Major League Soccer (MLS) season provided an excellent opportunity
+    to explore team performance, player statistics, and match outcomes.
+    This project aimed to collect, clean, and analyze data to uncover
+    actionable insights about the league.
+  </p>
+</section>
+
+<!-- ▸ Metodología -->
+<section class="methodology">
+  <h2>Methodology</h2>
+  <p>Para llevar a cabo este análisis, se implementaron las siguientes etapas:</p>
+  <ol>
+    <li><strong>Data Collection & Preparation:</strong> Gathered official MLS data
+      using Python tools such as <code>requests</code> (HTTP requests),
+      <code>BeautifulSoup</code> (HTML parsing), and <code>glob</code> (batch
+      file handling), loading everything into <code>pandas</code>
+      DataFrames for further processing.</li>
+    <li><strong>Data Cleaning:</strong> Addressed missing values, standardized data formats, and validated datasets to ensure accuracy.</li>
+    <li><strong>Exploratory Analysis:</strong> Used statistical summaries and visualizations to identify key patterns.</li>
+    <li><strong>Visualization:</strong> Created interactive dashboards to communicate findings effectively.</li>
+  </ol>
+</section>
+
+<!-- ▸Codigo python transformacion----------------------------------------------------------- -->
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<!-- ▸Codigo python transformacion----------------------------------------------------------- -->
+
+
+
+<!-- ▸ Python setup code -->
+<section class="code-snippet">
+  <h3>We import the necessary libraries:</h3>
+  <pre><code class="language-python">
+import pandas as pd
+import numpy as np
+import glob
+import seaborn as sns
+import plotly.express as px
+import matplotlib.pyplot as plt
+plt.style.use('default')
+import warnings
+from tabulate import tabulate
+warnings.filterwarnings('ignore')
+  </code></pre>
+</section>
+
+
+<!-- ----------------------------------------------------------------------------▸ FIN del proyecto 2023 -->
+
+
 <!-- Main content -->
 <main class="container">
   <section class="web-scraping-mls">

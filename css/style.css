@@ -706,3 +706,52 @@ h2 {
 }
 
 
+/* ▸ Intro & Metodología Web Scraping  ----------------------------------------------------------------------------------------*/
+.mls-intro,
+.methodology{
+  margin:2rem auto;
+  max-width:960px;
+  text-align:left;
+}
+.mls-intro h1{
+  font-size:clamp(2rem,3vw,2.75rem);
+  font-weight:800;
+  margin-bottom:1rem;
+}
+.mls-intro p{
+  font-size:1.05rem;
+  line-height:1.6;
+}
+.methodology h2{
+  font-size:clamp(1.6rem,2.5vw,2.1rem);
+  font-weight:700;
+  margin-bottom:1rem;
+}
+.methodology ol{
+  padding-left:1.2rem;
+}
+.methodology li{
+  margin-bottom:0.75rem;
+}
+
+/* ▸ Codigo PYTHON Web Scraping  ----------------------------------------------------------------------------------------*/
+
+/* ▸ Code snippet */
+.code-snippet{
+  margin:2rem auto;
+  max-width:960px;
+  text-align:left;
+}
+.code-snippet pre{
+  background:#f7f7f7;          /* fondo claro */
+  border-radius:8px;
+  padding:1rem 1.25rem;
+  overflow-x:auto;             /* scroll horizontal si es necesario */
+  font-family: Consolas, monospace;
+  font-size:0.95rem;
+  line-height:1.55;
+}
+
+/* ▸ Codigo PYTHON Web Scraping  ----------------------------------------------------------------------------------------*/
+
+
