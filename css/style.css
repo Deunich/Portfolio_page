@@ -755,3 +755,26 @@ h2 {
 /* ▸ Codigo PYTHON Web Scraping  ----------------------------------------------------------------------------------------*/
 
 
+/* --- Fix: Intro & Methodology spacing ---------------------------------- */
+.mls-intro,
+.methodology {
+  margin-top: 3rem;          /* recupera espacio con respecto al navbar */
+}
+
+.mls-intro p,
+.methodology ol {
+  margin-top: 0.75rem;       /* espacio entre título y texto/lista */
+}
+
+/* Restaura márgenes básicos que tu reset eliminó solo en h1‑h4 dentro de estas secciones */
+.mls-intro h1,
+.methodology h2,
+.mls-intro + .methodology h2 {
+  margin-top: 0;             /* ya tenemos el margin del contenedor */
+  margin-bottom: 1rem;
+}
+
+/* Code block padding asegurado */
+.code-snippet {
+  margin-top: 2rem;
+}
