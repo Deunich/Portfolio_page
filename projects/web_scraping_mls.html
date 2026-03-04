@@ -1,136 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Web Scraping MLS – Camilo Sierra's Portfolio</title>
-  <meta name="description" content="Project details for Camilo Sierra’s portfolio: Web Scraping MLS data for real estate analysis." />
-  <meta name="author" content="Camilo Sierra" />
-
-  <!-- Icon & CSS libs -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <!-- Main stylesheet -->
-  <link rel="stylesheet" href="../css/style.css" />
-
-  <!-- Inline tweaks  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Scraping MLS 2024 – Camilo Sierra</title>
+  <meta name="description" content="Scraped and analyzed the 2024 MLS season to extract insights on team performance, player statistics, and the Messi economic impact.">
+  <meta name="author" content="Camilo Sierra">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <link rel="stylesheet" href="../css/style.css">
   <style>
-    /* ▸ Slider banner */
-    .mls-slider{padding:8px 0;background:#fff;border-bottom:1px solid #eee}
-    .mls-slider .swiper{padding-bottom:4px}
-    .mls-slider .swiper-slide{display:flex;justify-content:center;align-items:center}
-    .mls-slider .swiper-slide img{max-height:90px;width:auto;object-fit:contain;filter:drop-shadow(0 1px 2px rgba(0,0,0,.15))}
-    .swiper-button-next,.swiper-button-prev{color:#0066ff;width:28px;height:28px}
+    /* ── Slider banner ── */
+    .mls-slider { padding: 8px 0; background: #fff; border-bottom: 1px solid #eee; }
+    .mls-slider .swiper { padding-bottom: 4px; }
+    .mls-slider .swiper-slide { display: flex; justify-content: center; align-items: center; }
+    .mls-slider .swiper-slide img { max-height: 90px; width: auto; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,.15)); }
+    .swiper-button-next, .swiper-button-prev { color: var(--clr-accent); width: 28px; height: 28px; }
 
-    /* ▸ Section: Web‑scraping overview */
-    .web-scraping-mls{margin:2rem auto;max-width:960px;display:flex;flex-direction:column;align-items:center;text-align:center}
-    .web-scraping-mls h2{font-size:clamp(1.6rem,2.5vw,2rem);margin-bottom:1rem;font-weight:700}
-    .web-scraping-mls img{max-width:100%;border-radius:12px;margin:1.5rem 0}
+    /* ── Data tables ── */
+    .data-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+    .data-table th, .data-table td { border: 1px solid #e5e5e5; text-align: left; }
+    .data-table thead { background: #fafafa; font-weight: 600; }
+    .data-table tbody tr:nth-child(even) { background: #f7f7f7; }
+    .data-table.compact { font-size: 0.58rem; width: 100%; }
+    .data-table.compact th, .data-table.compact td { padding: 2px 4px; }
+    .data-table.error { width: 88%; margin: 1rem auto 2rem; font-size: 0.75rem; }
+    .data-table.error th, .data-table.error td { border: 1px solid #e0dede; padding: 4px 6px; }
+    .data-table.error thead { background: #fff4f4; font-weight: 600; }
+    .data-table.error tbody tr:nth-child(even) { background: #fdf7f7; }
+    .table-wrap { overflow-x: auto; margin: .75rem 0 1.25rem; }
 
-    /* hide collage if not needed */
-    .mls-collage{display:none}
+    /* ── KPI table ── */
+    .kpi-table { margin: 1rem auto; }
+    .kpi-table caption { caption-side: top; text-align: center; font-weight: 600; margin-bottom: .5rem; }
+    .kpi-table th, .kpi-table td { text-align: center; }
+
+    /* ── Text block ── */
+    .steps-left { margin: .5rem 0 1.25rem; }
+    .steps-left .intro { margin: 0 0 .75rem; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+    .steps-left ol { list-style: decimal; padding-left: 1.25rem; margin: 1rem 0 0; }
+    .steps-left li { margin: .35rem 0; }
+
+    @media (max-width: 600px) {
+      .data-table.compact { font-size: 0.72rem; }
+      .data-table.compact th, .data-table.compact td { padding: 2px 3px; }
+    }
   </style>
 </head>
 <body>
-<!-- Navigation -->
+
+<!-- ========= NAVBAR ========= -->
 <header class="navbar">
   <div class="container">
-    <h1>Camilo Sierra E.</h1>
-    <nav class="nav-right">
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-right" id="nav-right">
       <a href="../index.html">Home</a>
-      <a href="../index.html#about">About me</a>
+      <a href="../index.html#about">About me</a>
       <a href="../index.html#projects">Projects</a>
       <a href="../index.html#contact">Contact</a>
-      <a href="https://github.com/Deunich" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
-      <a href="https://www.linkedin.com/in/deunich" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/Deunich/" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/deunich" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
     </nav>
   </div>
 </header>
 
-<!-- MLS logos slider -->
+<!-- ========= MLS LOGOS SLIDER ========= -->
 <section class="mls-slider">
   <div class="swiper">
     <div class="swiper-wrapper">
-      <!-- logos ... (unchanged list) -->
-      <div class="swiper-slide"><img src="../img/mls/atlanta.png"           alt="Atlanta United FC logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/austin.png"            alt="Austin FC logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/charlotte.png"         alt="Charlotte FC logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/chicago.png"           alt="Chicago Fire FC logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/cincinnati.png"        alt="FC Cincinnati logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/colorado.png"          alt="Colorado Rapids logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/columbus.png"          alt="Columbus Crew logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/dallas.png"            alt="FC Dallas logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/dcunited.png"          alt="D.C. United logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/houstondynamo.png"     alt="Houston Dynamo FC logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/intermiami.png"        alt="Inter Miami CF logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/kansascity.png"        alt="Sporting Kansas City logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/losangeles.png"        alt="Los Angeles FC logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/losangelesgalaxy.png"  alt="LA Galaxy logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/minnesota.png"         alt="Minnesota United FC logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/montreal.png"          alt="CF Montréal logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/nashville.png"         alt="Nashville SC logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/newengland.png"        alt="New England Revolution logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/newyork.png"           alt="New York Red Bulls logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/newyorkcity.png"       alt="New York City FC logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/orlandocity.png"       alt="Orlando City SC logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/philadelphia.png"      alt="Philadelphia Union logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/portland.png"          alt="Portland Timbers logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/realstallake.png"      alt="Real Salt Lake logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/sandiego.png"          alt="San Diego FC logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/sanjose.png"           alt="San Jose Earthquakes logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/seattle.png"           alt="Seattle Sounders FC logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/st_louis_city.png"     alt="St. Louis City SC logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/toronto.png"           alt="Toronto FC logo" /></div>
-      <div class="swiper-slide"><img src="../img/mls/vancouver.png"         alt="Vancouver Whitecaps FC logo" /></div>
+      <div class="swiper-slide"><img src="../img/mls/atlanta.png"          alt="Atlanta United FC" /></div>
+      <div class="swiper-slide"><img src="../img/mls/austin.png"           alt="Austin FC" /></div>
+      <div class="swiper-slide"><img src="../img/mls/charlotte.png"        alt="Charlotte FC" /></div>
+      <div class="swiper-slide"><img src="../img/mls/chicago.png"          alt="Chicago Fire FC" /></div>
+      <div class="swiper-slide"><img src="../img/mls/cincinnati.png"       alt="FC Cincinnati" /></div>
+      <div class="swiper-slide"><img src="../img/mls/colorado.png"         alt="Colorado Rapids" /></div>
+      <div class="swiper-slide"><img src="../img/mls/columbus.png"         alt="Columbus Crew" /></div>
+      <div class="swiper-slide"><img src="../img/mls/dallas.png"           alt="FC Dallas" /></div>
+      <div class="swiper-slide"><img src="../img/mls/dcunited.png"         alt="D.C. United" /></div>
+      <div class="swiper-slide"><img src="../img/mls/houstondynamo.png"    alt="Houston Dynamo FC" /></div>
+      <div class="swiper-slide"><img src="../img/mls/intermiami.png"       alt="Inter Miami CF" /></div>
+      <div class="swiper-slide"><img src="../img/mls/kansascity.png"       alt="Sporting Kansas City" /></div>
+      <div class="swiper-slide"><img src="../img/mls/losangeles.png"       alt="Los Angeles FC" /></div>
+      <div class="swiper-slide"><img src="../img/mls/losangelesgalaxy.png" alt="LA Galaxy" /></div>
+      <div class="swiper-slide"><img src="../img/mls/minnesota.png"        alt="Minnesota United FC" /></div>
+      <div class="swiper-slide"><img src="../img/mls/montreal.png"         alt="CF Montréal" /></div>
+      <div class="swiper-slide"><img src="../img/mls/nashville.png"        alt="Nashville SC" /></div>
+      <div class="swiper-slide"><img src="../img/mls/newengland.png"       alt="New England Revolution" /></div>
+      <div class="swiper-slide"><img src="../img/mls/newyork.png"          alt="New York Red Bulls" /></div>
+      <div class="swiper-slide"><img src="../img/mls/newyorkcity.png"      alt="New York City FC" /></div>
+      <div class="swiper-slide"><img src="../img/mls/orlandocity.png"      alt="Orlando City SC" /></div>
+      <div class="swiper-slide"><img src="../img/mls/philadelphia.png"     alt="Philadelphia Union" /></div>
+      <div class="swiper-slide"><img src="../img/mls/portland.png"         alt="Portland Timbers" /></div>
+      <div class="swiper-slide"><img src="../img/mls/realstallake.png"     alt="Real Salt Lake" /></div>
+      <div class="swiper-slide"><img src="../img/mls/sandiego.png"         alt="San Diego FC" /></div>
+      <div class="swiper-slide"><img src="../img/mls/sanjose.png"          alt="San Jose Earthquakes" /></div>
+      <div class="swiper-slide"><img src="../img/mls/seattle.png"          alt="Seattle Sounders FC" /></div>
+      <div class="swiper-slide"><img src="../img/mls/st_louis_city.png"    alt="St. Louis City SC" /></div>
+      <div class="swiper-slide"><img src="../img/mls/toronto.png"          alt="Toronto FC" /></div>
+      <div class="swiper-slide"><img src="../img/mls/vancouver.png"        alt="Vancouver Whitecaps FC" /></div>
     </div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
   </div>
 </section>
 
-<!-- ----------------------------------------------------------------------------▸ Introducción del proyecto 2024 -->
-<section class="mls-intro">
-  <h1>WebScraping MLS‑2024</h1>
-  <p>
-    Data exploration and analysis of the 2024 Major League Soccer season.
-    The 2024 Major League Soccer (MLS) season provided an excellent opportunity
-    to explore team performance, player statistics, and match outcomes.
-    This project aimed to collect, clean, and analyze data to uncover
-    actionable insights about the league.
-  </p>
+<!-- ========= PROJECT HERO ========= -->
+<section class="project-hero">
+  <div class="container">
+    <a href="../index.html#projects" class="back-link"><i class="fas fa-arrow-left"></i> All Projects</a>
+    <h1 class="project-title">Web Scraping MLS 2024</h1>
+    <p class="project-subtitle">Collected, cleaned, and analyzed the 2024 Major League Soccer season to uncover insights on team performance, player statistics, and the Messi economic impact on attendance.</p>
+    <div class="project-meta">
+      <span class="tech-tag">Python</span>
+      <span class="tech-tag">BeautifulSoup</span>
+      <span class="tech-tag">pandas</span>
+      <span class="tech-tag">plotly</span>
+      <span class="tech-tag">seaborn</span>
+    </div>
+  </div>
 </section>
 
-<!-- ▸ Metodología -->
-<section class="methodology">
-  <h2>Methodology</h2>
-  <p>Para llevar a cabo este análisis, se implementaron las siguientes etapas:</p>
-  <ol>
-    <li><strong>Data Collection & Preparation:</strong> Gathered official MLS data
-      using Python tools such as <code>requests</code> (HTTP requests),
-      <code>BeautifulSoup</code> (HTML parsing), and <code>glob</code> (batch
-      file handling), loading everything into <code>pandas</code>
-      DataFrames for further processing.</li>
-    <li><strong>Data Cleaning:</strong> Addressed missing values, standardized data formats, and validated datasets to ensure accuracy.</li>
-    <li><strong>Exploratory Analysis:</strong> Used statistical summaries and visualizations to identify key patterns.</li>
-    <li><strong>Visualization:</strong> Created interactive dashboards to communicate findings effectively.</li>
-  </ol>
-</section>
+<!-- ========= MAIN CONTENT ========= -->
+<main class="container">
 
-<!-- ▸Codigo python transformacion----------------------------------------------------------- -->
+  <section class="project-section">
+    <h3>Overview</h3>
+    <p>
+      Data exploration and analysis of the 2024 Major League Soccer season.
+      The 2024 MLS season provided an excellent opportunity to explore team performance,
+      player statistics, and match outcomes. This project aimed to collect, clean, and analyze
+      data to uncover actionable insights about the league.
+    </p>
+  </section>
 
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<script>hljs.highlightAll();</script>
-<!-- ▸Codigo python transformacion----------------------------------------------------------- -->
+  <section class="project-section">
+    <h3>Methodology</h3>
+    <ol>
+      <li><strong>Data Collection &amp; Preparation:</strong> Gathered official MLS data
+        using Python tools such as <code>requests</code> (HTTP requests),
+        <code>BeautifulSoup</code> (HTML parsing), and <code>glob</code> (batch
+        file handling), loading everything into <code>pandas</code> DataFrames.</li>
+      <li><strong>Data Cleaning:</strong> Addressed missing values, standardized data formats, and validated datasets to ensure accuracy.</li>
+      <li><strong>Exploratory Analysis:</strong> Used statistical summaries and visualizations to identify key patterns.</li>
+      <li><strong>Visualization:</strong> Created interactive dashboards to communicate findings effectively.</li>
+    </ol>
+  </section>
 
-
-
-<!-- ▸ Python setup code -->
-<section class="code-snippet">
-  <h3>We import the necessary libraries:</h3>
-  <pre><code class="language-python">
-import pandas as pd
+  <section class="project-section">
+    <h3>Libraries Used</h3>
+    <pre><code class="language-python">import pandas as pd
 import numpy as np
 import glob
 import seaborn as sns
@@ -139,293 +160,113 @@ import matplotlib.pyplot as plt
 plt.style.use('default')
 import warnings
 from tabulate import tabulate
-warnings.filterwarnings('ignore')
-  </code></pre>
-</section>
-
-  <section class="methodology">
-    <h2>1. Data Collection</h2>
-    <p>
-      To gather the necessary data for this project, we utilized web‑scraping
-      techniques. The <code>pandas</code> library in Python provides the
-      <code>read_html</code> function, which was employed to extract structured
-      data directly from the MLS website. The specific URL targeted contains the
-      scores and fixtures for the&nbsp;2024&nbsp;Major&nbsp;League&nbsp;Soccer
-      season. By specifying the <code>id</code> attribute of the desired table
-      (<code>sched_all</code>), we ensured precise extraction of the relevant
-      dataset. This approach allows us to work with a clean and organized table
-      for further analysis.
-    </p>
-
-  <section class="methodology">
-    <h2>1. Data Collection</h2>
-    <p>
-      To gather the necessary data for this project, we utilized web‑scraping
-      techniques. The <code>pandas</code> library in Python provides the
-      <code>read_html</code> function, which was employed to extract structured
-      data directly from the MLS website. The specific URL targeted contains the
-      scores and fixtures for the&nbsp;2024&nbsp;Major&nbsp;League&nbsp;Soccer
-      season. By specifying the <code>id</code> attribute of the desired table
-      (<code>sched_all</code>), we ensured precise extraction of the relevant
-      dataset. This approach allows us to work with a clean and organized table
-      for further analysis.
-    </p>
-
-
-
-  <table class="data-table compact">
-    <thead>
-    <tr>
-      <th>Wk</th><th>Day</th><th>Date</th><th>Time</th>
-      <th>Home</th><th>xG</th><th>Score</th><th>xG (Away)</th><th>Away</th>
-      <th>Attendance</th><th>Venue</th><th>Match Report</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr><td>1</td><td>Wed</td><td>2024-02-21</td><td>20:00</td>
-      <td>Inter Miami</td><td>1.4</td><td>2–0</td><td>0.8</td><td>Real Salt Lake</td>
-      <td>21 137</td><td>Chase Stadium</td><td>Match Report</td></tr>
-
-    <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>13:45</td>
-      <td>LAFC</td><td>1.5</td><td>2–1</td><td>1.8</td><td>Seattle Sounders</td>
-      <td>22 214</td><td>BMO Stadium</td><td>Match Report</td></tr>
-
-    <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>14:00</td>
-      <td>Columbus Crew</td><td>1.8</td><td>1–0</td><td>0.5</td><td>Atlanta Utd</td>
-      <td>20 406</td><td>Lower.com Field</td><td>Match Report</td></tr>
-
-    <tr><td>1</td><td>Sun</td><td>2024-02-25</td><td>14:30</td>
-      <td>FC Cincinnati</td><td>0.9</td><td>0–0</td><td>0.5</td><td>Toronto FC</td>
-      <td>25 513</td><td>TQL Stadium</td><td>Match Report</td></tr>
-
-    <tr><td>1</td><td>Sun</td><td>2024-02-25</td><td>16:00</td>
-      <td>Nashville SC</td><td>0.1</td><td>0–0</td><td>1.4</td><td>NY Red Bulls</td>
-      <td>30 109</td><td>Geodis Park</td><td>Match Report</td></tr>
-
-    <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td>
-      <td>Austin</td><td>1.1</td><td>1–2</td><td>3.0</td><td>Minnesota Utd</td>
-      <td>20 738</td><td>Q2 Stadium</td><td>Match Report</td></tr>
-
-    <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td>
-      <td>Orlando City</td><td>0.9</td><td>0–0</td><td>1.0</td><td>CF Montréal</td>
-      <td>24 249</td><td>Inter&amp;Co Stadium</td><td>Match Report</td></tr>
-
-    <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td>
-      <td>Portland Timbers</td><td>0.5</td><td>4–1</td><td>1.2</td><td>Colorado Rapids</td>
-      <td>21 411</td><td>Providence Park</td><td>Match Report</td></tr>
-
-    <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td>
-      <td>Houston Dynamo</td><td>1.0</td><td>1–1</td><td>0.2</td><td>Sporting KC</td>
-      <td>18 818</td><td>Shell Energy Stadium</td><td>Match Report</td></tr>
-
-    <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td>
-      <td>Philadelphia Union</td><td>2.1</td><td>2–2</td><td>1.6</td><td>Chicago Fire</td>
-      <td>18 734</td><td>Subaru Park</td><td>Match Report</td></tr>
-    </tbody>
-  </table>
-
-  <style>
-    /* BASE -------------------------------------------------------------- */
-    .data-table{width:100%;border-collapse:collapse;margin:1.5rem 0}
-    .data-table th,.data-table td{border:1px solid #e5e5e5;text-align:left}
-    .data-table thead{background:#fafafa;font-weight:600}
-    .data-table tbody tr:nth-child(even){background:#f7f7f7}
-
-    /* COMPACT (-35 % font, -19 % width) -------------------------------- */
-    .data-table.compact{
-      font-size:0.58rem;   /* texto reducido */
-      width:100%;           /* 19 % más angosta */
-      margin:auto;
-    }
-    .data-table.compact th,
-    .data-table.compact td{padding:2px 4px}
-
-    /* Responsive ≤ 600 px */
-    @media(max-width:600px){
-      .data-table.compact{font-size:0.72rem;width:100%}
-      .data-table.compact th,
-      .data-table.compact td{padding:2px 3px}
-    }
-  </style>
-
-
-
-  <h2>2. Data Cleaning</h2>
-  <p>
-    This step ensures that all values in the <code>Date</code> column are
-    converted into a standard datetime format, allowing for consistent handling
-    of dates across the dataset. By using <code>pd.to_datetime()</code> with
-    <code>errors='coerce'</code>, invalid or improperly formatted dates are
-    replaced with <em>NaT</em> (<strong>N</strong>ot <strong>a</strong>
-    <strong>T</strong>ime), preventing errors during the conversion process.
-    This transformation is crucial for enabling chronological analysis,
-    filtering by date, and performing time‑based calculations efficiently.
-  </p>
-
-
-  <!-- ▸ Rows that failed the date‑parse check -->
-  <table class="data-table error">
-    <thead>
-    <tr>
-      <th>Index</th><th>Round</th><th>Wk</th><th>Day</th><th>Date</th><th>Time</th>
-      <th>Home</th><th>xG</th><th>Score</th><th>xG&nbsp;(Away)</th><th>Away</th>
-      <th>Attendance</th><th>Venue</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- only the first 10 blank rows shown for brevity -->
-    <tr><td>15</td><td colspan="12">— all NaN —</td></tr>
-    <tr><td>30</td><td colspan="12">— all NaN —</td></tr>
-    <tr><td>44</td><td colspan="12">— all NaN —</td></tr>
-    <tr><td>59</td><td colspan="12">— all NaN —</td></tr>
-    <tr><td>73</td><td colspan="12">— all NaN —</td></tr>
-    <tr><td>88</td><td colspan="12">— all NaN —</td></tr>
-    <tr><td>103</td><td colspan="12">— all NaN —</td></tr>
-    <tr><td>118</td><td colspan="12">— all NaN —</td></tr>
-    <tr><td>133</td><td colspan="12">— all NaN —</td></tr>
-    <tr><td>148</td><td colspan="12">— all NaN —</td></tr>
-    </tbody>
-  </table>
-
-  <style>
-    /* simple highlight for “error” table */
-    .data-table.error{
-      width:88%;
-      margin:1rem auto 2rem;
-      border-collapse:collapse;
-      font-size:0.75rem;
-    }
-    .data-table.error th,
-    .data-table.error td{
-      border:1px solid #e0dede;
-      padding:4px 6px;
-      text-align:left;
-    }
-    .data-table.error thead{background:#fff4f4;font-weight:600}
-    .data-table.error tbody tr:nth-child(even){background:#fdf7f7}
-  </style>
-
-
-
-
-  <p>
-    To ensure the dataset contained only valid match rows, we applied two focused
-    filters to the <code>Date</code> column. First,
-    <code><strong>MLS = MLS[MLS["Date"].notna()]</strong></code> removes every
-    row where the parsed value is <em>NaT</em>—these are blank separator lines
-    that FBref inserts between rounds. Second,
-    <code><strong>MLS = MLS[MLS["Date"] != "Date"]</strong></code> drops the
-    occasional row where the literal text <code>"Date"</code> reappears as a
-    repeated header inside the table. After these two steps, the DataFrame
-    contains only genuine match records with proper datetime values, eliminating
-    noise and preventing downstream errors in time‑based analyses.
-  </p>
-
-
-    <!-- ▸ MLS 2024 – Week 1 snapshot (Round, Referee, Notes removed) -->
-
+warnings.filterwarnings('ignore')</code></pre>
   </section>
 
-
-
-
-  <style>
-    /* BASE -------------------------------------------------------------- */
-    .data-table{width:100%;border-collapse:collapse;margin:1.5rem 0}
-    .data-table th,.data-table td{border:1px solid #e5e5e5;text-align:left}
-    .data-table thead{background:#fafafa;font-weight:600}
-    .data-table tbody tr:nth-child(even){background:#f7f7f7}
-
-    /* COMPACT (-35 % font, -19 % width) -------------------------------- */
-    .data-table.compact{
-      font-size:0.58rem;   /* texto reducido */
-      width:100%;           /* 19 % más angosta */
-      margin:auto;
-    }
-    .data-table.compact th,
-    .data-table.compact td{padding:2px 4px}
-
-    /* Responsive ≤ 600 px */
-    @media(max-width:600px){
-      .data-table.compact{font-size:0.72rem;width:100%}
-      .data-table.compact th,
-      .data-table.compact td{padding:2px 3px}
-    }
-  </style>
-
-
-<main class="container">
-  <section class="web-scraping-mls">
-    <h2 class="ea-title">
-      <strong>3. Exploratory Analysis:</strong> Messi economic impact on MLS
-    </h2>
-
-    <div class="steps-left">
-      <p class="intro">
-        The table below lists a sample of MLS matches with the core fields we scraped and cleaned:
-        week/day/date/time, home and away teams, each side’s xG, the final score, attendance, and venue.
-        We also derived <em>Home Goals</em>, <em>Away Goals</em>, <em>Total Match Goals</em>, and a
-        <strong>Goal Bucket</strong> label. This gives quick context for each game and shows the raw
-        inputs we’ll use to build the KPI in the next section.
-      </p>
-    </div>
-
-
-    <!-- TABLA DE PARTIDOS  -->
+  <section class="project-section">
+    <h3>1. Data Collection</h3>
+    <p>
+      To gather the necessary data, we utilized web-scraping techniques. The <code>pandas</code>
+      library's <code>read_html</code> function was employed to extract structured data directly
+      from the MLS website. By specifying the <code>id</code> attribute of the desired table
+      (<code>sched_all</code>), we ensured precise extraction of the relevant dataset.
+    </p>
     <div class="table-wrap">
       <table class="data-table compact">
         <thead>
-        <tr>
-          <th>Wk</th><th>Day</th><th>Date</th><th>Time</th>
-          <th>Home</th><th>xG</th><th>Score</th><th>xG&nbsp;(Away)</th><th>Away</th>
-          <th>Attendance</th><th>Venue</th>
-          <th>Match&nbsp;Report</th>
-          <th>Home&nbsp;Goals</th><th>Away&nbsp;Goals</th><th>Total&nbsp;Match&nbsp;Goals</th>
-          <th>Goal&nbsp;Bucket</th>
-          <th>0 Goals</th><th>1 Goal</th><th>2 Goals</th><th>3 Goals</th><th>4+ Goals</th>
-        </tr>
+          <tr>
+            <th>Wk</th><th>Day</th><th>Date</th><th>Time</th>
+            <th>Home</th><th>xG</th><th>Score</th><th>xG (Away)</th><th>Away</th>
+            <th>Attendance</th><th>Venue</th><th>Match Report</th>
+          </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>1</td><td>Wed</td><td>2024-02-21</td><td>20:00</td>
-          <td>Inter Miami</td><td>1.4</td><td>2–0</td><td>0.8</td><td>Real Salt Lake</td>
-          <td>21 137</td><td>Chase Stadium</td>
-          <td>Match Report</td><td>2</td><td>0</td><td>2</td>
-          <td>2</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td>
-        </tr>
-        <tr>
-          <td>1</td><td>Sat</td><td>2024-02-24</td><td>13:45</td>
-          <td>LAFC</td><td>1.5</td><td>2–1</td><td>1.8</td><td>Seattle Sounders</td>
-          <td>22 214</td><td>BMO Stadium</td>
-          <td>Match Report</td><td>2</td><td>1</td><td>3</td>
-          <td>3</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td>
-        </tr>
-        <tr>
-          <td>1</td><td>Sat</td><td>2024-02-24</td><td>14:00</td>
-          <td>Columbus Crew</td><td>1.8</td><td>1–0</td><td>0.5</td><td>Atlanta Utd</td>
-          <td>20 406</td><td>Lower.com Field</td>
-          <td>Match Report</td><td>1</td><td>0</td><td>1</td>
-          <td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td>
-        </tr>
-        <tr>
-          <td>1</td><td>Sun</td><td>2024-02-25</td><td>14:30</td>
-          <td>FC Cincinnati</td><td>0.9</td><td>0–0</td><td>0.5</td><td>Toronto FC</td>
-          <td>25 513</td><td>TQL Stadium</td>
-          <td>Match Report</td><td>0</td><td>0</td><td>0</td>
-          <td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td>
-        </tr>
-        <tr>
-          <td>1</td><td>Sun</td><td>2024-02-25</td><td>16:00</td>
-          <td>Nashville SC</td><td>0.1</td><td>0–0</td><td>1.4</td><td>NY Red Bulls</td>
-          <td>30 109</td><td>Geodis Park</td>
-          <td>Match Report</td><td>0</td><td>0</td><td>0</td>
-          <td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td>
-        </tr>
+          <tr><td>1</td><td>Wed</td><td>2024-02-21</td><td>20:00</td><td>Inter Miami</td><td>1.4</td><td>2–0</td><td>0.8</td><td>Real Salt Lake</td><td>21 137</td><td>Chase Stadium</td><td>Match Report</td></tr>
+          <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>13:45</td><td>LAFC</td><td>1.5</td><td>2–1</td><td>1.8</td><td>Seattle Sounders</td><td>22 214</td><td>BMO Stadium</td><td>Match Report</td></tr>
+          <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>14:00</td><td>Columbus Crew</td><td>1.8</td><td>1–0</td><td>0.5</td><td>Atlanta Utd</td><td>20 406</td><td>Lower.com Field</td><td>Match Report</td></tr>
+          <tr><td>1</td><td>Sun</td><td>2024-02-25</td><td>14:30</td><td>FC Cincinnati</td><td>0.9</td><td>0–0</td><td>0.5</td><td>Toronto FC</td><td>25 513</td><td>TQL Stadium</td><td>Match Report</td></tr>
+          <tr><td>1</td><td>Sun</td><td>2024-02-25</td><td>16:00</td><td>Nashville SC</td><td>0.1</td><td>0–0</td><td>1.4</td><td>NY Red Bulls</td><td>30 109</td><td>Geodis Park</td><td>Match Report</td></tr>
+          <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td><td>Austin</td><td>1.1</td><td>1–2</td><td>3.0</td><td>Minnesota Utd</td><td>20 738</td><td>Q2 Stadium</td><td>Match Report</td></tr>
+          <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td><td>Orlando City</td><td>0.9</td><td>0–0</td><td>1.0</td><td>CF Montréal</td><td>24 249</td><td>Inter&amp;Co Stadium</td><td>Match Report</td></tr>
+          <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td><td>Portland Timbers</td><td>0.5</td><td>4–1</td><td>1.2</td><td>Colorado Rapids</td><td>21 411</td><td>Providence Park</td><td>Match Report</td></tr>
+          <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td><td>Houston Dynamo</td><td>1.0</td><td>1–1</td><td>0.2</td><td>Sporting KC</td><td>18 818</td><td>Shell Energy Stadium</td><td>Match Report</td></tr>
+          <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td><td>Philadelphia Union</td><td>2.1</td><td>2–2</td><td>1.6</td><td>Chicago Fire</td><td>18 734</td><td>Subaru Park</td><td>Match Report</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="project-section">
+    <h3>2. Data Cleaning</h3>
+    <p>
+      All values in the <code>Date</code> column were converted to a standard datetime format using
+      <code>pd.to_datetime()</code> with <code>errors='coerce'</code>. Invalid or improperly formatted
+      dates are replaced with <em>NaT</em> (Not a Time), preventing errors during conversion.
+    </p>
+    <div class="table-wrap">
+      <table class="data-table error">
+        <thead>
+          <tr>
+            <th>Index</th><th>Round</th><th>Wk</th><th>Day</th><th>Date</th><th>Time</th>
+            <th>Home</th><th>xG</th><th>Score</th><th>xG&nbsp;(Away)</th><th>Away</th>
+            <th>Attendance</th><th>Venue</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>15</td><td colspan="12">— all NaN —</td></tr>
+          <tr><td>30</td><td colspan="12">— all NaN —</td></tr>
+          <tr><td>44</td><td colspan="12">— all NaN —</td></tr>
+          <tr><td>59</td><td colspan="12">— all NaN —</td></tr>
+          <tr><td>73</td><td colspan="12">— all NaN —</td></tr>
+          <tr><td>88</td><td colspan="12">— all NaN —</td></tr>
+          <tr><td>103</td><td colspan="12">— all NaN —</td></tr>
+          <tr><td>118</td><td colspan="12">— all NaN —</td></tr>
+          <tr><td>133</td><td colspan="12">— all NaN —</td></tr>
+          <tr><td>148</td><td colspan="12">— all NaN —</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      To ensure the dataset contained only valid match rows, we applied two focused filters.
+      <code>MLS = MLS[MLS["Date"].notna()]</code> removes blank separator rows that FBref inserts between rounds.
+      <code>MLS = MLS[MLS["Date"] != "Date"]</code> drops repeated header rows. After these steps, the DataFrame
+      contains only genuine match records.
+    </p>
+  </section>
+
+  <section class="project-section">
+    <h3>3. Exploratory Analysis: Messi Economic Impact</h3>
+
+    <div class="steps-left">
+      <p class="intro">
+        The table below lists a sample of MLS matches with core fields: week/day/date/time, home and away teams,
+        each side's xG, the final score, attendance, and venue. We also derived <em>Home Goals</em>,
+        <em>Away Goals</em>, <em>Total Match Goals</em>, and a <strong>Goal Bucket</strong> label.
+      </p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="data-table compact">
+        <thead>
+          <tr>
+            <th>Wk</th><th>Day</th><th>Date</th><th>Time</th>
+            <th>Home</th><th>xG</th><th>Score</th><th>xG&nbsp;(Away)</th><th>Away</th>
+            <th>Attendance</th><th>Venue</th><th>Match&nbsp;Report</th>
+            <th>Home&nbsp;Goals</th><th>Away&nbsp;Goals</th><th>Total&nbsp;Goals</th>
+            <th>Goal&nbsp;Bucket</th>
+            <th>0 Goals</th><th>1 Goal</th><th>2 Goals</th><th>3 Goals</th><th>4+ Goals</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Wed</td><td>2024-02-21</td><td>20:00</td><td>Inter Miami</td><td>1.4</td><td>2–0</td><td>0.8</td><td>Real Salt Lake</td><td>21 137</td><td>Chase Stadium</td><td>Match Report</td><td>2</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+          <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>13:45</td><td>LAFC</td><td>1.5</td><td>2–1</td><td>1.8</td><td>Seattle Sounders</td><td>22 214</td><td>BMO Stadium</td><td>Match Report</td><td>2</td><td>1</td><td>3</td><td>3</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+          <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>14:00</td><td>Columbus Crew</td><td>1.8</td><td>1–0</td><td>0.5</td><td>Atlanta Utd</td><td>20 406</td><td>Lower.com Field</td><td>Match Report</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>1</td><td>Sun</td><td>2024-02-25</td><td>14:30</td><td>FC Cincinnati</td><td>0.9</td><td>0–0</td><td>0.5</td><td>Toronto FC</td><td>25 513</td><td>TQL Stadium</td><td>Match Report</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>1</td><td>Sun</td><td>2024-02-25</td><td>16:00</td><td>Nashville SC</td><td>0.1</td><td>0–0</td><td>1.4</td><td>NY Red Bulls</td><td>30 109</td><td>Geodis Park</td><td>Match Report</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
         </tbody>
       </table>
     </div>
 
-    <!-- EXPLICACIÓN KPI (arriba) -->
     <div class="steps-left">
       <p class="intro">
         To compute this KPI, we classify each match by total goals, clean bad records,
@@ -439,107 +280,74 @@ warnings.filterwarnings('ignore')
       </ol>
     </div>
 
-    <!-- TABLA KPI (debajo del texto) -->
     <table class="data-table compact kpi-table">
       <caption>KPI — Goals by Outcome</caption>
       <thead>
-      <tr>
-        <th>Outcome</th>
-        <th>0 Goals</th>
-        <th>1 Goal</th>
-        <th>2 Goals</th>
-        <th>3 Goals</th>
-        <th>4+ Goals</th>
-        <th>Total Matches</th>
-      </tr>
+        <tr>
+          <th>Outcome</th><th>0 Goals</th><th>1 Goal</th><th>2 Goals</th><th>3 Goals</th><th>4+ Goals</th><th>Total Matches</th>
+        </tr>
       </thead>
       <tbody>
-      <tr><td>Away</td><td>0</td><td>29</td><td>16</td><td>54</td><td>59</td><td>158</td></tr>
-      <tr><td>Draw</td><td>30</td><td>0</td><td>46</td><td>0</td><td>44</td><td>120</td></tr>
-      <tr><td>Home</td><td>0</td><td>33</td><td>40</td><td>68</td><td>94</td><td>235</td></tr>
+        <tr><td>Away</td><td>0</td><td>29</td><td>16</td><td>54</td><td>59</td><td>158</td></tr>
+        <tr><td>Draw</td><td>30</td><td>0</td><td>46</td><td>0</td><td>44</td><td>120</td></tr>
+        <tr><td>Home</td><td>0</td><td>33</td><td>40</td><td>68</td><td>94</td><td>235</td></tr>
       </tbody>
       <tfoot>
-      <tr>
-        <th>Total</th><th>30</th><th>62</th><th>102</th><th>122</th><th>197</th><th>513</th>
-      </tr>
+        <tr><th>Total</th><th>30</th><th>62</th><th>102</th><th>122</th><th>197</th><th>513</th></tr>
       </tfoot>
     </table>
-
-
-
-    <!-- Estilos locales mínimos -->
-    <style>
-      /* Tabla de partidos */
-      .table-wrap { overflow-x: auto; margin: .75rem 0 1.25rem; }
-
-      /* KPI centrada (título + celdas) */
-      .kpi-table { margin: 1rem auto; }
-      .kpi-table caption {
-        caption-side: top; text-align: center; font-weight: 600; margin-bottom: .5rem;
-      }
-      .kpi-table th, .kpi-table td { text-align: center; }
-
-      /* Texto superior (bloque de pasos) */
-      .steps-left { margin: .5rem 0 1.25rem; }
-      .steps-left, .steps-left * { text-align: left !important; }
-      .steps-left .intro{
-        margin: 0 0 .75rem;
-        padding-bottom: 0;                /* sin línea */
-        border-bottom: none;
-        text-align: justify !important;   /* justificar el párrafo */
-        text-justify: inter-word;
-        hyphens: auto; -webkit-hyphens: auto;
-      }
-      .steps-left .intro::before,
-      .steps-left .intro::after{ content: none !important; }
-      .steps-left ol { list-style: decimal; padding-left: 1.25rem; margin: 1rem 0 0; }
-      .steps-left li { margin: .35rem 0; }
-    </style>
-
-
 
     <div class="steps-left">
       <p class="intro">
         We filtered all matches where <strong>Inter Miami</strong> played (home or away).
-        For each game, we calculated the team’s <strong>goals scored</strong>, then grouped by
-        <strong>Outcome</strong> (Home / Draw / Away) and by <strong>Goal Bucket</strong> (0, 1, 2, 3, 4+).
-        The bar chart below counts how many club matches fall into each combination, so you can quickly see
-        whether <strong>wins</strong> cluster in <strong>2–3</strong> or <strong>4+</strong> goal games,
-        whether <strong>draws</strong> tend to be <strong>low-scoring</strong>, and how the pattern shifts
-        <strong>home vs. away</strong>. This view helps quantify a possible <strong>“Messi effect”</strong>:
-        more high-scoring matches and more favorable results.
+        For each game, we calculated the team's <strong>goals scored</strong>, then grouped by
+        <strong>Outcome</strong> and <strong>Goal Bucket</strong>. The bar chart below shows
+        whether <strong>wins</strong> cluster in <strong>2–3</strong> or <strong>4+</strong> goal games
+        and how the pattern shifts <strong>home vs. away</strong>, quantifying a possible <strong>"Messi effect"</strong>.
       </p>
-      <img src="../img/Inter_Miami.png" alt="Illustrative image of web scraping process for MLS data" />
+      <figure class="problem-img">
+        <img src="../img/Inter_Miami.png" alt="Inter Miami goal distribution by outcome and goal bucket" loading="lazy">
+        <figcaption>Figure 2. Inter Miami goals by outcome and goal bucket — 2024 MLS season.</figcaption>
+      </figure>
     </div>
-
-
-
-
-
   </section>
-</main>
 
+  <section class="project-section">
+    <h3>Key Insights</h3>
+    <ul>
+      <li>Inter Miami leads in high-scoring home wins (4+ goals), consistent with Messi's attacking impact.</li>
+      <li>Home victories cluster in the 3–4+ goal buckets; draws tend to be low-scoring (0–2 goals).</li>
+      <li>Away wins are more evenly distributed, suggesting defense-first road strategies.</li>
+    </ul>
+  </section>
 
-
-
-
-<!-- Main content -->
-<main class="container">
-  <section class="web-scraping-mls">
-    <h2>Web Scraping MLS Data for Real Estate Analysis</h2>
-    <img src="../img/download.png" alt="Illustrative image of web scraping process for MLS data" />
-    <p class="lead" style="font-size:1.1rem; max-width:800px;">
-      Developed a Python‑based web scraper to extract real estate data from MLS listings, enabling detailed market analysis and trend identification.
+  <section class="project-section">
+    <h3>Repository</h3>
+    <p>
+      <a href="https://github.com/Deunich/mls-web-scraping" target="_blank" rel="noopener">
+        View full code on GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      </a>
     </p>
   </section>
 
-  <!-- ▼▼▼ project-details etc. (unchanged) ▼▼▼ -->
 </main>
 
-<!-- Swiper JS & init -->
+<!-- ========= FOOTER ========= -->
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2026 Camilo Sierra &mdash; Master's Business Analyst</p>
+  </div>
+</footer>
+
+<!-- ========= IMAGE MODAL ========= -->
+<div id="img-modal" class="modal" role="dialog" aria-modal="true" aria-label="Image preview">
+  <span class="close" aria-label="Close">&times;</span>
+  <img class="modal-content" id="modal-img" alt="">
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-  const swiper = new Swiper('.swiper', {
+  new Swiper('.swiper', {
     slidesPerView: 5,
     spaceBetween: 10,
     loop: true,
@@ -552,9 +360,8 @@ warnings.filterwarnings('ignore')
     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
   });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script src="../js/app.js"></script>
 </body>
 </html>
-
-
-
-

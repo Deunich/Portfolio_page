@@ -3,55 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Master's Business Analyst - Camilo Sierra</title>
-  <meta name="description" content="Juan Camilo Sierra - Master's Business Analyst">
-  <meta name="author" content="Camilo">
+  <title>Camilo Sierra - Business Analytics</title>
+  <meta name="description" content="Juan Camilo Sierra - Economist and Master's Business Analytics professional. Portfolio of data-driven projects.">
+  <meta name="author" content="Camilo Sierra">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
-
-  <script>
-    // Ajusta el padding del body para que el contenido no quede debajo del navbar
-    window.addEventListener("load", function() {
-      const navbar = document.querySelector(".navbar");
-      if (navbar) {
-        const navbarHeight = navbar.offsetHeight;
-        document.body.style.paddingTop = navbarHeight + "px";
-      }
-    });
-  </script>
 </head>
 
 <body>
 
 <header class="navbar">
   <div class="container">
-    <h1>Camilo Sierra E.</h1>
-    <nav class="nav-right">
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav class="nav-right" id="nav-right">
       <a href="#">Home</a>
       <a href="#about">About me</a>
       <a href="#projects">Projects</a>
       <a href="#contact">Contact</a>
-      <a href="https://github.com/Deunich/" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-      <a href="https://www.linkedin.com/in/deunich" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/Deunich/" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/deunich" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
     </nav>
   </div>
 </header>
 
+<section class="hero">
+  <div class="container">
+    <p class="hero-eyebrow">Business Analytics &middot; Economics</p>
+    <h1 class="hero-title">Camilo Sierra<br><span>Data into Decisions</span></h1>
+    <p class="hero-subtitle">Economist and Business Analytics professional with 4+ years of experience turning complex datasets into clear, actionable insights.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary"><i class="fas fa-folder-open"></i> View Projects</a>
+      <a href="#contact" class="btn btn-secondary"><i class="fas fa-envelope"></i> Get in Touch</a>
+    </div>
+    <div class="hero-divider"></div>
+  </div>
+</section>
+
 <main class="container">
 
-  <section id="about">
+  <section id="about" class="reveal">
     <div class="about-container">
-
       <div class="about-text">
         <h2>About Me</h2>
         <p>I'm an economist and Business Analytics professional with over four years of experience in financial analysis, data-driven research, and analytics. I enjoy turning data into insights and solving problems through a mix of technical skills and critical thinking. This portfolio showcases some of my academic and professional projects, I hope you enjoy exploring them.</p>
+        <div class="about-stats">
+          <div class="stat-item">
+            <span class="stat-number">4+</span>
+            <span class="stat-label">Years of Experience</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">5+</span>
+            <span class="stat-label">Projects Built</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">9</span>
+            <span class="stat-label">Tools Mastered</span>
+          </div>
+        </div>
+        <a href="files/cv.pdf" class="btn btn-secondary" download>
+          <i class="fas fa-download"></i> Download CV
+        </a>
       </div>
-
       <div class="about-photo-container">
         <img src="img/Camilo.png" alt="Camilo Sierra" class="about-photo">
       </div>
-
     </div>
 
     <div class="skills-showcase">
@@ -74,104 +94,86 @@
     <h2>Projects</h2>
 
     <a href="projects/consumer_financial.html" class="card-link">
-      <div class="card">
+      <div class="card reveal">
         <div class="card-content">
           <div class="card-text">
-            <h3>Consumer Complaints EDA (CFPB 2011‑2024)</h3>
-            <p>6.9 M CFPB cases: credit‑report woes, post‑2020 spike, and FL‑TX‑CA hotspots visualised with heat‑maps & dashboards.</p>
+            <h3>Consumer Complaints EDA (CFPB 2011&#8209;2024)</h3>
+            <p>6.9 M CFPB cases: credit&#8209;report woes, post&#8209;2020 spike, and FL&#8209;TX&#8209;CA hotspots visualised with heat&#8209;maps &amp; dashboards.</p>
           </div>
           <div class="card-image">
-            <img src="img/cfpb.png" alt="Consumer Financial" class="clickable-img" data-img="img/MapEEUU.png">
+            <img src="img/cfpb.png" alt="Consumer Financial Protection Bureau project" class="clickable-img" data-img="img/MapEEUU.png">
           </div>
         </div>
         <div class="card-footer">
-          <span class="tech-tag">R</span>
-          <span class="tech-tag">ggplot2</span>
-          <span class="tech-tag">usmap</span>
-          <span class="tech-tag">tidyverse</span>
+          <div class="card-tags">
+            <span class="tech-tag">R</span>
+            <span class="tech-tag">ggplot2</span>
+            <span class="tech-tag">usmap</span>
+            <span class="tech-tag">tidyverse</span>
+          </div>
+          <span class="card-cta">View Project <i class="fas fa-arrow-right"></i></span>
         </div>
       </div>
     </a>
 
     <a href="projects/web_scraping_mls.html" class="card-link">
-      <div class="card">
+      <div class="card reveal">
         <div class="card-content">
           <div class="card-text">
-            <h3>Web Scraping MLS 2023</h3>
+            <h3>Web Scraping MLS 2024</h3>
             <p>Scraped and analyzed soccer league data to extract insights on player stats and team performance using Python and BeautifulSoup.</p>
           </div>
           <div class="card-image">
-            <img src="img/mls.png" alt="MLS Scraping" class="clickable-img" data-img="img/mls_project.png">
+            <img src="img/mls.png" alt="MLS Web Scraping project" class="clickable-img" data-img="img/mls_project.png">
           </div>
         </div>
         <div class="card-footer">
-          <span class="tech-tag">Python</span>
-          <span class="tech-tag">BeautifulSoup</span>
+          <div class="card-tags">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">BeautifulSoup</span>
+          </div>
+          <span class="card-cta">View Project <i class="fas fa-arrow-right"></i></span>
         </div>
       </div>
     </a>
   </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <ul style="list-style: none; padding-left: 0;">
-      <li><strong>Email:</strong><a href="mailto:sierra@camiloanalytics.dev">sierra@camiloanalytics.dev</a>
-      </li>
-      <li style="margin-bottom: 10px;">
-        <a href="https://github.com/Deunich" target="_blank" style="text-decoration: none; color: inherit;">
-          <img src="img/github.png" alt="GitHub" style="width: 30px; vertical-align: middle; margin-right: 8px;">
-          Deunich
-        </a>
-      </li>
-      <li style="margin-bottom: 10px;">
-        <a href="https://www.linkedin.com/in/deunich" target="_blank" style="text-decoration: none; color: inherit;">
-          <img src="img/linkedin.png" alt="LinkedIn" style="width: 30px; vertical-align: middle; margin-right: 8px;">
-          Camilo Sierra
-        </a>
-      </li>
-    </ul>
+  <section id="contact" class="reveal">
+    <h2>Get in Touch</h2>
+    <p class="contact-intro">Open to opportunities, collaborations, and interesting data conversations.</p>
+    <div class="contact-cards">
+      <a href="mailto:sierra@camiloanalytics.dev" class="contact-card">
+        <i class="fas fa-envelope"></i>
+        <span class="contact-card-label">Email</span>
+        <span class="contact-card-value">sierra@camiloanalytics.dev</span>
+      </a>
+      <a href="https://github.com/Deunich" target="_blank" rel="noopener" class="contact-card">
+        <i class="fab fa-github"></i>
+        <span class="contact-card-label">GitHub</span>
+        <span class="contact-card-value">Deunich</span>
+      </a>
+      <a href="https://www.linkedin.com/in/deunich" target="_blank" rel="noopener" class="contact-card">
+        <i class="fab fa-linkedin"></i>
+        <span class="contact-card-label">LinkedIn</span>
+        <span class="contact-card-value">Camilo Sierra</span>
+      </a>
+    </div>
   </section>
 
 </main>
 
 <footer class="footer">
   <div class="container">
-    <p>&copy; 2025 Camilo Sierra - Master's Business Analyst</p>
+    <p>&copy; 2026 Camilo Sierra &mdash; Master's Business Analyst</p>
   </div>
 </footer>
 
-<div id="img-modal" class="modal">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="modal-img">
+<!-- Image modal -->
+<div id="img-modal" class="modal" role="dialog" aria-modal="true" aria-label="Image preview">
+  <span class="close" aria-label="Close">&times;</span>
+  <img class="modal-content" id="modal-img" alt="">
 </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const modal = document.getElementById("img-modal");
-    const modalImg = document.getElementById("modal-img");
-    const closeBtn = document.querySelector(".close");
-
-    document.querySelectorAll(".clickable-img").forEach(img => {
-      img.addEventListener("click", () => {
-        if (modal) {
-          modal.style.display = "block";
-          modalImg.src = img.getAttribute("data-img");
-        }
-      });
-    });
-
-    if(closeBtn) {
-      closeBtn.onclick = () => modal.style.display = "none";
-    }
-
-    window.onclick = (e) => {
-      if (e.target === modal) modal.style.display = "none";
-    };
-  });
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
 <script src="js/app.js"></script>
 
 </body>
