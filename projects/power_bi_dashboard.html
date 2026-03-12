@@ -9,34 +9,55 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="../css/style.css">
   <style>
-    .dl-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin: 0.35rem 0.4rem 0.35rem 0;
-      background: var(--clr-accent);
-      color: #fff;
-      padding: 0.45rem 0.85rem;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background 0.2s;
+    /* ── Page hero ── */
+    .page-hero { padding: 2.25rem 0 2.75rem; position: relative; overflow: hidden; border-bottom: 1px solid var(--clr-border); }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 65% 80% at 20% 50%, rgba(37,99,235,0.10) 0%, transparent 65%); pointer-events: none; }
+    .page-hero .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--clr-muted); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 0.2s; margin-bottom: 1.5rem; }
+    .page-hero .back-link:hover { color: var(--clr-accent); text-decoration: none; }
+    .hero-layout { display: flex; align-items: flex-start; justify-content: space-between; gap: 2.5rem; }
+    .hero-main { flex: 1; min-width: 0; }
+    .hero-main .card-category { display: inline-block; margin-bottom: 0.6rem; }
+    .hero-main h1 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; letter-spacing: -0.5px; line-height: 1.15; color: var(--clr-text); margin-bottom: 0.75rem; }
+    .hero-main p { color: var(--clr-muted); font-size: 1rem; line-height: 1.65; max-width: 560px; margin-bottom: 1.25rem; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+    /* Stats card */
+    .hero-stats { display: flex; flex-direction: column; gap: 1px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 14px; overflow: hidden; flex-shrink: 0; align-self: flex-start; margin-top: 0.25rem; box-shadow: 0 4px 12px rgba(0,0,0,0.04); min-width: 130px; }
+    .stat-row { display: flex; align-items: center; gap: 12px; padding: 12px 18px; border-bottom: 1px solid var(--clr-border); }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-row-icon { width: 30px; height: 30px; border-radius: 8px; background: rgba(37,99,235,0.09); display: flex; align-items: center; justify-content: center; color: var(--clr-accent); font-size: 0.8rem; flex-shrink: 0; }
+    .stat-row-info { display: flex; flex-direction: column; gap: 1px; }
+    .stat-row-value { font-size: 1.05rem; font-weight: 700; color: var(--clr-text); line-height: 1; font-variant-numeric: tabular-nums; }
+    .stat-row-label { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--clr-muted); }
+    /* Takeaways */
+    .takeaways-section { padding: 3.5rem 0 2.5rem; border-bottom: 1px solid var(--clr-border); margin-bottom: 2.5rem; }
+    .section-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--clr-accent); margin-bottom: 0.5rem; }
+    .takeaways-section h2 { margin-bottom: 1.75rem; }
+    .takeaways-numbered { display: flex; flex-direction: column; gap: 14px; }
+    .takeaway-item { display: flex; align-items: flex-start; gap: 20px; padding: 1.25rem 1.5rem; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; cursor: default; }
+    .takeaway-item:hover { transform: translateX(5px); box-shadow: 0 6px 20px rgba(37,99,235,0.09); border-color: rgba(37,99,235,0.22); }
+    .takeaway-num { font-size: 1.5rem; font-weight: 800; color: rgba(37,99,235,0.20); line-height: 1; min-width: 34px; font-variant-numeric: tabular-nums; padding-top: 2px; transition: color 0.2s; }
+    .takeaway-item:hover .takeaway-num { color: rgba(37,99,235,0.45); }
+    .takeaway-text { font-size: 0.97rem; line-height: 1.68; color: var(--clr-text); padding-top: 2px; }
+    /* CTA */
+    .cta-section { padding-bottom: 3.5rem; display: flex; flex-direction: column; gap: 16px; }
+    .cta-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--clr-muted); }
+    .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    /* Page-specific */
+    .dl-btn { display: inline-flex; align-items: center; gap: 8px; margin: 0.35rem 0.4rem 0.35rem 0; background: var(--clr-accent); color: #fff; padding: 0.45rem 0.85rem; border-radius: 6px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: background 0.2s; }
+    .dl-btn:hover { background: var(--clr-accent-dark, #4f46e5); text-decoration: none; }
+    .nb-frame { width: 100%; height: 720px; border: 1px solid var(--clr-border); border-radius: 8px; margin-top: 1rem; }
+    .thumb { display: block; margin: 1.25rem auto; border-radius: 12px; max-width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    /* Responsive */
+    @media screen and (max-width: 720px) {
+      .hero-layout { flex-direction: column; gap: 1.75rem; }
+      .hero-stats { flex-direction: row; min-width: unset; width: 100%; border-radius: 12px; }
+      .stat-row { flex: 1; flex-direction: column; align-items: center; text-align: center; gap: 6px; border-bottom: none; border-right: 1px solid var(--clr-border); }
+      .stat-row:last-child { border-right: none; }
+      .stat-row-info { align-items: center; }
     }
-    .dl-btn:hover { background: #d95a00; text-decoration: none; }
-    .nb-frame {
-      width: 100%;
-      height: 720px;
-      border: 1px solid var(--clr-border);
-      border-radius: 8px;
-      margin-top: 1rem;
-    }
-    .thumb {
-      display: block;
-      margin: 1.25rem auto;
-      border-radius: 12px;
-      max-width: 100%;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    @media screen and (max-width: 600px) {
+      .takeaway-item { padding: 1rem 1.1rem; gap: 14px; }
+      .takeaway-num { font-size: 1.2rem; min-width: 26px; }
     }
   </style>
 </head>
@@ -60,19 +81,49 @@
 </header>
 
 <!-- ========= PROJECT HERO ========= -->
-<section class="project-hero">
+<header class="page-hero">
   <div class="container">
-    <a href="../index.html#projects" class="back-link"><i class="fas fa-arrow-left"></i> All Projects</a>
-    <h1 class="project-title">MLS 2024 Ticket-Revenue Analysis</h1>
-    <p class="project-subtitle">Estimated each MLS club's 2024 home-gate revenue by scraping attendance from FBref and merging with average ticket-price data. Reveals the Messi attendance uplift and revenue leaders.</p>
-    <div class="project-meta">
-      <span class="tech-tag">Python</span>
-      <span class="tech-tag">pandas</span>
-      <span class="tech-tag">seaborn</span>
-      <span class="tech-tag">Jupyter</span>
+    <a href="../index.html#projects" class="back-link">
+      <i class="fas fa-arrow-left"></i> Back to Portfolio
+    </a>
+    <div class="hero-layout">
+      <div class="hero-main">
+        <span class="card-category">Business Analytics &middot; Python</span>
+        <h1>MLS 2024 Ticket-Revenue Analysis</h1>
+        <p>Estimated each MLS club's 2024 home-gate revenue by scraping attendance from FBref and merging with average ticket-price data. Reveals the Messi attendance uplift and revenue leaders.</p>
+        <div class="hero-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">pandas</span>
+          <span class="tech-tag">seaborn</span>
+          <span class="tech-tag">Jupyter</span>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-row">
+          <div class="stat-row-icon"><i class="fas fa-shield-alt"></i></div>
+          <div class="stat-row-info">
+            <span class="stat-row-value">29</span>
+            <span class="stat-row-label">Clubs</span>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-row-icon"><i class="fas fa-tools"></i></div>
+          <div class="stat-row-info">
+            <span class="stat-row-value">4</span>
+            <span class="stat-row-label">Tools</span>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-row-icon"><i class="fas fa-calendar-alt"></i></div>
+          <div class="stat-row-info">
+            <span class="stat-row-value">2024</span>
+            <span class="stat-row-label">Year</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</section>
+</header>
 
 <!-- ========= MAIN CONTENT ========= -->
 <main class="container">
@@ -123,24 +174,36 @@
     <iframe class="nb-frame" src="../notebooks/MLS_Attendance_Revenue.html" title="MLS Attendance Revenue Notebook"></iframe>
   </section>
 
-  <section class="project-section">
-    <h3>Key Findings</h3>
-    <ul>
-      <li><strong>Inter Miami</strong> led the league with an estimated <strong>$70.3 million</strong> in home-gate revenue—3.1× the league-average club.</li>
-      <li>Median MLS club pulled ≈ $22 million, driven by average ticket price of $65 and ~21,000 fans/game.</li>
-      <li>Attendance uplift of <em>+27%</em> on matches when Lionel Messi played compared with the league baseline.</li>
-      <li>Week-over-week trend shows record highs around Rivalry Week and Leagues Cup break, dipping mid-summer outside marquee markets.</li>
-    </ul>
+  <section class="takeaways-section reveal">
+    <p class="section-label">What I found</p>
+    <h2>Key Findings</h2>
+    <div class="takeaways-numbered">
+      <div class="takeaway-item">
+        <span class="takeaway-num">01</span>
+        <span class="takeaway-text"><strong>Inter Miami</strong> led the league with an estimated <strong>$70.3 million</strong> in home-gate revenue — 3.1× the league-average club.</span>
+      </div>
+      <div class="takeaway-item">
+        <span class="takeaway-num">02</span>
+        <span class="takeaway-text">Attendance uplift of <strong>+27%</strong> on matches when Lionel Messi played compared with the league baseline, confirming a measurable "Messi effect."</span>
+      </div>
+      <div class="takeaway-item">
+        <span class="takeaway-num">03</span>
+        <span class="takeaway-text">The median MLS club pulled ≈ <strong>$22 million</strong>, driven by an average ticket price of $65 and ~21,000 fans per game.</span>
+      </div>
+    </div>
   </section>
 
-  <section class="project-section">
-    <h3>Repository</h3>
-    <p>
-      <a href="https://github.com/Deunich/mls-ticket-revenue" target="_blank" rel="noopener">
-        View full code on GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i>
+  <div class="cta-section reveal">
+    <span class="cta-label">Explore the project</span>
+    <div class="cta-actions">
+      <a href="https://github.com/Deunich/mls-ticket-revenue" target="_blank" rel="noopener" class="btn btn-primary">
+        <i class="fab fa-github"></i> View on GitHub
       </a>
-    </p>
-  </section>
+      <a href="../index.html#projects" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Back to Portfolio
+      </a>
+    </div>
+  </div>
 
 </main>
 

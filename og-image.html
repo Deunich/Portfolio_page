@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1200">
+  <title>OG Image Preview – 1200x627</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1200px;
+      height: 627px;
+      overflow: hidden;
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+    }
+
+    .card {
+      width: 1200px;
+      height: 627px;
+      background: #ffffff;
+      display: flex;
+      align-items: stretch;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Left accent bar */
+    .accent-bar {
+      width: 8px;
+      background: #ff6b00;
+      flex-shrink: 0;
+    }
+
+    /* Left content */
+    .content {
+      flex: 1;
+      padding: 70px 60px 60px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .eyebrow {
+      font-size: 16px;
+      font-weight: 600;
+      color: #ff6b00;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .main-block {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    h1 {
+      font-size: 68px;
+      font-weight: 800;
+      color: #1e1e1e;
+      line-height: 1.05;
+      letter-spacing: -2px;
+    }
+
+    h1 span {
+      color: #ff6b00;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      font-weight: 400;
+      color: #6b7280;
+      line-height: 1.5;
+      max-width: 520px;
+    }
+
+    .tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: #fff4ec;
+      color: #ff6b00;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 999px;
+      border: 1px solid #ffd4b3;
+    }
+
+    .domain {
+      font-size: 16px;
+      font-weight: 500;
+      color: #9ca3af;
+      letter-spacing: 0.02em;
+    }
+
+    /* Right photo panel */
+    .photo-panel {
+      width: 360px;
+      flex-shrink: 0;
+      background: #f9f9f9;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .photo-panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(10%);
+    }
+
+    /* Decorative dots */
+    .dots {
+      position: absolute;
+      bottom: 50px;
+      right: 380px;
+      display: grid;
+      grid-template-columns: repeat(4, 8px);
+      gap: 8px;
+      opacity: 0.12;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #1e1e1e;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="accent-bar"></div>
+
+    <div class="content">
+      <p class="eyebrow">Portfolio · Business Analytics</p>
+
+      <div class="main-block">
+        <h1>Camilo Sierra<br><span>Data into</span><br><span>Decisions</span></h1>
+        <p class="subtitle">Economist & Business Analytics professional turning complex datasets into clear, actionable insights.</p>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">R</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Tableau</span>
+        </div>
+      </div>
+
+      <p class="domain">camiloanalytics.dev</p>
+    </div>
+
+    <!-- Decorative dots -->
+    <div class="dots">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+
+    <div class="photo-panel">
+      <img src="img/Camilo.png" alt="Camilo Sierra">
+    </div>
+  </div>
+</body>
+</html>

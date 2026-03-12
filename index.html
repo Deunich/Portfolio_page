@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Camilo Sierra - Business Analytics</title>
-  <meta name="description" content="Juan Camilo Sierra - Economist and Master's Business Analytics professional. Portfolio of data-driven projects.">
+  <meta name="description" content="Camilo Sierra — Economist and Business Analytics professional. Specialized in Python, R, SQL, Power BI, and Tableau. Portfolio of data-driven projects across financial services, sports analytics, and public policy.">
   <meta name="author" content="Camilo Sierra">
 
   <!-- Open Graph / LinkedIn preview -->
@@ -12,7 +12,9 @@
   <meta property="og:url"         content="https://www.camiloanalytics.dev/">
   <meta property="og:title"       content="Camilo Sierra – Data into Decisions">
   <meta property="og:description" content="Economist and Business Analytics professional with 4+ years turning complex datasets into clear, actionable insights.">
-  <meta property="og:image"       content="https://www.camiloanalytics.dev/img/imgog-image.png">
+  <meta property="og:image"       content="img/imgog-image.png">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
@@ -40,12 +42,19 @@
 
 <section class="hero">
   <div class="container">
-    <p class="hero-eyebrow">Business Analytics &middot; Economics</p>
-    <h1 class="hero-title">Camilo Sierra<br><span>Data into Decisions</span></h1>
-    <p class="hero-subtitle">Economist and Business Analytics professional with 4+ years of experience turning complex datasets into clear, actionable insights.</p>
-    <div class="hero-actions">
-      <a href="#projects" class="btn btn-primary"><i class="fas fa-folder-open"></i> View Projects</a>
-      <a href="#contact" class="btn btn-secondary"><i class="fas fa-envelope"></i> Get in Touch</a>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="hero-eyebrow">Business Analytics &middot; Economics</p>
+        <h1 class="hero-title">Camilo Sierra<br><span>Data into Decisions</span></h1>
+        <p class="hero-subtitle">Economist and Business Analytics professional with 4+ years of experience across financial services, sports analytics, and public policy.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary"><i class="fas fa-folder-open"></i> View Projects</a>
+          <a href="#contact" class="btn btn-secondary"><i class="fas fa-envelope"></i> Get in Touch</a>
+        </div>
+      </div>
+      <div class="hero-photo-wrap">
+        <img src="img/Camilo.png" alt="Camilo Sierra" class="hero-photo">
+      </div>
     </div>
     <div class="hero-divider"></div>
   </div>
@@ -57,27 +66,24 @@
     <div class="about-container">
       <div class="about-text">
         <h2>About Me</h2>
-        <p>I'm an economist and Business Analytics professional with over four years of experience in financial analysis, data-driven research, and analytics. I enjoy turning data into insights and solving problems through a mix of technical skills and critical thinking. This portfolio showcases some of my academic and professional projects, I hope you enjoy exploring them.</p>
+        <p>Economist by training, data analyst by practice — I bridge economic rigor with Python, R, and SQL to answer questions that actually matter to the business. My background spans four years across financial services, market intelligence, and academia in Colombia, building models and dashboards that reduced ambiguity for real decision-makers. I'm looking to bring that cross-industry perspective and quantitative foundation to a US-based analytics team.</p>
         <div class="about-stats">
+          <div class="stat-item">
+            <span class="stat-number">6.9M+</span>
+            <span class="stat-label">Records Analyzed</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">3</span>
+            <span class="stat-label">Industries</span>
+          </div>
           <div class="stat-item">
             <span class="stat-number">4+</span>
             <span class="stat-label">Years of Experience</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">5+</span>
-            <span class="stat-label">Projects Built</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">9</span>
-            <span class="stat-label">Tools Mastered</span>
           </div>
         </div>
         <a href="files/cv.pdf" class="btn btn-secondary" download>
           <i class="fas fa-download"></i> Download CV
         </a>
-      </div>
-      <div class="about-photo-container">
-        <img src="img/Camilo.png" alt="Camilo Sierra" class="about-photo">
       </div>
     </div>
 
@@ -98,51 +104,82 @@
   </section>
 
   <section id="projects">
-    <h2>Projects</h2>
+    <div class="projects-section-header">
+      <div>
+        <h2>Projects</h2>
+        <p class="projects-subtitle">Turning complex datasets into clear stories.</p>
+      </div>
+      <span class="projects-count">3 projects</span>
+    </div>
 
+    <!-- ── Featured project ── -->
     <a href="projects/consumer_financial.html" class="card-link">
-      <div class="card reveal">
-        <div class="card-content">
-          <div class="card-text">
-            <h3>Consumer Complaints EDA (CFPB 2011&#8209;2024)</h3>
-            <p>6.9 M CFPB cases: credit&#8209;report woes, post&#8209;2020 spike, and FL&#8209;TX&#8209;CA hotspots visualised with heat&#8209;maps &amp; dashboards.</p>
-          </div>
-          <div class="card-image">
-            <img src="img/cfpb.png" alt="Consumer Financial Protection Bureau project" class="clickable-img" data-img="img/MapEEUU.png">
-          </div>
+      <div class="card card-featured reveal">
+        <div class="card-featured-img">
+          <img src="img/cfpb.png" alt="Consumer Financial Protection Bureau project">
         </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="tech-tag">R</span>
-            <span class="tech-tag">ggplot2</span>
-            <span class="tech-tag">usmap</span>
-            <span class="tech-tag">tidyverse</span>
+        <div class="card-featured-body">
+          <span class="card-category">Data Analysis &middot; EDA</span>
+          <h3>Consumer Complaints EDA (CFPB 2011&#8209;2024)</h3>
+          <p>6.9 M CFPB cases: credit&#8209;report woes, post&#8209;2020 spike, and FL&#8209;TX&#8209;CA hotspots visualised with heat&#8209;maps &amp; dashboards.</p>
+          <div class="card-footer">
+            <div class="card-tags">
+              <span class="tech-tag">R</span>
+              <span class="tech-tag">ggplot2</span>
+              <span class="tech-tag">usmap</span>
+              <span class="tech-tag">tidyverse</span>
+            </div>
+            <span class="card-cta">View Project <i class="fas fa-arrow-right"></i></span>
           </div>
-          <span class="card-cta">View Project <i class="fas fa-arrow-right"></i></span>
         </div>
       </div>
     </a>
 
-    <a href="projects/web_scraping_mls.html" class="card-link">
-      <div class="card reveal">
-        <div class="card-content">
-          <div class="card-text">
+    <!-- ── Project grid ── -->
+    <div class="projects-grid">
+
+      <a href="projects/web_scraping_mls.html" class="card-link">
+        <div class="card card-grid reveal">
+          <div class="card-cover">
+            <img src="img/mls.png" alt="MLS Web Scraping project">
+          </div>
+          <div class="card-body">
+            <span class="card-category">Web Scraping &middot; Python</span>
             <h3>Web Scraping MLS 2024</h3>
             <p>Scraped and analyzed soccer league data to extract insights on player stats and team performance using Python and BeautifulSoup.</p>
-          </div>
-          <div class="card-image">
-            <img src="img/mls.png" alt="MLS Web Scraping project" class="clickable-img" data-img="img/mls_project.png">
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">BeautifulSoup</span>
+              </div>
+              <span class="card-cta">View Project <i class="fas fa-arrow-right"></i></span>
+            </div>
           </div>
         </div>
-        <div class="card-footer">
-          <div class="card-tags">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">BeautifulSoup</span>
+      </a>
+
+      <a href="projects/ProjectPresentation-demo.html" class="card-link">
+        <div class="card card-grid reveal">
+          <div class="card-cover card-cover--gradient">
+            <i class="fas fa-file-pdf card-cover-icon"></i>
           </div>
-          <span class="card-cta">View Project <i class="fas fa-arrow-right"></i></span>
+          <div class="card-body">
+            <span class="card-category">Tool &middot; PDF.js</span>
+            <h3>PDF Presentation Viewer</h3>
+            <p>Interactive slide viewer with paginated navigation, fullscreen mode, keyboard shortcuts, and a mobile&#8209;responsive fallback.</p>
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="tech-tag">PDF.js</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">CSS</span>
+              </div>
+              <span class="card-cta">View Demo <i class="fas fa-arrow-right"></i></span>
+            </div>
+          </div>
         </div>
-      </div>
-    </a>
+      </a>
+
+    </div>
   </section>
 
   <section id="contact" class="reveal">
@@ -171,15 +208,15 @@
 
 <footer class="footer">
   <div class="container">
+    <div class="footer-links">
+      <a href="mailto:sierra@camiloanalytics.dev" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      <a href="https://github.com/Deunich" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/deunich" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    </div>
+    <p class="footer-tagline">Turning complex data into clear decisions.</p>
     <p>&copy; 2026 Camilo Sierra &mdash; Master's Business Analyst</p>
   </div>
 </footer>
-
-<!-- Image modal -->
-<div id="img-modal" class="modal" role="dialog" aria-modal="true" aria-label="Image preview">
-  <span class="close" aria-label="Close">&times;</span>
-  <img class="modal-content" id="modal-img" alt="">
-</div>
 
 <script src="js/app.js"></script>
 

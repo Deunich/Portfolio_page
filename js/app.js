@@ -1,24 +1,6 @@
 // js/app.js
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ── Image modal ─────────────────────────────────────── */
-  const modal    = document.getElementById('img-modal');
-  const modalImg = document.getElementById('modal-img');
-  const closeBtn = document.querySelector('.close');
-
-  document.querySelectorAll('.clickable-img').forEach(img => {
-    img.addEventListener('click', (e) => {
-      e.preventDefault();
-      modal.style.display = 'block';
-      modalImg.src = img.getAttribute('data-img');
-      modalImg.alt = img.alt;
-    });
-  });
-
-  if (closeBtn) closeBtn.onclick = () => { modal.style.display = 'none'; };
-  window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') modal.style.display = 'none'; });
-
   /* ── Hamburger menu ──────────────────────────────────── */
   const hamburger = document.getElementById('hamburger');
   const navRight  = document.getElementById('nav-right');

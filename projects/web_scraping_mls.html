@@ -11,13 +11,45 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
   <link rel="stylesheet" href="../css/style.css">
   <style>
+    /* ── Page hero ── */
+    .page-hero { padding: 2.25rem 0 2.75rem; position: relative; overflow: hidden; border-bottom: 1px solid var(--clr-border); }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 65% 80% at 20% 50%, rgba(37,99,235,0.10) 0%, transparent 65%); pointer-events: none; }
+    .page-hero .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--clr-muted); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 0.2s; margin-bottom: 1.5rem; }
+    .page-hero .back-link:hover { color: var(--clr-accent); text-decoration: none; }
+    .hero-layout { display: flex; align-items: flex-start; justify-content: space-between; gap: 2.5rem; }
+    .hero-main { flex: 1; min-width: 0; }
+    .hero-main .card-category { display: inline-block; margin-bottom: 0.6rem; }
+    .hero-main h1 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; letter-spacing: -0.5px; line-height: 1.15; color: var(--clr-text); margin-bottom: 0.75rem; }
+    .hero-main p { color: var(--clr-muted); font-size: 1rem; line-height: 1.65; max-width: 560px; margin-bottom: 1.25rem; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+    /* Stats card */
+    .hero-stats { display: flex; flex-direction: column; gap: 1px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 14px; overflow: hidden; flex-shrink: 0; align-self: flex-start; margin-top: 0.25rem; box-shadow: 0 4px 12px rgba(0,0,0,0.04); min-width: 130px; }
+    .stat-row { display: flex; align-items: center; gap: 12px; padding: 12px 18px; border-bottom: 1px solid var(--clr-border); }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-row-icon { width: 30px; height: 30px; border-radius: 8px; background: rgba(37,99,235,0.09); display: flex; align-items: center; justify-content: center; color: var(--clr-accent); font-size: 0.8rem; flex-shrink: 0; }
+    .stat-row-info { display: flex; flex-direction: column; gap: 1px; }
+    .stat-row-value { font-size: 1.05rem; font-weight: 700; color: var(--clr-text); line-height: 1; font-variant-numeric: tabular-nums; }
+    .stat-row-label { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--clr-muted); }
+    /* Takeaways */
+    .takeaways-section { padding: 3.5rem 0 2.5rem; border-bottom: 1px solid var(--clr-border); margin-bottom: 2.5rem; }
+    .section-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--clr-accent); margin-bottom: 0.5rem; }
+    .takeaways-section h2 { margin-bottom: 1.75rem; }
+    .takeaways-numbered { display: flex; flex-direction: column; gap: 14px; }
+    .takeaway-item { display: flex; align-items: flex-start; gap: 20px; padding: 1.25rem 1.5rem; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; cursor: default; }
+    .takeaway-item:hover { transform: translateX(5px); box-shadow: 0 6px 20px rgba(37,99,235,0.09); border-color: rgba(37,99,235,0.22); }
+    .takeaway-num { font-size: 1.5rem; font-weight: 800; color: rgba(37,99,235,0.20); line-height: 1; min-width: 34px; font-variant-numeric: tabular-nums; padding-top: 2px; transition: color 0.2s; }
+    .takeaway-item:hover .takeaway-num { color: rgba(37,99,235,0.45); }
+    .takeaway-text { font-size: 0.97rem; line-height: 1.68; color: var(--clr-text); padding-top: 2px; }
+    /* CTA */
+    .cta-section { padding-bottom: 3.5rem; display: flex; flex-direction: column; gap: 16px; }
+    .cta-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--clr-muted); }
+    .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
     /* ── Slider banner ── */
     .mls-slider { padding: 8px 0; background: #fff; border-bottom: 1px solid #eee; }
     .mls-slider .swiper { padding-bottom: 4px; }
     .mls-slider .swiper-slide { display: flex; justify-content: center; align-items: center; }
     .mls-slider .swiper-slide img { max-height: 90px; width: auto; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,.15)); }
     .swiper-button-next, .swiper-button-prev { color: var(--clr-accent); width: 28px; height: 28px; }
-
     /* ── Data tables ── */
     .data-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
     .data-table th, .data-table td { border: 1px solid #e5e5e5; text-align: left; }
@@ -30,21 +62,28 @@
     .data-table.error thead { background: #fff4f4; font-weight: 600; }
     .data-table.error tbody tr:nth-child(even) { background: #fdf7f7; }
     .table-wrap { overflow-x: auto; margin: .75rem 0 1.25rem; }
-
     /* ── KPI table ── */
     .kpi-table { margin: 1rem auto; }
     .kpi-table caption { caption-side: top; text-align: center; font-weight: 600; margin-bottom: .5rem; }
     .kpi-table th, .kpi-table td { text-align: center; }
-
     /* ── Text block ── */
     .steps-left { margin: .5rem 0 1.25rem; }
     .steps-left .intro { margin: 0 0 .75rem; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
     .steps-left ol { list-style: decimal; padding-left: 1.25rem; margin: 1rem 0 0; }
     .steps-left li { margin: .35rem 0; }
-
+    /* Responsive */
+    @media screen and (max-width: 720px) {
+      .hero-layout { flex-direction: column; gap: 1.75rem; }
+      .hero-stats { flex-direction: row; min-width: unset; width: 100%; border-radius: 12px; }
+      .stat-row { flex: 1; flex-direction: column; align-items: center; text-align: center; gap: 6px; border-bottom: none; border-right: 1px solid var(--clr-border); }
+      .stat-row:last-child { border-right: none; }
+      .stat-row-info { align-items: center; }
+    }
     @media (max-width: 600px) {
       .data-table.compact { font-size: 0.72rem; }
       .data-table.compact th, .data-table.compact td { padding: 2px 3px; }
+      .takeaway-item { padding: 1rem 1.1rem; gap: 14px; }
+      .takeaway-num { font-size: 1.2rem; min-width: 26px; }
     }
   </style>
 </head>
@@ -108,20 +147,50 @@
 </section>
 
 <!-- ========= PROJECT HERO ========= -->
-<section class="project-hero">
+<header class="page-hero">
   <div class="container">
-    <a href="../index.html#projects" class="back-link"><i class="fas fa-arrow-left"></i> All Projects</a>
-    <h1 class="project-title">Web Scraping MLS 2024</h1>
-    <p class="project-subtitle">Collected, cleaned, and analyzed the 2024 Major League Soccer season to uncover insights on team performance, player statistics, and the Messi economic impact on attendance.</p>
-    <div class="project-meta">
-      <span class="tech-tag">Python</span>
-      <span class="tech-tag">BeautifulSoup</span>
-      <span class="tech-tag">pandas</span>
-      <span class="tech-tag">plotly</span>
-      <span class="tech-tag">seaborn</span>
+    <a href="../index.html#projects" class="back-link">
+      <i class="fas fa-arrow-left"></i> Back to Portfolio
+    </a>
+    <div class="hero-layout">
+      <div class="hero-main">
+        <span class="card-category">Web Scraping &middot; Python</span>
+        <h1>Web Scraping MLS 2024</h1>
+        <p>Collected, cleaned, and analyzed the 2024 Major League Soccer season to uncover insights on team performance, player statistics, and the Messi economic impact on attendance.</p>
+        <div class="hero-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">BeautifulSoup</span>
+          <span class="tech-tag">pandas</span>
+          <span class="tech-tag">plotly</span>
+          <span class="tech-tag">seaborn</span>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-row">
+          <div class="stat-row-icon"><i class="fas fa-futbol"></i></div>
+          <div class="stat-row-info">
+            <span class="stat-row-value">513</span>
+            <span class="stat-row-label">Matches</span>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-row-icon"><i class="fas fa-tools"></i></div>
+          <div class="stat-row-info">
+            <span class="stat-row-value">5</span>
+            <span class="stat-row-label">Tools</span>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-row-icon"><i class="fas fa-calendar-alt"></i></div>
+          <div class="stat-row-info">
+            <span class="stat-row-value">2024</span>
+            <span class="stat-row-label">Year</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</section>
+</header>
 
 <!-- ========= MAIN CONTENT ========= -->
 <main class="container">
@@ -312,23 +381,36 @@ warnings.filterwarnings('ignore')</code></pre>
     </div>
   </section>
 
-  <section class="project-section">
-    <h3>Key Insights</h3>
-    <ul>
-      <li>Inter Miami leads in high-scoring home wins (4+ goals), consistent with Messi's attacking impact.</li>
-      <li>Home victories cluster in the 3–4+ goal buckets; draws tend to be low-scoring (0–2 goals).</li>
-      <li>Away wins are more evenly distributed, suggesting defense-first road strategies.</li>
-    </ul>
+  <section class="takeaways-section reveal">
+    <p class="section-label">What I found</p>
+    <h2>Key Insights</h2>
+    <div class="takeaways-numbered">
+      <div class="takeaway-item">
+        <span class="takeaway-num">01</span>
+        <span class="takeaway-text"><strong>Inter Miami leads</strong> in high-scoring home wins (4+ goals), consistent with Messi's attacking impact on team dynamics.</span>
+      </div>
+      <div class="takeaway-item">
+        <span class="takeaway-num">02</span>
+        <span class="takeaway-text">Home victories cluster in the <strong>3–4+ goal buckets</strong>; draws tend to be low-scoring (0–2 goals), suggesting home advantage drives attacking play.</span>
+      </div>
+      <div class="takeaway-item">
+        <span class="takeaway-num">03</span>
+        <span class="takeaway-text">Away wins are <strong>more evenly distributed</strong> across goal buckets, suggesting defense-first road strategies across the league.</span>
+      </div>
+    </div>
   </section>
 
-  <section class="project-section">
-    <h3>Repository</h3>
-    <p>
-      <a href="https://github.com/Deunich/mls-web-scraping" target="_blank" rel="noopener">
-        View full code on GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i>
+  <div class="cta-section reveal">
+    <span class="cta-label">Explore the project</span>
+    <div class="cta-actions">
+      <a href="https://github.com/Deunich/mls-web-scraping" target="_blank" rel="noopener" class="btn btn-primary">
+        <i class="fab fa-github"></i> View on GitHub
       </a>
-    </p>
-  </section>
+      <a href="../index.html#projects" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Back to Portfolio
+      </a>
+    </div>
+  </div>
 
 </main>
 
