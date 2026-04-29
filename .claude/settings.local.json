@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.camiloanalytics.dev)",
+      "Bash(gh api repos/Deunich/Portfolio_page/pages)",
+      "Bash(gh api repos/Deunich/Portfolio_page --jq '.default_branch, .has_pages, .homepage')",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(python -m http.server 8080)",
+      "Bash(npm start *)"
+    ]
+  }
+}

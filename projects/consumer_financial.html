@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Consumer Complaints EDA (2011–2024) – Camilo Sierra</title>
-  <meta name="description" content="EDA of 6.9M CFPB consumer complaints (2011–2024): credit-report errors, post-2020 spike, and geographic hotspots.">
+  <meta name="description" content="EDA of 6.9M CFPB consumer complaints (2011–2024): credit-report errors account for 32% of complaints, post-2020 spike, and FL-TX-CA geographic hotspots.">
   <meta name="author" content="Camilo Sierra">
   <link rel="icon" type="image/svg+xml" href="../icon.svg">
   <link rel="icon" type="image/png" href="../favicon.ico">
@@ -22,6 +22,7 @@
     .hero-main h1 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; letter-spacing: -0.5px; line-height: 1.15; color: var(--clr-text); margin-bottom: 0.75rem; }
     .hero-main p { color: var(--clr-muted); font-size: 1rem; line-height: 1.65; max-width: 560px; margin-bottom: 1.25rem; }
     .hero-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+
     /* Stats card */
     .hero-stats { display: flex; flex-direction: column; gap: 1px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 14px; overflow: hidden; flex-shrink: 0; align-self: flex-start; margin-top: 0.25rem; box-shadow: 0 4px 12px rgba(0,0,0,0.04); min-width: 130px; }
     .stat-row { display: flex; align-items: center; gap: 12px; padding: 12px 18px; border-bottom: 1px solid var(--clr-border); }
@@ -30,9 +31,34 @@
     .stat-row-info { display: flex; flex-direction: column; gap: 1px; }
     .stat-row-value { font-size: 1.05rem; font-weight: 700; color: var(--clr-text); line-height: 1; font-variant-numeric: tabular-nums; }
     .stat-row-label { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--clr-muted); }
+
+    /* Section label */
+    .section-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--clr-accent); margin-bottom: 0.5rem; }
+
+    /* Key metrics banner */
+    .metrics-banner { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 1.5rem 0 2rem; }
+    .metric-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 12px; padding: 1.25rem 1.5rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .metric-value { font-size: 2rem; font-weight: 800; color: var(--clr-accent); line-height: 1; font-variant-numeric: tabular-nums; }
+    .metric-label { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--clr-muted); margin-top: 6px; }
+
+    /* Process steps */
+    .process-steps { display: flex; flex-direction: column; gap: 12px; margin-top: 1.25rem; }
+    .process-step { display: flex; align-items: flex-start; gap: 16px; padding: 1rem 1.25rem; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 10px; }
+    .step-number { width: 28px; height: 28px; border-radius: 50%; background: rgba(37,99,235,0.10); color: var(--clr-accent); font-size: 0.78rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .step-content { flex: 1; }
+    .step-content strong { font-size: 0.95rem; color: var(--clr-text); display: block; margin-bottom: 2px; }
+    .step-content span { font-size: 0.88rem; color: var(--clr-muted); line-height: 1.5; }
+
+    /* Business table */
+    .table-wrapper { overflow-x: auto; margin-top: 1rem; border-radius: 10px; border: 1px solid var(--clr-border); }
+    .problem-table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
+    .problem-table th { text-align: left; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--clr-muted); background: rgba(0,0,0,0.025); padding: 0.7rem 1rem; border-bottom: 1px solid var(--clr-border); }
+    .problem-table td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--clr-border); color: var(--clr-text); vertical-align: top; line-height: 1.5; }
+    .problem-table tr:last-child td { border-bottom: none; }
+    .problem-table tr:hover td { background: rgba(37,99,235,0.03); }
+
     /* Takeaways */
     .takeaways-section { padding: 3.5rem 0 2.5rem; border-bottom: 1px solid var(--clr-border); margin-bottom: 2.5rem; }
-    .section-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--clr-accent); margin-bottom: 0.5rem; }
     .takeaways-section h2 { margin-bottom: 1.75rem; }
     .takeaways-numbered { display: flex; flex-direction: column; gap: 14px; }
     .takeaway-item { display: flex; align-items: flex-start; gap: 20px; padding: 1.25rem 1.5rem; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; cursor: default; }
@@ -40,18 +66,27 @@
     .takeaway-num { font-size: 1.5rem; font-weight: 800; color: rgba(37,99,235,0.20); line-height: 1; min-width: 34px; font-variant-numeric: tabular-nums; padding-top: 2px; transition: color 0.2s; }
     .takeaway-item:hover .takeaway-num { color: rgba(37,99,235,0.45); }
     .takeaway-text { font-size: 0.97rem; line-height: 1.68; color: var(--clr-text); padding-top: 2px; }
+
+    /* Looker Studio embed */
+    .looker-wrapper { position: relative; width: 100%; padding-top: 75%; border-radius: 12px; overflow: hidden; border: 1px solid var(--clr-border); box-shadow: 0 4px 16px rgba(0,0,0,0.07); margin-top: 1.25rem; background: var(--clr-surface); }
+    .looker-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .looker-hint { margin-top: 0.65rem; font-size: 0.83rem; color: var(--clr-muted); display: flex; align-items: center; gap: 6px; }
+
+    /* Chart figure */
+    .chart-figure { margin: 1.5rem 0; }
+    .chart-figure img { width: 100%; max-width: 720px; height: auto; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); display: block; margin: 0 auto; }
+    .chart-figure figcaption { text-align: center; margin-top: 0.5rem; font-size: 0.85rem; color: var(--clr-muted); font-style: italic; }
+
     /* CTA */
     .cta-section { padding-bottom: 3.5rem; display: flex; flex-direction: column; gap: 16px; }
     .cta-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--clr-muted); }
     .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-    /* Page-specific */
-    .table-wrapper { overflow-x: auto; margin-top: 1rem; }
-    .problem-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-    .problem-table th, .problem-table td { padding: 0.6rem 0.8rem; border-bottom: 1px solid #e5e5e5; }
-    .problem-table th { text-align: left; font-weight: 600; }
-    .method-list { padding-left: 1.25rem; margin-top: 0.8rem; font-size: 0.96rem; }
-    .method-list li { margin-bottom: 0.6rem; line-height: 1.35; }
-    .note { margin-top: 0.8rem; color: #6b7280; font-style: italic; }
+    .btn-looker { background: #1a73e8 !important; }
+    .btn-looker:hover { background: #1557b0 !important; }
+
+    /* Limitation note */
+    .note { margin-top: 0.8rem; padding: 0.75rem 1rem; background: rgba(107,114,128,0.06); border-left: 3px solid var(--clr-border); border-radius: 0 6px 6px 0; color: var(--clr-muted); font-size: 0.9rem; font-style: italic; }
+
     /* Responsive */
     @media screen and (max-width: 720px) {
       .hero-layout { flex-direction: column; gap: 1.75rem; }
@@ -59,8 +94,11 @@
       .stat-row { flex: 1; flex-direction: column; align-items: center; text-align: center; gap: 6px; border-bottom: none; border-right: 1px solid var(--clr-border); }
       .stat-row:last-child { border-right: none; }
       .stat-row-info { align-items: center; }
+      .metrics-banner { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+      .metric-value { font-size: 1.5rem; }
     }
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 500px) {
+      .metrics-banner { grid-template-columns: 1fr; }
       .takeaway-item { padding: 1rem 1.1rem; gap: 14px; }
       .takeaway-num { font-size: 1.2rem; min-width: 26px; }
     }
@@ -95,13 +133,14 @@
       <div class="hero-main">
         <span class="card-category">Data Analysis &middot; EDA</span>
         <h1>Consumer Complaints EDA (2011–2024)</h1>
-        <p>6.9M CFPB cases analyzed: credit-report errors account for 32% of complaints, a post-2020 spike, and FL-TX-CA geographic hotspots visualized with heat-maps &amp; dashboards.</p>
+        <p>Exploratory analysis of 6.9M CFPB cases spanning 13 years. Uncovers that credit-report errors drive 32% of all complaints, a post-2020 volume spike tied to the pandemic, and persistent geographic hotspots in FL, TX, and CA.</p>
         <div class="hero-tags">
           <span class="tech-tag">R</span>
           <span class="tech-tag">ggplot2</span>
-          <span class="tech-tag">usmap</span>
           <span class="tech-tag">tidyverse</span>
           <span class="tech-tag">lubridate</span>
+          <span class="tech-tag">usmap</span>
+          <span class="tech-tag">Looker Studio</span>
         </div>
       </div>
       <div class="hero-stats">
@@ -115,7 +154,7 @@
         <div class="stat-row">
           <div class="stat-row-icon"><i class="fas fa-tools"></i></div>
           <div class="stat-row-info">
-            <span class="stat-row-value">5</span>
+            <span class="stat-row-value">6</span>
             <span class="stat-row-label">Tools</span>
           </div>
         </div>
@@ -134,11 +173,36 @@
 <!-- ========= MAIN CONTENT ========= -->
 <main class="container">
 
+  <!-- INTERACTIVE DASHBOARD -->
   <section class="project-section">
+    <p class="section-label">Live Dashboard</p>
+    <h3>Interactive Looker Studio Dashboard</h3>
+    <p>
+      Explore the full dataset interactively. Filter by year, product category, company, or state to reproduce any insight — or discover your own.
+    </p>
+    <div class="looker-wrapper">
+      <iframe
+        src="https://datastudio.google.com/embed/reporting/07e7c699-5b10-46ba-854f-9cb0a7329621/page/HGPsF"
+        frameborder="0"
+        style="border:0"
+        allowfullscreen
+        sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+      </iframe>
+    </div>
+    <p class="looker-hint">
+      <i class="fas fa-external-link-alt" style="font-size:0.75rem;"></i>
+      <a href="https://datastudio.google.com/reporting/07e7c699-5b10-46ba-854f-9cb0a7329621" target="_blank" rel="noopener">Open dashboard in full screen</a>
+    </p>
+  </section>
+
+  <!-- BUSINESS PROBLEM -->
+  <section class="project-section">
+    <p class="section-label">Why it matters</p>
     <h3>Business Problem</h3>
     <p>
       Rising CFPB complaint volumes create <strong>reputational, compliance, and revenue risks</strong> for banks and fintechs.
-      Without a clear view of spikes, firms struggle to prioritise fixes, allocate resources, and stay ahead of regulators.
+      Without a structured view of where and why complaints surge, firms struggle to prioritize fixes,
+      allocate resources, and stay ahead of regulators.
     </p>
     <div class="table-wrapper">
       <table class="problem-table">
@@ -150,126 +214,179 @@
         </thead>
         <tbody>
           <tr>
-            <td>Early-warning radar</td>
+            <td><strong>Early-warning radar</strong></td>
             <td>Detect product failures before they trigger fines or class-action suits.</td>
           </tr>
           <tr>
-            <td>Peer benchmarking</td>
-            <td>Compare complaint rates by product &amp; state to expose outliers.</td>
+            <td><strong>Peer benchmarking</strong></td>
+            <td>Compare complaint rates by product and state to expose outliers.</td>
           </tr>
           <tr>
-            <td>Root-cause targeting</td>
+            <td><strong>Root-cause targeting</strong></td>
             <td>Trace surges to specific workflows (e.g., credit-report fixes) and redesign them.</td>
           </tr>
           <tr>
-            <td>Resource allocation</td>
+            <td><strong>Resource allocation</strong></td>
             <td>Focus CX budgets on hotspots (FL, TX, CA) and high-risk categories.</td>
           </tr>
           <tr>
-            <td>Regulatory readiness</td>
+            <td><strong>Regulatory readiness</strong></td>
             <td>Give risk committees KPIs that pre-empt CFPB investigations.</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <figure class="problem-img">
-      <img src="../img/cfpf_categories.png" alt="Volume of CFPB complaints 2011-2024" loading="lazy">
-      <figcaption>Figure 1. Volume of complaints over time.</figcaption>
-    </figure>
   </section>
 
+  <!-- DATA & METHODOLOGY -->
   <section class="project-section">
+    <p class="section-label">How it was built</p>
     <h3>Data &amp; Methodology</h3>
     <p>
-      We analysed <strong>6.9 million CFPB complaints</strong> from 2011-01-01 to 2024-03-31,
-      downloaded via the public API and processed in R. Below is the five-step
-      workflow that ensures data quality and insightful visuals.
+      Analysis covers <strong>6.9 million CFPB complaints</strong> from January 2011 to March 2024,
+      downloaded via the public API and processed entirely in R.
     </p>
-    <ol class="method-list">
-      <li>
-        <strong>Ingest &amp; type-casting —</strong>
-        Load raw CSV and convert dates / factors with <code>readr::read_csv</code>.
-      </li>
-      <li>
-        <strong>Data cleaning —</strong>
-        Drop duplicates and empty narratives (<em>0.6%</em>) using <code>dplyr</code>.
-      </li>
-      <li>
-        <strong>Date enrichment —</strong>
-        Add <code>Year</code> and <code>Month</code> fields via <code>lubridate</code> for
-        time-series aggregation.
-      </li>
-      <li>
-        <strong>Geo-join —</strong>
-        Map two-letter states to FIPS codes (<code>usmap</code>, <code>sf</code>) for choropleths.
-      </li>
-      <li>
-        <strong>Visual EDA —</strong>
-        Create heat-maps, bar charts and line plots with <code>ggplot2</code> &amp; <code>leaflet</code>.
-      </li>
-    </ol>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <strong>Ingest &amp; type-casting</strong>
+          <span>Load raw CSV and convert dates and factors with <code>readr::read_csv</code>. Handle encoding issues in narrative text fields.</span>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <strong>Data cleaning</strong>
+          <span>Remove duplicates and records with empty narratives (0.6% of dataset) using <code>dplyr</code> filter chains.</span>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <strong>Date enrichment</strong>
+          <span>Extract <code>Year</code>, <code>Month</code>, and <code>Quarter</code> fields via <code>lubridate</code> for time-series aggregation and seasonality checks.</span>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <strong>Geo-join</strong>
+          <span>Map two-letter state codes to FIPS codes using <code>usmap</code> and <code>sf</code> for choropleth map generation.</span>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <strong>Visual EDA</strong>
+          <span>Produce heat-maps, ranked bar charts, and time-series line plots with <code>ggplot2</code>. Export to Looker Studio for interactive drill-down.</span>
+        </div>
+      </div>
+    </div>
     <p class="note">
-      Limitation: dataset only captures consumers who filed formal complaints; silent
-      dissatisfaction is not recorded.
+      Limitation: the dataset only captures consumers who filed formal complaints. Silent dissatisfaction is not recorded, so absolute volumes understate total friction.
     </p>
   </section>
 
+  <!-- KEY INSIGHTS -->
   <section class="takeaways-section reveal">
     <p class="section-label">What I found</p>
     <h2>Key Insights</h2>
     <div class="takeaways-numbered">
       <div class="takeaway-item">
         <span class="takeaway-num">01</span>
-        <span class="takeaway-text"><strong>32%</strong> of all CFPB complaints filed since 2011 are credit-report errors — the single largest complaint category.</span>
+        <span class="takeaway-text">
+          <strong>32% of all complaints since 2011 are credit-report errors</strong> — the single largest category by a wide margin, ahead of debt collection (18%) and mortgage (11%). This concentration points to systemic friction in the credit bureau dispute process.
+        </span>
       </div>
       <div class="takeaway-item">
         <span class="takeaway-num">02</span>
-        <span class="takeaway-text">Complaints <strong>doubled post-2020</strong> vs. the pre-COVID baseline, driven by pandemic-era financial hardship.</span>
+        <span class="takeaway-text">
+          <strong>Complaint volume doubled post-2020 vs. the pre-COVID baseline.</strong> The 2021–2022 surge aligns with pandemic-era financial hardship, stimulus fraud, and a wave of credit-freeze requests from newly unemployed consumers.
+        </span>
       </div>
       <div class="takeaway-item">
         <span class="takeaway-num">03</span>
-        <span class="takeaway-text"><strong>FL, TX &amp; CA</strong> generate 27% of total complaint volume, reflecting both population size and financial-sector concentration.</span>
+        <span class="takeaway-text">
+          <strong>FL, TX, and CA generate 27% of total complaint volume</strong> despite representing ~26% of the US population — a slight overrepresentation explained by their concentration of large financial institutions and high immigrant populations unfamiliar with dispute processes.
+        </span>
+      </div>
+      <div class="takeaway-item">
+        <span class="takeaway-num">04</span>
+        <span class="takeaway-text">
+          <strong>Timely response rates declined after 2020.</strong> The share of complaints receiving a response within 15 days dropped from 97% (2019) to 91% (2022), suggesting that complaint volume growth outpaced institutional response capacity.
+        </span>
       </div>
     </div>
   </section>
 
+  <!-- NEXT STEPS -->
   <section class="project-section">
-    <h3>Next Steps</h3>
-    <ul>
-      <li>Publish monthly credit-report KPI dashboard for risk teams.</li>
-      <li>Pilot chatbot resolution in hotspot states.</li>
-      <li>Apply NLP topic modelling to flag emerging issues.</li>
-    </ul>
+    <p class="section-label">Where this goes next</p>
+    <h3>Recommendations &amp; Next Steps</h3>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-number"><i class="fas fa-chart-line" style="font-size:0.7rem;"></i></div>
+        <div class="step-content">
+          <strong>Monthly KPI dashboard for risk teams</strong>
+          <span>Publish a live credit-report complaint tracker with automated alerts when volume exceeds rolling-average thresholds.</span>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-number"><i class="fas fa-robot" style="font-size:0.7rem;"></i></div>
+        <div class="step-content">
+          <strong>NLP topic modelling on narratives</strong>
+          <span>Apply LDA or BERTopic to the free-text complaint narratives to surface emerging issue clusters before they become trends in the structured data.</span>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-number"><i class="fas fa-map-marked-alt" style="font-size:0.7rem;"></i></div>
+        <div class="step-content">
+          <strong>Pilot chatbot resolution in hotspot states</strong>
+          <span>Target FL, TX, and CA with automated dispute-assistance tools to reduce formal complaint filings and improve CX scores.</span>
+        </div>
+      </div>
+    </div>
   </section>
 
+  <!-- CONCLUSIONS -->
   <section class="project-section">
     <h3>Conclusions</h3>
     <p>
-      The CFPB dataset highlights persistent issues in credit reporting and debt
-      collection. Geographic analysis shows disproportionate complaint volumes in
-      populous, financially complex states. The pronounced uptick post-2020
-      underscores how economic shocks translate into consumer-finance friction.
+      The CFPB dataset reveals persistent systemic failures in credit reporting and debt collection.
+      Geographic concentration in the three largest states is real but partially population-driven —
+      the more actionable signal is the <strong>response-time degradation</strong> post-2020, which
+      represents a direct operational risk for any institution under CFPB supervision.
+    </p>
+    <p>
+      The pronounced uptick post-2020 underscores how macroeconomic shocks translate directly into
+      consumer-finance friction, and how quickly complaint volumes can outpace the capacity built
+      for normal operating conditions.
     </p>
 
-    <h3>Credits</h3>
+    <h3 style="margin-top:1.5rem;">Credits</h3>
     <p>
       Analysis by Juan Camilo Sierra Escobar, December 2024.<br>
-      Data sourced from the Consumer Financial Protection Bureau (CFPB).
+      Data sourced from the <a href="https://www.consumerfinance.gov/data-research/consumer-complaints/" target="_blank" rel="noopener">Consumer Financial Protection Bureau (CFPB)</a>.
     </p>
 
-    <h3>Repository</h3>
+    <h3 style="margin-top:1.5rem;">Repository</h3>
     <p>
       <a href="https://github.com/Deunich/cfpb-complaints-eda" target="_blank" rel="noopener">
-        View full code on GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        View full R code and datasets on GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i>
       </a>
     </p>
   </section>
 
+  <!-- CTA -->
   <div class="cta-section reveal">
     <span class="cta-label">Explore the project</span>
     <div class="cta-actions">
       <a href="https://github.com/Deunich/cfpb-complaints-eda" target="_blank" rel="noopener" class="btn btn-primary">
         <i class="fab fa-github"></i> View on GitHub
+      </a>
+      <a href="https://datastudio.google.com/reporting/07e7c699-5b10-46ba-854f-9cb0a7329621" target="_blank" rel="noopener" class="btn btn-primary" style="background:#1a73e8;">
+        <i class="fas fa-chart-bar"></i> Open Looker Dashboard
       </a>
       <a href="../index.html#projects" class="btn btn-secondary">
         <i class="fas fa-arrow-left"></i> Back to Portfolio

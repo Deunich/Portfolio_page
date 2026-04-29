@@ -1,19 +1,32 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
-  <!-- Background circle -->
-  <circle cx="96" cy="96" r="96" fill="#2563eb"/>
-  <!-- Bar chart bars (data analytics icon) -->
-  <!-- Left bar -->
-  <rect x="32" y="110" width="34" height="58" rx="6" fill="#ffffff"/>
+  <!-- Dark navy background circle -->
+  <circle cx="96" cy="96" r="96" fill="#0a1628"/>
+  <!-- Subtle inner glow ring -->
+  <circle cx="96" cy="96" r="88" fill="none" stroke="#f5b800" stroke-width="2.5" opacity="0.18"/>
+
+  <!-- Bar chart — gold bars -->
+  <!-- Left bar (medium) -->
+  <rect x="30" y="100" width="36" height="70" rx="5" fill="#f5b800" opacity="0.75"/>
   <!-- Middle bar (tallest) -->
-  <rect x="79" y="60" width="34" height="108" rx="6" fill="#ffffff" opacity="0.95"/>
-  <!-- Right bar -->
-  <rect x="126" y="82" width="34" height="86" rx="6" fill="#ffffff" opacity="0.85"/>
+  <rect x="78" y="52" width="36" height="118" rx="5" fill="#f5b800"/>
+  <!-- Right bar (short-medium) -->
+  <rect x="126" y="76" width="36" height="94" rx="5" fill="#f5b800" opacity="0.85"/>
+
   <!-- Baseline -->
-  <rect x="24" y="172" width="144" height="6" rx="3" fill="#ffffff" opacity="0.5"/>
-  <!-- Trend line dot on top of middle bar -->
-  <circle cx="49" cy="103" r="6" fill="#93c5fd"/>
-  <circle cx="96" cy="53" r="6" fill="#93c5fd"/>
-  <circle cx="143" cy="75" r="6" fill="#93c5fd"/>
-  <!-- Trend line connecting dots -->
-  <polyline points="49,103 96,53 143,75" fill="none" stroke="#93c5fd" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="22" y="174" width="148" height="5" rx="2.5" fill="#f5b800" opacity="0.25"/>
+
+  <!-- Trend line in white -->
+  <polyline
+    points="48,94 96,46 144,70"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    opacity="0.85"
+  />
+  <!-- Trend dots -->
+  <circle cx="48"  cy="94" r="7" fill="#ffffff" opacity="0.9"/>
+  <circle cx="96"  cy="46" r="7" fill="#ffffff"/>
+  <circle cx="144" cy="70" r="7" fill="#ffffff" opacity="0.9"/>
 </svg>

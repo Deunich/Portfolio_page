@@ -5,12 +5,27 @@
 
 /* ----------- CSS VARIABLES ----------- */
 :root {
-  --clr-bg:      #fafbff;
-  --clr-surface: #ffffff;
-  --clr-text:    #1e1e1e;
-  --clr-muted:   #6b7280;
-  --clr-accent:  #2563eb;
-  --clr-border:  rgba(0, 0, 0, 0.07);
+  --clr-bg:      #0a1628;
+  --clr-surface: #0f1f35;
+  --clr-text:    #e8edf5;
+  --clr-muted:   #7a8fa6;
+  --clr-accent:  #f5b800;
+  --clr-border:  rgba(255, 255, 255, 0.08);
+}
+
+/* ----------- BACKGROUND CANVAS ----------- */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+body > *:not(#bg-canvas) {
+  position: relative;
+  z-index: 1;
 }
 
 /* ----------- RESET ----------- */
@@ -28,7 +43,7 @@ html, body {
 body {
   font-family: 'Inter', system-ui, -apple-system, "Segoe UI", sans-serif;
   background-color: var(--clr-bg);
-  background-image: radial-gradient(circle, rgba(37,99,235,0.09) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(245,184,0,0.06) 1px, transparent 1px);
   background-size: 28px 28px;
   color: var(--clr-text);
   font-size: 16px;
@@ -170,7 +185,7 @@ p {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 75% 55% at 50% 0%, rgba(37,99,235,0.13) 0%, transparent 70%);
+  background: radial-gradient(ellipse 75% 55% at 50% 0%, rgba(245,184,0,0.10) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -226,21 +241,21 @@ p {
 
 .btn-primary {
   background-color: var(--clr-accent);
-  color: #fff !important;
-  box-shadow: 0 4px 14px rgba(37,99,235,0.25);
+  color: #0a1628 !important;
+  box-shadow: 0 4px 14px rgba(245,184,0,0.25);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(37,99,235,0.38);
+  box-shadow: 0 8px 22px rgba(245,184,0,0.38);
   text-decoration: none !important;
 }
 
 .btn-secondary {
   background-color: transparent;
   color: var(--clr-text) !important;
-  border: 1.5px solid var(--clr-border);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  border: 1.5px solid rgba(255,255,255,0.20);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
 }
 
 .btn-secondary:hover {
@@ -279,7 +294,7 @@ p {
   border-radius: 50%;
   object-fit: cover;
   object-position: top;
-  border: 3px solid rgba(37,99,235,0.20);
+  border: 3px solid rgba(245,184,0,0.35);
   box-shadow: 0 8px 32px rgba(0,0,0,0.10);
   display: block;
 }
@@ -410,8 +425,8 @@ main.container {
   text-transform: uppercase;
   letter-spacing: 1.5px;
   color: var(--clr-accent);
-  background: rgba(37,99,235,0.08);
-  border: 1px solid rgba(37,99,235,0.18);
+  background: rgba(245,184,0,0.10);
+  border: 1px solid rgba(245,184,0,0.25);
   padding: 4px 12px;
   border-radius: 20px;
   white-space: nowrap;
@@ -499,7 +514,7 @@ main.container {
 
 .card-featured-img {
   flex: 0 0 38%;
-  background: #f5f5f8;
+  background: #071220;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -558,7 +573,7 @@ main.container {
 
 .card-cover {
   height: 155px;
-  background: #f3f3f5;
+  background: #071220;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -578,7 +593,7 @@ main.container {
 .card-grid:hover .card-cover img { transform: scale(1.07); }
 
 .card-cover--gradient {
-  background: linear-gradient(135deg, rgba(37,99,235,0.12) 0%, rgba(37,99,235,0.04) 100%);
+  background: linear-gradient(135deg, rgba(245,184,0,0.12) 0%, rgba(245,184,0,0.04) 100%);
 }
 
 .card-cover-icon {
@@ -767,12 +782,12 @@ main.container {
 .problem-img figcaption {
   margin-top: .4rem;
   font-size: .9rem;
-  color: #6b7280;
+  color: var(--clr-muted);
 }
 
 /* ----------- PROJECT HERO ----------- */
 .project-hero {
-  background-color: #fafafa;
+  background-color: #071220;
   border-bottom: 1px solid var(--clr-border);
   padding: 2rem 0 1.75rem;
 }
@@ -866,7 +881,7 @@ main.container {
 }
 
 .code-snippet pre {
-  background: #f7f7f7;
+  background: #071220;
   border-radius: 8px;
   padding: 1rem 1.25rem;
   overflow-x: auto;
