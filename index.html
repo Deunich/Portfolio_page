@@ -50,7 +50,6 @@
       <div class="hero-text">
         <p class="hero-eyebrow">Business Analytics &middot; Economics</p>
         <h1 class="hero-title">Camilo Sierra<br><span>Data into Decisions</span></h1>
-        <p class="hero-subtitle">Economist and Business Analytics professional with 4+ years of experience across financial services, sports analytics, and public policy.</p>
         <div class="hero-actions">
           <a href="#projects" class="btn btn-primary"><i class="fas fa-folder-open"></i> View Projects</a>
           <a href="#contact" class="btn btn-secondary"><i class="fas fa-envelope"></i> Get in Touch</a>
@@ -67,10 +66,13 @@
 <main class="container">
 
   <section id="about" class="reveal">
-    <div class="about-container">
-      <div class="about-text">
-        <h2>About Me</h2>
-        <p>Economist by training, data analyst by practice — I bridge economic rigor with Python, R, and SQL to answer questions that actually matter to the business. My background spans four years across financial services, market intelligence, and academia in Colombia, building models and dashboards that reduced ambiguity for real decision-makers. I'm looking to bring that cross-industry perspective and quantitative foundation to a US-based analytics team.</p>
+    <div class="about-split">
+      <div class="about-greeting">
+        <p class="greeting-line1">Hello,</p>
+        <p class="greeting-line2">I'm <span>Camilo!</span></p>
+      </div>
+      <div class="about-body">
+        <p class="about-desc"><span class="hl">Master's in Business Analytics</span> and <span class="hl">Economist</span> with a proven track record in various analytical roles, showcasing expertise in end-to-end business processes. Proficient in <span class="hl">SQL, Python, R, Power BI, and Tableau</span> for comprehensive data analysis and visualization. Comfortable with end-to-end data analysis, data processing, dashboard creation, and presenting actionable insights with effective communication skills.</p>
         <div class="about-stats">
           <div class="stat-item">
             <span class="stat-number">6.9M+</span>
@@ -93,16 +95,43 @@
 
     <div class="skills-showcase">
       <h4>Core Skills</h4>
-      <div class="tags-container">
-        <span class="tech-tag">Python</span>
-        <span class="tech-tag">R</span>
-        <span class="tech-tag">SQL</span>
-        <span class="tech-tag">Power BI</span>
-        <span class="tech-tag">Tableau</span>
-        <span class="tech-tag">Business Analytics</span>
-        <span class="tech-tag">Data Visualization</span>
-        <span class="tech-tag">Statistical Analysis</span>
-        <span class="tech-tag">Data Mining</span>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <i class="fab fa-python"></i>
+          <span class="skill-name">Python</span>
+        </div>
+        <div class="skill-card">
+          <span class="skill-letter">R</span>
+          <span class="skill-name">R</span>
+        </div>
+        <div class="skill-card">
+          <i class="fas fa-database"></i>
+          <span class="skill-name">SQL</span>
+        </div>
+        <div class="skill-card">
+          <i class="fas fa-chart-bar"></i>
+          <span class="skill-name">Power BI</span>
+        </div>
+        <div class="skill-card">
+          <i class="fas fa-chart-area"></i>
+          <span class="skill-name">Tableau</span>
+        </div>
+        <div class="skill-card">
+          <i class="fas fa-briefcase"></i>
+          <span class="skill-name">Business Analytics</span>
+        </div>
+        <div class="skill-card">
+          <i class="fas fa-eye"></i>
+          <span class="skill-name">Data Visualization</span>
+        </div>
+        <div class="skill-card">
+          <i class="fas fa-calculator"></i>
+          <span class="skill-name">Statistical Analysis</span>
+        </div>
+        <div class="skill-card">
+          <i class="fas fa-magnifying-glass"></i>
+          <span class="skill-name">Data Mining</span>
+        </div>
       </div>
     </div>
   </section>
@@ -116,17 +145,16 @@
       <span class="projects-count">3 projects</span>
     </div>
 
-    <!-- ── Featured project ── -->
-    <a href="projects/consumer_financial.html" class="card-link">
-      <div class="card card-featured reveal">
-        <div class="card-featured-img">
-          <img src="img/cfpb.png" alt="Consumer Financial Protection Bureau project">
-        </div>
-        <div class="card-featured-body">
+    <!-- ── Option A: Numbered Showcase ── -->
+    <div class="proj-list">
+
+      <a href="projects/consumer_financial.html" class="proj-row reveal">
+        <span class="proj-num">01</span>
+        <div class="proj-content">
           <span class="card-category">Data Analysis &middot; EDA</span>
           <h3>Consumer Complaints EDA (CFPB 2011&#8209;2024)</h3>
           <p>6.9 M CFPB cases: credit&#8209;report woes, post&#8209;2020 spike, and FL&#8209;TX&#8209;CA hotspots visualised with heat&#8209;maps &amp; dashboards.</p>
-          <div class="card-footer">
+          <div class="proj-footer">
             <div class="card-tags">
               <span class="tech-tag">R</span>
               <span class="tech-tag">ggplot2</span>
@@ -136,49 +164,37 @@
             <span class="card-cta">View Project <i class="fas fa-arrow-right"></i></span>
           </div>
         </div>
-      </div>
-    </a>
+      </a>
 
-    <!-- ── Project grid ── -->
-    <div class="projects-grid">
-
-      <a href="projects/web_scraping_mls.html" class="card-link">
-        <div class="card card-grid reveal">
-          <div class="card-cover">
-            <img src="img/mls.png" alt="MLS Web Scraping project">
-          </div>
-          <div class="card-body">
-            <span class="card-category">Web Scraping &middot; Python</span>
-            <h3>Web Scraping MLS 2024</h3>
-            <p>Scraped and analyzed soccer league data to extract insights on player stats and team performance using Python and BeautifulSoup.</p>
-            <div class="card-footer">
-              <div class="card-tags">
-                <span class="tech-tag">Python</span>
-                <span class="tech-tag">BeautifulSoup</span>
-              </div>
-              <span class="card-cta">View Project <i class="fas fa-arrow-right"></i></span>
+      <a href="projects/web_scraping_mls.html" class="proj-row reveal">
+        <span class="proj-num">02</span>
+        <div class="proj-content">
+          <span class="card-category">Web Scraping &middot; Python</span>
+          <h3>Web Scraping MLS 2024</h3>
+          <p>Scraped and analyzed soccer league data to extract insights on player stats and team performance using Python and BeautifulSoup.</p>
+          <div class="proj-footer">
+            <div class="card-tags">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">BeautifulSoup</span>
             </div>
+            <span class="card-cta">View Project <i class="fas fa-arrow-right"></i></span>
           </div>
         </div>
       </a>
 
-      <a href="projects/ProjectPresentation-demo.html" class="card-link">
-        <div class="card card-grid reveal">
-          <div class="card-cover card-cover--gradient">
-            <i class="fas fa-file-pdf card-cover-icon"></i>
-          </div>
-          <div class="card-body">
-            <span class="card-category">Tool &middot; PDF.js</span>
-            <h3>PDF Presentation Viewer</h3>
-            <p>Interactive slide viewer with paginated navigation, fullscreen mode, keyboard shortcuts, and a mobile&#8209;responsive fallback.</p>
-            <div class="card-footer">
-              <div class="card-tags">
-                <span class="tech-tag">PDF.js</span>
-                <span class="tech-tag">JavaScript</span>
-                <span class="tech-tag">CSS</span>
-              </div>
-              <span class="card-cta">View Demo <i class="fas fa-arrow-right"></i></span>
+      <a href="projects/ProjectPresentation-demo.html" class="proj-row reveal">
+        <span class="proj-num">03</span>
+        <div class="proj-content">
+          <span class="card-category">Tool &middot; PDF.js</span>
+          <h3>PDF Presentation Viewer</h3>
+          <p>Interactive slide viewer with paginated navigation, fullscreen mode, keyboard shortcuts, and a mobile&#8209;responsive fallback.</p>
+          <div class="proj-footer">
+            <div class="card-tags">
+              <span class="tech-tag">PDF.js</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">CSS</span>
             </div>
+            <span class="card-cta">View Demo <i class="fas fa-arrow-right"></i></span>
           </div>
         </div>
       </a>
