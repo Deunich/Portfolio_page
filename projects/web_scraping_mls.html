@@ -82,11 +82,15 @@
       .stat-row-info { align-items: center; }
     }
     @media (max-width: 600px) {
-      .data-table.compact { font-size: 0.72rem; }
-      .data-table.compact th, .data-table.compact td { padding: 2px 3px; }
       .takeaway-item { padding: 1rem 1.1rem; gap: 14px; }
       .takeaway-num { font-size: 1.2rem; min-width: 26px; }
     }
+
+    /* Google Slides embed */
+    .presentation-section { padding: 2rem 0 1.5rem; }
+    .slides-wrapper { position: relative; width: 100%; padding-top: 56.25%; border-radius: 12px; overflow: hidden; border: 1px solid var(--clr-border); box-shadow: 0 4px 16px rgba(0,0,0,0.07); margin-top: 1.25rem; background: var(--clr-surface); }
+    .slides-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .slides-hint { margin-top: 0.65rem; font-size: 0.83rem; color: var(--clr-muted); display: flex; align-items: center; gap: 6px; }
   </style>
 </head>
 <body>
@@ -197,211 +201,25 @@
 <!-- ========= MAIN CONTENT ========= -->
 <main class="container">
 
-  <section class="project-section">
-    <h3>Overview</h3>
-    <p>
-      Data exploration and analysis of the 2024 Major League Soccer season.
-      The 2024 MLS season provided an excellent opportunity to explore team performance,
-      player statistics, and match outcomes. This project aimed to collect, clean, and analyze
-      data to uncover actionable insights about the league.
+  <!-- PRESENTATION -->
+  <section class="project-section presentation-section">
+    <p class="section-label">Project Presentation</p>
+    <div class="slides-wrapper">
+      <iframe
+        src="https://docs.google.com/presentation/d/YOUR_PRESENTATION_ID_HERE/embed?start=false&loop=false&delayms=3000"
+        frameborder="0"
+        allowfullscreen="true"
+        mozallowfullscreen="true"
+        webkitallowfullscreen="true">
+      </iframe>
+    </div>
+    <p class="slides-hint">
+      <i class="fas fa-external-link-alt" style="font-size:0.75rem;"></i>
+      <a href="https://docs.google.com/presentation/d/YOUR_PRESENTATION_ID_HERE" target="_blank" rel="noopener">Open presentation in full screen</a>
     </p>
   </section>
 
-  <section class="project-section">
-    <h3>Methodology</h3>
-    <ol>
-      <li><strong>Data Collection &amp; Preparation:</strong> Gathered official MLS data
-        using Python tools such as <code>requests</code> (HTTP requests),
-        <code>BeautifulSoup</code> (HTML parsing), and <code>glob</code> (batch
-        file handling), loading everything into <code>pandas</code> DataFrames.</li>
-      <li><strong>Data Cleaning:</strong> Addressed missing values, standardized data formats, and validated datasets to ensure accuracy.</li>
-      <li><strong>Exploratory Analysis:</strong> Used statistical summaries and visualizations to identify key patterns.</li>
-      <li><strong>Visualization:</strong> Created interactive dashboards to communicate findings effectively.</li>
-    </ol>
-  </section>
-
-  <section class="project-section">
-    <h3>Libraries Used</h3>
-    <pre><code class="language-python">import pandas as pd
-import numpy as np
-import glob
-import seaborn as sns
-import plotly.express as px
-import matplotlib.pyplot as plt
-plt.style.use('default')
-import warnings
-from tabulate import tabulate
-warnings.filterwarnings('ignore')</code></pre>
-  </section>
-
-  <section class="project-section">
-    <h3>1. Data Collection</h3>
-    <p>
-      To gather the necessary data, we utilized web-scraping techniques. The <code>pandas</code>
-      library's <code>read_html</code> function was employed to extract structured data directly
-      from the MLS website. By specifying the <code>id</code> attribute of the desired table
-      (<code>sched_all</code>), we ensured precise extraction of the relevant dataset.
-    </p>
-    <div class="table-wrap">
-      <table class="data-table compact">
-        <thead>
-          <tr>
-            <th>Wk</th><th>Day</th><th>Date</th><th>Time</th>
-            <th>Home</th><th>xG</th><th>Score</th><th>xG (Away)</th><th>Away</th>
-            <th>Attendance</th><th>Venue</th><th>Match Report</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>1</td><td>Wed</td><td>2024-02-21</td><td>20:00</td><td>Inter Miami</td><td>1.4</td><td>2–0</td><td>0.8</td><td>Real Salt Lake</td><td>21 137</td><td>Chase Stadium</td><td>Match Report</td></tr>
-          <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>13:45</td><td>LAFC</td><td>1.5</td><td>2–1</td><td>1.8</td><td>Seattle Sounders</td><td>22 214</td><td>BMO Stadium</td><td>Match Report</td></tr>
-          <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>14:00</td><td>Columbus Crew</td><td>1.8</td><td>1–0</td><td>0.5</td><td>Atlanta Utd</td><td>20 406</td><td>Lower.com Field</td><td>Match Report</td></tr>
-          <tr><td>1</td><td>Sun</td><td>2024-02-25</td><td>14:30</td><td>FC Cincinnati</td><td>0.9</td><td>0–0</td><td>0.5</td><td>Toronto FC</td><td>25 513</td><td>TQL Stadium</td><td>Match Report</td></tr>
-          <tr><td>1</td><td>Sun</td><td>2024-02-25</td><td>16:00</td><td>Nashville SC</td><td>0.1</td><td>0–0</td><td>1.4</td><td>NY Red Bulls</td><td>30 109</td><td>Geodis Park</td><td>Match Report</td></tr>
-          <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td><td>Austin</td><td>1.1</td><td>1–2</td><td>3.0</td><td>Minnesota Utd</td><td>20 738</td><td>Q2 Stadium</td><td>Match Report</td></tr>
-          <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td><td>Orlando City</td><td>0.9</td><td>0–0</td><td>1.0</td><td>CF Montréal</td><td>24 249</td><td>Inter&amp;Co Stadium</td><td>Match Report</td></tr>
-          <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td><td>Portland Timbers</td><td>0.5</td><td>4–1</td><td>1.2</td><td>Colorado Rapids</td><td>21 411</td><td>Providence Park</td><td>Match Report</td></tr>
-          <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td><td>Houston Dynamo</td><td>1.0</td><td>1–1</td><td>0.2</td><td>Sporting KC</td><td>18 818</td><td>Shell Energy Stadium</td><td>Match Report</td></tr>
-          <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>19:30</td><td>Philadelphia Union</td><td>2.1</td><td>2–2</td><td>1.6</td><td>Chicago Fire</td><td>18 734</td><td>Subaru Park</td><td>Match Report</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section class="project-section">
-    <h3>2. Data Cleaning</h3>
-    <p>
-      All values in the <code>Date</code> column were converted to a standard datetime format using
-      <code>pd.to_datetime()</code> with <code>errors='coerce'</code>. Invalid or improperly formatted
-      dates are replaced with <em>NaT</em> (Not a Time), preventing errors during conversion.
-    </p>
-    <div class="table-wrap">
-      <table class="data-table error">
-        <thead>
-          <tr>
-            <th>Index</th><th>Round</th><th>Wk</th><th>Day</th><th>Date</th><th>Time</th>
-            <th>Home</th><th>xG</th><th>Score</th><th>xG&nbsp;(Away)</th><th>Away</th>
-            <th>Attendance</th><th>Venue</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>15</td><td colspan="12">— all NaN —</td></tr>
-          <tr><td>30</td><td colspan="12">— all NaN —</td></tr>
-          <tr><td>44</td><td colspan="12">— all NaN —</td></tr>
-          <tr><td>59</td><td colspan="12">— all NaN —</td></tr>
-          <tr><td>73</td><td colspan="12">— all NaN —</td></tr>
-          <tr><td>88</td><td colspan="12">— all NaN —</td></tr>
-          <tr><td>103</td><td colspan="12">— all NaN —</td></tr>
-          <tr><td>118</td><td colspan="12">— all NaN —</td></tr>
-          <tr><td>133</td><td colspan="12">— all NaN —</td></tr>
-          <tr><td>148</td><td colspan="12">— all NaN —</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p>
-      To ensure the dataset contained only valid match rows, we applied two focused filters.
-      <code>MLS = MLS[MLS["Date"].notna()]</code> removes blank separator rows that FBref inserts between rounds.
-      <code>MLS = MLS[MLS["Date"] != "Date"]</code> drops repeated header rows. After these steps, the DataFrame
-      contains only genuine match records.
-    </p>
-  </section>
-
-  <section class="project-section">
-    <h3>3. Exploratory Analysis: Messi Economic Impact</h3>
-
-    <div class="steps-left">
-      <p class="intro">
-        The table below lists a sample of MLS matches with core fields: week/day/date/time, home and away teams,
-        each side's xG, the final score, attendance, and venue. We also derived <em>Home Goals</em>,
-        <em>Away Goals</em>, <em>Total Match Goals</em>, and a <strong>Goal Bucket</strong> label.
-      </p>
-    </div>
-
-    <div class="table-wrap">
-      <table class="data-table compact">
-        <thead>
-          <tr>
-            <th>Wk</th><th>Day</th><th>Date</th><th>Time</th>
-            <th>Home</th><th>xG</th><th>Score</th><th>xG&nbsp;(Away)</th><th>Away</th>
-            <th>Attendance</th><th>Venue</th><th>Match&nbsp;Report</th>
-            <th>Home&nbsp;Goals</th><th>Away&nbsp;Goals</th><th>Total&nbsp;Goals</th>
-            <th>Goal&nbsp;Bucket</th>
-            <th>0 Goals</th><th>1 Goal</th><th>2 Goals</th><th>3 Goals</th><th>4+ Goals</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>1</td><td>Wed</td><td>2024-02-21</td><td>20:00</td><td>Inter Miami</td><td>1.4</td><td>2–0</td><td>0.8</td><td>Real Salt Lake</td><td>21 137</td><td>Chase Stadium</td><td>Match Report</td><td>2</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
-          <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>13:45</td><td>LAFC</td><td>1.5</td><td>2–1</td><td>1.8</td><td>Seattle Sounders</td><td>22 214</td><td>BMO Stadium</td><td>Match Report</td><td>2</td><td>1</td><td>3</td><td>3</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
-          <tr><td>1</td><td>Sat</td><td>2024-02-24</td><td>14:00</td><td>Columbus Crew</td><td>1.8</td><td>1–0</td><td>0.5</td><td>Atlanta Utd</td><td>20 406</td><td>Lower.com Field</td><td>Match Report</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
-          <tr><td>1</td><td>Sun</td><td>2024-02-25</td><td>14:30</td><td>FC Cincinnati</td><td>0.9</td><td>0–0</td><td>0.5</td><td>Toronto FC</td><td>25 513</td><td>TQL Stadium</td><td>Match Report</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-          <tr><td>1</td><td>Sun</td><td>2024-02-25</td><td>16:00</td><td>Nashville SC</td><td>0.1</td><td>0–0</td><td>1.4</td><td>NY Red Bulls</td><td>30 109</td><td>Geodis Park</td><td>Match Report</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="steps-left">
-      <p class="intro">
-        To compute this KPI, we classify each match by total goals, clean bad records,
-        and aggregate by outcome to see how scoring intensity distributes across results.
-      </p>
-      <ol>
-        <li><strong>Bucket:</strong> Turn the raw <code>Score</code> into a <strong>Goal Bucket</strong> (0, 1, 2, 3, or 4+) for every match.</li>
-        <li><strong>Clean:</strong> Filter out rows where parsing failed (wrong dash, missing, or non-numeric values).</li>
-        <li><strong>Group:</strong> Aggregate by <strong>Outcome</strong> (Home / Draw / Away), summing each goal bucket and counting <strong>Total Matches</strong>.</li>
-        <li><strong>Read:</strong> Quickly see scoring distribution by result and convert to percentages to support pricing, marketing, and scheduling decisions.</li>
-      </ol>
-    </div>
-
-    <table class="data-table compact kpi-table">
-      <caption>KPI — Goals by Outcome</caption>
-      <thead>
-        <tr>
-          <th>Outcome</th><th>0 Goals</th><th>1 Goal</th><th>2 Goals</th><th>3 Goals</th><th>4+ Goals</th><th>Total Matches</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Away</td><td>0</td><td>29</td><td>16</td><td>54</td><td>59</td><td>158</td></tr>
-        <tr><td>Draw</td><td>30</td><td>0</td><td>46</td><td>0</td><td>44</td><td>120</td></tr>
-        <tr><td>Home</td><td>0</td><td>33</td><td>40</td><td>68</td><td>94</td><td>235</td></tr>
-      </tbody>
-      <tfoot>
-        <tr><th>Total</th><th>30</th><th>62</th><th>102</th><th>122</th><th>197</th><th>513</th></tr>
-      </tfoot>
-    </table>
-
-    <div class="steps-left">
-      <p class="intro">
-        We filtered all matches where <strong>Inter Miami</strong> played (home or away).
-        For each game, we calculated the team's <strong>goals scored</strong>, then grouped by
-        <strong>Outcome</strong> and <strong>Goal Bucket</strong>. The bar chart below shows
-        whether <strong>wins</strong> cluster in <strong>2–3</strong> or <strong>4+</strong> goal games
-        and how the pattern shifts <strong>home vs. away</strong>, quantifying a possible <strong>"Messi effect"</strong>.
-      </p>
-      <figure class="problem-img">
-        <img src="../img/Inter_Miami.png" alt="Inter Miami goal distribution by outcome and goal bucket" loading="lazy">
-        <figcaption>Figure 2. Inter Miami goals by outcome and goal bucket — 2024 MLS season.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="takeaways-section reveal">
-    <p class="section-label">What I found</p>
-    <h2>Key Insights</h2>
-    <div class="takeaways-numbered">
-      <div class="takeaway-item">
-        <span class="takeaway-num">01</span>
-        <span class="takeaway-text"><strong>Inter Miami leads</strong> in high-scoring home wins (4+ goals), consistent with Messi's attacking impact on team dynamics.</span>
-      </div>
-      <div class="takeaway-item">
-        <span class="takeaway-num">02</span>
-        <span class="takeaway-text">Home victories cluster in the <strong>3–4+ goal buckets</strong>; draws tend to be low-scoring (0–2 goals), suggesting home advantage drives attacking play.</span>
-      </div>
-      <div class="takeaway-item">
-        <span class="takeaway-num">03</span>
-        <span class="takeaway-text">Away wins are <strong>more evenly distributed</strong> across goal buckets, suggesting defense-first road strategies across the league.</span>
-      </div>
-    </div>
-  </section>
-
+  <!-- CTA -->
   <div class="cta-section reveal">
     <span class="cta-label">Explore the project</span>
     <div class="cta-actions">

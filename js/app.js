@@ -10,8 +10,8 @@
   const MAX_DIST       = 140;
   const SPEED          = 0.35;
   const DOT_RADIUS     = 1.8;
-  const DOT_COLOR      = 'rgba(245,184,0,';
-  const LINE_COLOR     = 'rgba(245,184,0,';
+  const DOT_COLOR      = 'rgba(180,83,9,';
+  const LINE_COLOR     = 'rgba(180,83,9,';
 
   let W, H, particles;
 
@@ -52,7 +52,7 @@
 
       ctx.beginPath();
       ctx.arc(p.x, p.y, DOT_RADIUS, 0, Math.PI * 2);
-      ctx.fillStyle = DOT_COLOR + '0.55)';
+      ctx.fillStyle = DOT_COLOR + '0.20)';
       ctx.fill();
 
       for (let j = i + 1; j < particles.length; j++) {

@@ -84,8 +84,11 @@
     .btn-looker { background: #1a73e8 !important; }
     .btn-looker:hover { background: #1557b0 !important; }
 
-    /* Limitation note */
-    .note { margin-top: 0.8rem; padding: 0.75rem 1rem; background: rgba(107,114,128,0.06); border-left: 3px solid var(--clr-border); border-radius: 0 6px 6px 0; color: var(--clr-muted); font-size: 0.9rem; font-style: italic; }
+    /* Google Slides embed */
+    .presentation-section { padding: 2rem 0 1.5rem; }
+    .slides-wrapper { position: relative; width: 100%; padding-top: 56.25%; border-radius: 12px; overflow: hidden; border: 1px solid var(--clr-border); box-shadow: 0 4px 16px rgba(0,0,0,0.07); margin-top: 1.25rem; background: var(--clr-surface); }
+    .slides-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .slides-hint { margin-top: 0.65rem; font-size: 0.83rem; color: var(--clr-muted); display: flex; align-items: center; gap: 6px; }
 
     /* Responsive */
     @media screen and (max-width: 720px) {
@@ -135,11 +138,8 @@
         <h1>Consumer Complaints EDA (2011–2024)</h1>
         <p>Exploratory analysis of 6.9M CFPB cases spanning 13 years. Uncovers that credit-report errors drive 32% of all complaints, a post-2020 volume spike tied to the pandemic, and persistent geographic hotspots in FL, TX, and CA.</p>
         <div class="hero-tags">
-          <span class="tech-tag">R</span>
-          <span class="tech-tag">ggplot2</span>
-          <span class="tech-tag">tidyverse</span>
-          <span class="tech-tag">lubridate</span>
-          <span class="tech-tag">usmap</span>
+          <span class="tech-tag">SQL</span>
+          <span class="tech-tag">Google Cloud Platform</span>
           <span class="tech-tag">Looker Studio</span>
         </div>
       </div>
@@ -195,186 +195,21 @@
     </p>
   </section>
 
-  <!-- BUSINESS PROBLEM -->
-  <section class="project-section">
-    <p class="section-label">Why it matters</p>
-    <h3>Business Problem</h3>
-    <p>
-      Rising CFPB complaint volumes create <strong>reputational, compliance, and revenue risks</strong> for banks and fintechs.
-      Without a structured view of where and why complaints surge, firms struggle to prioritize fixes,
-      allocate resources, and stay ahead of regulators.
-    </p>
-    <div class="table-wrapper">
-      <table class="problem-table">
-        <thead>
-          <tr>
-            <th>Objective</th>
-            <th>Business Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Early-warning radar</strong></td>
-            <td>Detect product failures before they trigger fines or class-action suits.</td>
-          </tr>
-          <tr>
-            <td><strong>Peer benchmarking</strong></td>
-            <td>Compare complaint rates by product and state to expose outliers.</td>
-          </tr>
-          <tr>
-            <td><strong>Root-cause targeting</strong></td>
-            <td>Trace surges to specific workflows (e.g., credit-report fixes) and redesign them.</td>
-          </tr>
-          <tr>
-            <td><strong>Resource allocation</strong></td>
-            <td>Focus CX budgets on hotspots (FL, TX, CA) and high-risk categories.</td>
-          </tr>
-          <tr>
-            <td><strong>Regulatory readiness</strong></td>
-            <td>Give risk committees KPIs that pre-empt CFPB investigations.</td>
-          </tr>
-        </tbody>
-      </table>
+  <!-- PRESENTATION -->
+  <section class="project-section presentation-section">
+    <p class="section-label">Project Presentation</p>
+    <div class="slides-wrapper">
+      <iframe
+        src="https://docs.google.com/presentation/d/YOUR_PRESENTATION_ID_HERE/embed?start=false&loop=false&delayms=3000"
+        frameborder="0"
+        allowfullscreen="true"
+        mozallowfullscreen="true"
+        webkitallowfullscreen="true">
+      </iframe>
     </div>
-  </section>
-
-  <!-- DATA & METHODOLOGY -->
-  <section class="project-section">
-    <p class="section-label">How it was built</p>
-    <h3>Data &amp; Methodology</h3>
-    <p>
-      Analysis covers <strong>6.9 million CFPB complaints</strong> from January 2011 to March 2024,
-      downloaded via the public API and processed entirely in R.
-    </p>
-    <div class="process-steps">
-      <div class="process-step">
-        <div class="step-number">1</div>
-        <div class="step-content">
-          <strong>Ingest &amp; type-casting</strong>
-          <span>Load raw CSV and convert dates and factors with <code>readr::read_csv</code>. Handle encoding issues in narrative text fields.</span>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="step-number">2</div>
-        <div class="step-content">
-          <strong>Data cleaning</strong>
-          <span>Remove duplicates and records with empty narratives (0.6% of dataset) using <code>dplyr</code> filter chains.</span>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="step-number">3</div>
-        <div class="step-content">
-          <strong>Date enrichment</strong>
-          <span>Extract <code>Year</code>, <code>Month</code>, and <code>Quarter</code> fields via <code>lubridate</code> for time-series aggregation and seasonality checks.</span>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="step-number">4</div>
-        <div class="step-content">
-          <strong>Geo-join</strong>
-          <span>Map two-letter state codes to FIPS codes using <code>usmap</code> and <code>sf</code> for choropleth map generation.</span>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="step-number">5</div>
-        <div class="step-content">
-          <strong>Visual EDA</strong>
-          <span>Produce heat-maps, ranked bar charts, and time-series line plots with <code>ggplot2</code>. Export to Looker Studio for interactive drill-down.</span>
-        </div>
-      </div>
-    </div>
-    <p class="note">
-      Limitation: the dataset only captures consumers who filed formal complaints. Silent dissatisfaction is not recorded, so absolute volumes understate total friction.
-    </p>
-  </section>
-
-  <!-- KEY INSIGHTS -->
-  <section class="takeaways-section reveal">
-    <p class="section-label">What I found</p>
-    <h2>Key Insights</h2>
-    <div class="takeaways-numbered">
-      <div class="takeaway-item">
-        <span class="takeaway-num">01</span>
-        <span class="takeaway-text">
-          <strong>32% of all complaints since 2011 are credit-report errors</strong> — the single largest category by a wide margin, ahead of debt collection (18%) and mortgage (11%). This concentration points to systemic friction in the credit bureau dispute process.
-        </span>
-      </div>
-      <div class="takeaway-item">
-        <span class="takeaway-num">02</span>
-        <span class="takeaway-text">
-          <strong>Complaint volume doubled post-2020 vs. the pre-COVID baseline.</strong> The 2021–2022 surge aligns with pandemic-era financial hardship, stimulus fraud, and a wave of credit-freeze requests from newly unemployed consumers.
-        </span>
-      </div>
-      <div class="takeaway-item">
-        <span class="takeaway-num">03</span>
-        <span class="takeaway-text">
-          <strong>FL, TX, and CA generate 27% of total complaint volume</strong> despite representing ~26% of the US population — a slight overrepresentation explained by their concentration of large financial institutions and high immigrant populations unfamiliar with dispute processes.
-        </span>
-      </div>
-      <div class="takeaway-item">
-        <span class="takeaway-num">04</span>
-        <span class="takeaway-text">
-          <strong>Timely response rates declined after 2020.</strong> The share of complaints receiving a response within 15 days dropped from 97% (2019) to 91% (2022), suggesting that complaint volume growth outpaced institutional response capacity.
-        </span>
-      </div>
-    </div>
-  </section>
-
-  <!-- NEXT STEPS -->
-  <section class="project-section">
-    <p class="section-label">Where this goes next</p>
-    <h3>Recommendations &amp; Next Steps</h3>
-    <div class="process-steps">
-      <div class="process-step">
-        <div class="step-number"><i class="fas fa-chart-line" style="font-size:0.7rem;"></i></div>
-        <div class="step-content">
-          <strong>Monthly KPI dashboard for risk teams</strong>
-          <span>Publish a live credit-report complaint tracker with automated alerts when volume exceeds rolling-average thresholds.</span>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="step-number"><i class="fas fa-robot" style="font-size:0.7rem;"></i></div>
-        <div class="step-content">
-          <strong>NLP topic modelling on narratives</strong>
-          <span>Apply LDA or BERTopic to the free-text complaint narratives to surface emerging issue clusters before they become trends in the structured data.</span>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="step-number"><i class="fas fa-map-marked-alt" style="font-size:0.7rem;"></i></div>
-        <div class="step-content">
-          <strong>Pilot chatbot resolution in hotspot states</strong>
-          <span>Target FL, TX, and CA with automated dispute-assistance tools to reduce formal complaint filings and improve CX scores.</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONCLUSIONS -->
-  <section class="project-section">
-    <h3>Conclusions</h3>
-    <p>
-      The CFPB dataset reveals persistent systemic failures in credit reporting and debt collection.
-      Geographic concentration in the three largest states is real but partially population-driven —
-      the more actionable signal is the <strong>response-time degradation</strong> post-2020, which
-      represents a direct operational risk for any institution under CFPB supervision.
-    </p>
-    <p>
-      The pronounced uptick post-2020 underscores how macroeconomic shocks translate directly into
-      consumer-finance friction, and how quickly complaint volumes can outpace the capacity built
-      for normal operating conditions.
-    </p>
-
-    <h3 style="margin-top:1.5rem;">Credits</h3>
-    <p>
-      Analysis by Juan Camilo Sierra Escobar, December 2024.<br>
-      Data sourced from the <a href="https://www.consumerfinance.gov/data-research/consumer-complaints/" target="_blank" rel="noopener">Consumer Financial Protection Bureau (CFPB)</a>.
-    </p>
-
-    <h3 style="margin-top:1.5rem;">Repository</h3>
-    <p>
-      <a href="https://github.com/Deunich/cfpb-complaints-eda" target="_blank" rel="noopener">
-        View full R code and datasets on GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i>
-      </a>
+    <p class="slides-hint">
+      <i class="fas fa-external-link-alt" style="font-size:0.75rem;"></i>
+      <a href="https://docs.google.com/presentation/d/YOUR_PRESENTATION_ID_HERE" target="_blank" rel="noopener">Open presentation in full screen</a>
     </p>
   </section>
 

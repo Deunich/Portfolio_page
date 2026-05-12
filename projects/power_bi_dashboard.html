@@ -49,6 +49,12 @@
     .dl-btn:hover { background: var(--clr-accent-dark, #4f46e5); text-decoration: none; }
     .nb-frame { width: 100%; height: 720px; border: 1px solid var(--clr-border); border-radius: 8px; margin-top: 1rem; }
     .thumb { display: block; margin: 1.25rem auto; border-radius: 12px; max-width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    /* Google Slides embed */
+    .presentation-section { padding: 2rem 0 1.5rem; }
+    .slides-wrapper { position: relative; width: 100%; padding-top: 56.25%; border-radius: 12px; overflow: hidden; border: 1px solid var(--clr-border); box-shadow: 0 4px 16px rgba(0,0,0,0.07); margin-top: 1.25rem; background: var(--clr-surface); }
+    .slides-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .slides-hint { margin-top: 0.65rem; font-size: 0.83rem; color: var(--clr-muted); display: flex; align-items: center; gap: 6px; }
+
     /* Responsive */
     @media screen and (max-width: 720px) {
       .hero-layout { flex-direction: column; gap: 1.75rem; }
@@ -130,71 +136,25 @@
 <!-- ========= MAIN CONTENT ========= -->
 <main class="container">
 
-  <section class="project-section">
-    <h3>Overview</h3>
-    <p>
-      <strong>Goal:</strong> estimate each Major League Soccer club's 2024 home-gate revenue by
-      scraping official attendance from <em>FBref</em> and merging it with average ticket-price
-      data (Team Marketing Report &amp; TicketIQ). The output—a consolidated <code>.csv</code>,
-      interactive charts, and a Python notebook—lets stakeholders benchmark fan demand and
-      pricing strategy across the league.
-    </p>
-    <img class="thumb" src="../img/mls_attendance_hero.png"
-         alt="Bar chart of estimated gate revenue by MLS club">
-  </section>
-
-  <section class="project-section">
-    <h3>Downloads</h3>
-    <a class="dl-btn" href="../data/mls_schedule_2024.csv" download>
-      <i class="fas fa-file-csv"></i> Schedule + Attendance CSV
-    </a>
-    <a class="dl-btn" href="../data/mls_ticket_prices_2024.csv" download>
-      <i class="fas fa-file-csv"></i> Ticket Price Table CSV
-    </a>
-    <a class="dl-btn" href="../notebooks/MLS_Attendance_Revenue.ipynb" download>
-      <i class="fas fa-file-code"></i> Jupyter Notebook
-    </a>
-    <a class="dl-btn" href="../notebooks/MLS_Attendance_Revenue.html" target="_blank" rel="noopener">
-      <i class="fas fa-external-link-alt"></i> View Notebook HTML
-    </a>
-  </section>
-
-  <section class="project-section">
-    <h3>Methodology</h3>
-    <ol>
-      <li><strong>Scrape</strong> 2024 match-by-match attendance from FBref using <code>pandas.read_html</code>.</li>
-      <li><strong>Acquire</strong> average face-value ticket prices per club (Team Marketing Report Fan Cost Index) plus TicketIQ secondary-market averages for validation.</li>
-      <li><strong>Merge</strong> attendance &amp; price on club name, compute game-level gate revenue, then <code>groupby("Home")</code> for club totals.</li>
-      <li><strong>Visualize</strong> with Seaborn: revenue leaderboard, box-plots, week-over-week trend.</li>
-      <li><strong>Share</strong> notebook &amp; datasets so others can plug in updated ticket prices or simulate "what-if" scenarios.</li>
-    </ol>
-  </section>
-
-  <section class="project-section">
-    <h3>Notebook Preview</h3>
-    <p>Scroll or open full-screen for the complete analysis:</p>
-    <iframe class="nb-frame" src="../notebooks/MLS_Attendance_Revenue.html" title="MLS Attendance Revenue Notebook"></iframe>
-  </section>
-
-  <section class="takeaways-section reveal">
-    <p class="section-label">What I found</p>
-    <h2>Key Findings</h2>
-    <div class="takeaways-numbered">
-      <div class="takeaway-item">
-        <span class="takeaway-num">01</span>
-        <span class="takeaway-text"><strong>Inter Miami</strong> led the league with an estimated <strong>$70.3 million</strong> in home-gate revenue — 3.1× the league-average club.</span>
-      </div>
-      <div class="takeaway-item">
-        <span class="takeaway-num">02</span>
-        <span class="takeaway-text">Attendance uplift of <strong>+27%</strong> on matches when Lionel Messi played compared with the league baseline, confirming a measurable "Messi effect."</span>
-      </div>
-      <div class="takeaway-item">
-        <span class="takeaway-num">03</span>
-        <span class="takeaway-text">The median MLS club pulled ≈ <strong>$22 million</strong>, driven by an average ticket price of $65 and ~21,000 fans per game.</span>
-      </div>
+  <!-- PRESENTATION -->
+  <section class="project-section presentation-section">
+    <p class="section-label">Project Presentation</p>
+    <div class="slides-wrapper">
+      <iframe
+        src="https://docs.google.com/presentation/d/YOUR_PRESENTATION_ID_HERE/embed?start=false&loop=false&delayms=3000"
+        frameborder="0"
+        allowfullscreen="true"
+        mozallowfullscreen="true"
+        webkitallowfullscreen="true">
+      </iframe>
     </div>
+    <p class="slides-hint">
+      <i class="fas fa-external-link-alt" style="font-size:0.75rem;"></i>
+      <a href="https://docs.google.com/presentation/d/YOUR_PRESENTATION_ID_HERE" target="_blank" rel="noopener">Open presentation in full screen</a>
+    </p>
   </section>
 
+  <!-- CTA -->
   <div class="cta-section reveal">
     <span class="cta-label">Explore the project</span>
     <div class="cta-actions">
