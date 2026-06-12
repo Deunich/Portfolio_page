@@ -6,14 +6,14 @@
   <title>Consumer Complaints EDA (2011–2024) – Camilo Sierra</title>
   <meta name="description" content="EDA of 6.9M CFPB consumer complaints (2011–2024): credit-report errors account for 32% of complaints, post-2020 spike, and FL-TX-CA geographic hotspots.">
   <meta name="author" content="Camilo Sierra">
-  <link rel="icon" type="image/svg+xml" href="../icon.svg">
-  <link rel="icon" type="image/png" href="../favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="icon" type="image/png" href="../icon.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="../css/style.css">
   <style>
     /* ── Page hero ── */
     .page-hero { padding: 2.25rem 0 2.75rem; position: relative; overflow: hidden; border-bottom: 1px solid var(--clr-border); }
-    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 65% 80% at 20% 50%, rgba(200,150,46,0.10) 0%, transparent 65%); pointer-events: none; }
+    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 65% 80% at 20% 50%, rgba(226,183,20,0.10) 0%, transparent 65%); pointer-events: none; }
     .page-hero .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--clr-muted); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 0.2s; margin-bottom: 1.5rem; }
     .page-hero .back-link:hover { color: var(--clr-accent); text-decoration: none; }
     .hero-layout { display: flex; align-items: flex-start; justify-content: space-between; gap: 2.5rem; }
@@ -27,7 +27,7 @@
     .hero-stats { display: flex; flex-direction: column; gap: 1px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 14px; overflow: hidden; flex-shrink: 0; align-self: flex-start; margin-top: 0.25rem; box-shadow: 0 4px 12px rgba(0,0,0,0.04); min-width: 130px; }
     .stat-row { display: flex; align-items: center; gap: 12px; padding: 12px 18px; border-bottom: 1px solid var(--clr-border); }
     .stat-row:last-child { border-bottom: none; }
-    .stat-row-icon { width: 30px; height: 30px; border-radius: 8px; background: rgba(200,150,46,0.09); display: flex; align-items: center; justify-content: center; color: var(--clr-accent); font-size: 0.8rem; flex-shrink: 0; }
+    .stat-row-icon { width: 30px; height: 30px; border-radius: 8px; background: rgba(226,183,20,0.09); display: flex; align-items: center; justify-content: center; color: var(--clr-accent); font-size: 0.8rem; flex-shrink: 0; }
     .stat-row-info { display: flex; flex-direction: column; gap: 1px; }
     .stat-row-value { font-size: 1.05rem; font-weight: 700; color: var(--clr-text); line-height: 1; font-variant-numeric: tabular-nums; }
     .stat-row-label { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--clr-muted); }
@@ -44,7 +44,7 @@
     /* Process steps */
     .process-steps { display: flex; flex-direction: column; gap: 12px; margin-top: 1.25rem; }
     .process-step { display: flex; align-items: flex-start; gap: 16px; padding: 1rem 1.25rem; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 10px; }
-    .step-number { width: 28px; height: 28px; border-radius: 50%; background: rgba(200,150,46,0.10); color: var(--clr-accent); font-size: 0.78rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .step-number { width: 28px; height: 28px; border-radius: 50%; background: rgba(226,183,20,0.10); color: var(--clr-accent); font-size: 0.78rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
     .step-content { flex: 1; }
     .step-content strong { font-size: 0.95rem; color: var(--clr-text); display: block; margin-bottom: 2px; }
     .step-content span { font-size: 0.88rem; color: var(--clr-muted); line-height: 1.5; }
@@ -55,16 +55,16 @@
     .problem-table th { text-align: left; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--clr-muted); background: rgba(0,0,0,0.025); padding: 0.7rem 1rem; border-bottom: 1px solid var(--clr-border); }
     .problem-table td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--clr-border); color: var(--clr-text); vertical-align: top; line-height: 1.5; }
     .problem-table tr:last-child td { border-bottom: none; }
-    .problem-table tr:hover td { background: rgba(200,150,46,0.03); }
+    .problem-table tr:hover td { background: rgba(226,183,20,0.03); }
 
     /* Takeaways */
     .takeaways-section { padding: 3.5rem 0 2.5rem; border-bottom: 1px solid var(--clr-border); margin-bottom: 2.5rem; }
     .takeaways-section h2 { margin-bottom: 1.75rem; }
     .takeaways-numbered { display: flex; flex-direction: column; gap: 14px; }
     .takeaway-item { display: flex; align-items: flex-start; gap: 20px; padding: 1.25rem 1.5rem; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; cursor: default; }
-    .takeaway-item:hover { transform: translateX(5px); box-shadow: 0 6px 20px rgba(200,150,46,0.09); border-color: rgba(200,150,46,0.22); }
-    .takeaway-num { font-size: 1.5rem; font-weight: 800; color: rgba(200,150,46,0.20); line-height: 1; min-width: 34px; font-variant-numeric: tabular-nums; padding-top: 2px; transition: color 0.2s; }
-    .takeaway-item:hover .takeaway-num { color: rgba(200,150,46,0.45); }
+    .takeaway-item:hover { transform: translateX(5px); box-shadow: 0 6px 20px rgba(226,183,20,0.09); border-color: rgba(226,183,20,0.22); }
+    .takeaway-num { font-size: 1.5rem; font-weight: 800; color: rgba(226,183,20,0.20); line-height: 1; min-width: 34px; font-variant-numeric: tabular-nums; padding-top: 2px; transition: color 0.2s; }
+    .takeaway-item:hover .takeaway-num { color: rgba(226,183,20,0.45); }
     .takeaway-text { font-size: 0.97rem; line-height: 1.68; color: var(--clr-text); padding-top: 2px; }
 
     /* Looker Studio embed */
