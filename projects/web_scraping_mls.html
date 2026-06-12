@@ -5,14 +5,90 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Web Scraping MLS 2024 – Camilo Sierra</title>
   <meta name="description" content="Scraped and analyzed the 2024 MLS season to extract insights on team performance, player statistics, and the Messi economic impact.">
-  <meta name="author" content="Camilo Sierra">
+    <meta name="author" content="Camilo Sierra">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-    <link rel="icon" type="image/png" href="../icon.png">
+  <link rel="icon" type="image/png" href="../icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="article">
+  <meta property="og:url"         content="https://www.camiloanalytics.dev/projects/web_scraping_mls.html">
+  <meta property="og:title"       content="Web Scraping MLS 2024 – Camilo Sierra">
+  <meta property="og:description" content="Scraped and analyzed 2024 MLS season data: team performance, player stats, and the Messi economic impact on attendance using Python and BeautifulSoup.">
+  <meta property="og:image"       content="https://www.camiloanalytics.dev/img/imgog-image.png">
+  <meta property="og:locale"      content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Web Scraping MLS 2024 – Camilo Sierra">
+  <meta name="twitter:description" content="Python web scraping project analyzing 2024 MLS season data with BeautifulSoup, pandas, and data visualization.">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
   <link rel="stylesheet" href="../css/style.css">
-  <style>
+    <style>
+    /* ══════════════════════════════════════════════════
+       MLS BACKGROUND: PITCH + FLOATING CRESTS
+       ══════════════════════════════════════════════════ */
+
+        /* ── Football pitch overlay (dark mode) ── */
+    .mls-pitch-bg {
+      position: fixed;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 70px,
+          rgba(226, 183, 20, 0.025) 70px,
+          rgba(226, 183, 20, 0.025) 72px
+        ),
+        radial-gradient(
+          ellipse 85% 60% at 50% 0%,
+          rgba(226, 183, 20, 0.04) 0%,
+          transparent 70%
+        );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Floating crests container ── */
+    .mls-bg-particles {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.05;
+    }
+
+    .mls-particle {
+      position: absolute;
+      animation: crestFloat 28s linear infinite;
+    }
+
+        .mls-particle img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          mix-blend-mode: screen;
+          filter: grayscale(100%) brightness(0.8) contrast(1.2);
+          opacity: 0.6;
+        }
+
+    @keyframes crestFloat {
+      0%   { transform: translateY(105vh) rotate(0deg) scale(0.6); opacity: 0; }
+      10%  { opacity: 0.35; }
+      90%  { opacity: 0.35; }
+      100% { transform: translateY(-8vh) rotate(360deg) scale(1.0); opacity: 0; }
+    }
+
+    /* Ensure content sits above the background layers */
+    body > *:not(.mls-pitch-bg):not(.mls-bg-particles) {
+      position: relative;
+      z-index: 1;
+    }
+
     /* ── Page hero ── */
     .page-hero { padding: 2.25rem 0 2.75rem; position: relative; overflow: hidden; border-bottom: 1px solid var(--clr-border); }
     .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 65% 80% at 20% 50%, rgba(226,183,20,0.10) 0%, transparent 65%); pointer-events: none; }
@@ -47,10 +123,11 @@
     .cta-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--clr-muted); }
     .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
     /* ── Slider banner ── */
-    .mls-slider { padding: 8px 0; background: #fff; border-bottom: 1px solid #eee; }
+    .mls-slider { padding: 8px 0; background: #fff; border-bottom: 1px solid #eee; position: relative; z-index: 2; }
     .mls-slider .swiper { padding-bottom: 4px; }
     .mls-slider .swiper-slide { display: flex; justify-content: center; align-items: center; }
-    .mls-slider .swiper-slide img { max-height: 90px; width: auto; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,.15)); }
+    .mls-slider .swiper-slide img { max-height: 90px; width: auto; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,.15)); transition: transform 0.3s, filter 0.3s; }
+    .mls-slider .swiper-slide img:hover { transform: scale(1.15); filter: drop-shadow(0 2px 8px rgba(226,183,20,0.35)); }
     .swiper-button-next, .swiper-button-prev { color: var(--clr-accent); width: 28px; height: 28px; }
     /* ── Data tables ── */
     .data-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
@@ -94,6 +171,12 @@
   </style>
 </head>
 <body>
+
+<!-- ══ MLS BACKGROUND: PITCH OVERLAY ══ -->
+<div class="mls-pitch-bg"></div>
+
+<!-- ══ MLS BACKGROUND: FLOATING CRESTS ══ -->
+<div class="mls-bg-particles" id="mlsBg"></div>
 
 <!-- ========= NAVBAR ========= -->
 <header class="navbar">
@@ -252,6 +335,36 @@
   <span class="close" aria-label="Close">&times;</span>
   <img class="modal-content" id="modal-img" alt="">
 </div>
+
+<!-- ══ FLOATING CRESTS GENERATOR ══ -->
+<script>
+(function() {
+  // All 30 MLS crests
+  const crests = [
+    "atlanta.png","austin.png","charlotte.png","chicago.png","cincinnati.png",
+    "colorado.png","columbus.png","dallas.png","dcunited.png","houstondynamo.png",
+    "intermiami.png","kansascity.png","losangeles.png","losangelesgalaxy.png","minnesota.png",
+    "montreal.png","nashville.png","newengland.png","newyork.png","newyorkcity.png",
+    "orlandocity.png","philadelphia.png","portland.png","realstallake.png","sandiego.png",
+    "sanjose.png","seattle.png","st_louis_city.png","toronto.png","vancouver.png"
+  ];
+  const container = document.getElementById('mlsBg');
+  if (!container) return;
+
+  crests.forEach(function(name, i) {
+    const div = document.createElement('div');
+    div.className = 'mls-particle';
+    div.innerHTML = '<img src="../img/mls/' + name + '" alt="" loading="lazy">';
+    div.style.left = (Math.random() * 94 + 3) + '%';
+    div.style.animationDuration = (22 + Math.random() * 16) + 's';
+    div.style.animationDelay = (-Math.random() * 28) + 's';
+    var size = 35 + Math.random() * 35;
+    div.style.width = size + 'px';
+    div.style.height = size + 'px';
+    container.appendChild(div);
+  });
+})();
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
