@@ -10,8 +10,8 @@
   const MAX_DIST       = 140;
   const SPEED          = 0.35;
   const DOT_RADIUS     = 1.8;
-  const DOT_COLOR      = 'rgba(180,83,9,';
-  const LINE_COLOR     = 'rgba(180,83,9,';
+  const DOT_COLOR      = 'rgba(200,150,46,';
+  const LINE_COLOR     = 'rgba(200,150,46,';
 
   let W, H, particles;
 

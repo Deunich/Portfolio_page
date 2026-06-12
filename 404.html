@@ -1,62 +1,395 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <title>Page Not Found</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Data Not Found · Camilo Sierra</title>
+  <meta name="description" content="Page not found — the dataset you're looking for doesn't exist. Let's get you back on track.">
+  <meta name="robots" content="noindex, follow">
+
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <link rel="icon" type="image/png" href="/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+
   <style>
-    * {
-      line-height: 1.2;
-      margin: 0;
+    /* ── 404 page-specific overrides ── */
+
+    .error-section {
+      min-height: calc(100vh - 200px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 0;
     }
 
-    html {
-      color: #888;
-      display: table;
-      font-family: sans-serif;
-      height: 100%;
+    .error-card {
       text-align: center;
+      max-width: 620px;
       width: 100%;
+      background: var(--clr-surface);
+      border-radius: 20px;
+      border: 1px solid var(--clr-border);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+      padding: 3rem 2.5rem 2.8rem;
+      position: relative;
+      overflow: hidden;
     }
 
-    body {
-      display: table-cell;
-      vertical-align: middle;
-      margin: 2em auto;
+    /* Decorative accent line */
+    .error-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--clr-accent), transparent);
     }
 
-    h1 {
-      color: #555;
-      font-size: 2em;
-      font-weight: 400;
+    /* ── Error code ── */
+    .error-code {
+      font-size: clamp(5rem, 12vw, 8rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -4px;
+      color: var(--clr-text);
+      margin-bottom: 0.25rem;
+      position: relative;
+      display: inline-block;
     }
 
-    p {
-      margin: 0 auto;
-      width: 280px;
+    .error-code span {
+      color: var(--clr-accent);
     }
 
-    @media only screen and (max-width: 280px) {
+    /* ── Pulsing dot after 404 ── */
+    .error-dot {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      background: var(--clr-accent);
+      border-radius: 50%;
+      margin-left: 4px;
+      animation: pulse-dot 1.8s ease-in-out infinite;
+      vertical-align: super;
+      opacity: 0.7;
+    }
 
-      body,
-      p {
-        width: 95%;
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 0.3; transform: scale(0.85); }
+      50%      { opacity: 1;   transform: scale(1.15); }
+    }
+
+    /* ── Subtitle ── */
+    .error-title {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-weight: 700;
+      color: var(--clr-text);
+      margin-bottom: 0.75rem;
+    }
+
+    .error-title i {
+      color: var(--clr-accent);
+      margin-right: 6px;
+    }
+
+    .error-desc {
+      color: var(--clr-muted);
+      font-size: 0.95rem;
+      max-width: 440px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+
+    /* ── Animated "broken chart" ── */
+    .error-chart {
+      position: relative;
+      width: 200px;
+      height: 120px;
+      margin: 0 auto 2rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .error-bar {
+      width: 22px;
+      background: var(--clr-accent);
+      border-radius: 4px 4px 0 0;
+      opacity: 0.25;
+      animation: bar-wobble 2s ease-in-out infinite;
+      transform-origin: bottom center;
+    }
+
+    .error-bar:nth-child(1) { height: 40%; animation-delay: 0.0s; }
+    .error-bar:nth-child(2) { height: 75%; animation-delay: 0.15s; }
+    .error-bar:nth-child(3) { height: 55%; animation-delay: 0.3s; }
+    .error-bar:nth-child(4) { height: 90%; animation-delay: 0.45s; }
+    .error-bar:nth-child(5) { height: 30%; animation-delay: 0.6s; }
+
+    /* The broken bar */
+    .error-bar--broken {
+      position: relative;
+      background: #e05252;
+      opacity: 0.7;
+      animation: none;
+      height: 65%;
+    }
+
+    .error-bar--broken::after {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%) rotate(15deg);
+      width: 28px;
+      height: 3px;
+      background: #e05252;
+      border-radius: 2px;
+      animation: crack-shake 0.6s ease-in-out infinite alternate;
+    }
+
+    .error-bar--broken .crack-line {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      width: 2px;
+      height: 60%;
+      background: rgba(255, 255, 255, 0.5);
+      transform: translateX(-50%) rotate(-8deg);
+      border-radius: 1px;
+    }
+
+    @keyframes bar-wobble {
+      0%, 100% { transform: scaleY(1); }
+      25%      { transform: scaleY(0.92); }
+      75%      { transform: scaleY(1.05); }
+    }
+
+    @keyframes crack-shake {
+      0%   { transform: translateX(-50%) rotate(12deg); }
+      100% { transform: translateX(-50%) rotate(18deg); }
+    }
+
+    /* ── Axis label ── */
+    .error-chart-label {
+      position: absolute;
+      bottom: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--clr-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      white-space: nowrap;
+    }
+
+    /* ── Buttons ── */
+    .error-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .error-actions .btn {
+      min-width: 150px;
+      justify-content: center;
+    }
+
+    /* ── Fun "searching" line ── */
+    .error-search {
+      font-size: 0.78rem;
+      color: var(--clr-muted);
+      margin-top: 1.5rem;
+      font-family: 'Courier New', Courier, monospace;
+      opacity: 0.7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .error-search .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 14px;
+      background: var(--clr-accent);
+      animation: blink-cursor 0.9s step-end infinite;
+    }
+
+    @keyframes blink-cursor {
+      50% { opacity: 0; }
+    }
+
+    /* ── Responsive ── */
+    @media screen and (max-width: 600px) {
+      .error-card {
+        padding: 2rem 1.5rem 2rem;
+        border-radius: 14px;
       }
 
-      h1 {
-        font-size: 1.5em;
-        margin: 0 0 0.3em;
+      .error-chart {
+        width: 160px;
+        height: 100px;
       }
 
+      .error-bar { width: 18px; }
+
+      .error-actions .btn {
+        min-width: 130px;
+        font-size: 0.85rem;
+      }
+    }
+
+    @media screen and (max-width: 400px) {
+      .error-card { padding: 1.5rem 1rem; }
+      .error-chart { width: 130px; height: 80px; gap: 7px; }
+      .error-bar { width: 15px; }
+      .error-search { font-size: 0.7rem; }
     }
   </style>
 </head>
-
 <body>
-  <h1>Page Not Found</h1>
-  <p>Sorry, but the page you were trying to view does not exist.</p>
-</body>
 
+  <!-- ── Particle canvas (reuses portfolio background) ── -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <!-- ── Navbar ── -->
+  <header class="navbar">
+    <div class="container">
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav-right" id="nav-right">
+        <a href="/">Home</a>
+        <a href="/#about">About me</a>
+        <a href="/#projects">Projects</a>
+        <a href="/#contact">Contact</a>
+        <a href="https://github.com/Deunich/" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/deunich" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── 404 Content ── -->
+  <section class="error-section">
+    <div class="container">
+      <div class="error-card">
+
+        <!-- Error code -->
+        <div class="error-code">
+          4<span>0</span>4<span class="error-dot"></span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="error-title">
+          <i class="fas fa-database"></i> Data Not Found
+        </h1>
+
+        <!-- Description -->
+        <p class="error-desc">
+          This page doesn't exist in our records. It may have been moved, deleted,
+          or perhaps it never existed at all — <strong>like a NULL value in a primary key</strong>.
+        </p>
+
+        <!-- Animated chart -->
+        <div class="error-chart" aria-hidden="true">
+          <div class="error-bar"></div>
+          <div class="error-bar"></div>
+          <div class="error-bar"></div>
+          <div class="error-bar error-bar--broken">
+            <span class="crack-line"></span>
+          </div>
+          <div class="error-bar"></div>
+          <span class="error-chart-label">404 Error</span>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="error-actions">
+          <a href="/" class="btn btn-primary">
+            <i class="fas fa-house"></i> Back to Home
+          </a>
+          <a href="/#contact" class="btn btn-secondary">
+            <i class="fas fa-bug"></i> Report Issue
+          </a>
+        </div>
+
+        <!-- Terminal-style searching line -->
+        <div class="error-search">
+          <span>> Searching dataset for this page...</span>
+          <span class="cursor"></span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="mailto:sierra@camiloanalytics.dev" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        <a href="https://github.com/Deunich" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/deunich" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </div>
+      <p class="footer-tagline">Turning complex data into clear decisions.</p>
+      <p>&copy; 2026 Camilo Sierra &mdash; Master's Business Analyst</p>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+
+  <!-- ── Extra 404 interactivity ── -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      /* ── "Searching" terminal text rotator ── */
+      const messages = [
+        '> Scanning 404 records...',
+        '> Page not found in index...',
+        '> Running JOIN on reality...',
+        '> NULL pointer detected.',
+        '> Maybe try a different query?',
+        '> 0 rows returned.',
+        '> Redirecting to Home...',
+      ];
+
+      const searchEl = document.querySelector('.error-search span:first-child');
+      let msgIndex = 0;
+
+      if (searchEl) {
+        setInterval(() => {
+          msgIndex = (msgIndex + 1) % messages.length;
+          searchEl.textContent = messages[msgIndex];
+        }, 2500);
+      }
+
+      /* ── Fun: if user types "42" anywhere, show easter egg ── */
+      let typed = '';
+      document.addEventListener('keydown', (e) => {
+        typed += e.key;
+        if (typed.length > 4) typed = typed.slice(-4);
+        if (typed === '42') {
+          const dot = document.querySelector('.error-dot');
+          if (dot) {
+            dot.style.background = '#4caf50';
+            dot.style.boxShadow = '0 0 12px rgba(76, 175, 80, 0.6)';
+            setTimeout(() => {
+              dot.style.background = '';
+              dot.style.boxShadow = '';
+            }, 2000);
+          }
+        }
+      });
+
+    });
+  </script>
+
+</body>
 </html>
-<!-- IE needs 512+ bytes: https://docs.microsoft.com/archive/blogs/ieinternals/friendly-http-error-pages -->
