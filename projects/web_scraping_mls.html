@@ -5,185 +5,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Web Scraping MLS 2024 – Camilo Sierra</title>
   <meta name="description" content="Scraped and analyzed the 2024 MLS season to extract insights on team performance, player statistics, and the Messi economic impact.">
-    <meta name="author" content="Camilo Sierra">
+  <meta name="author" content="Camilo Sierra">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="icon" type="image/png" href="../icon.png">
-
-  <!-- Open Graph -->
   <meta property="og:type"        content="article">
   <meta property="og:url"         content="https://www.camiloanalytics.dev/projects/web_scraping_mls.html">
   <meta property="og:title"       content="Web Scraping MLS 2024 – Camilo Sierra">
   <meta property="og:description" content="Scraped and analyzed 2024 MLS season data: team performance, player stats, and the Messi economic impact on attendance using Python and BeautifulSoup.">
   <meta property="og:image"       content="https://www.camiloanalytics.dev/img/imgog-image.png">
   <meta property="og:locale"      content="en_US">
-
-  <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image">
   <meta name="twitter:title"       content="Web Scraping MLS 2024 – Camilo Sierra">
   <meta name="twitter:description" content="Python web scraping project analyzing 2024 MLS season data with BeautifulSoup, pandas, and data visualization.">
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
   <link rel="stylesheet" href="../css/style.css">
-    <style>
-    /* ══════════════════════════════════════════════════
-       MLS BACKGROUND: PITCH + FLOATING CRESTS
-       ══════════════════════════════════════════════════ */
-
-        /* ── Football pitch overlay (dark mode) ── */
-    .mls-pitch-bg {
-      position: fixed;
-      inset: 0;
-      background:
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 70px,
-          rgba(226, 183, 20, 0.025) 70px,
-          rgba(226, 183, 20, 0.025) 72px
-        ),
-        radial-gradient(
-          ellipse 85% 60% at 50% 0%,
-          rgba(226, 183, 20, 0.04) 0%,
-          transparent 70%
-        );
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── Floating crests container ── */
-    .mls-bg-particles {
-      position: fixed;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.05;
-    }
-
-    .mls-particle {
-      position: absolute;
-      animation: crestFloat 28s linear infinite;
-    }
-
-        .mls-particle img {
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-          mix-blend-mode: screen;
-          filter: grayscale(100%) brightness(0.8) contrast(1.2);
-          opacity: 0.6;
-        }
-
-    @keyframes crestFloat {
-      0%   { transform: translateY(105vh) rotate(0deg) scale(0.6); opacity: 0; }
-      10%  { opacity: 0.35; }
-      90%  { opacity: 0.35; }
-      100% { transform: translateY(-8vh) rotate(360deg) scale(1.0); opacity: 0; }
-    }
-
-    /* Ensure content sits above the background layers */
-    body > *:not(.mls-pitch-bg):not(.mls-bg-particles) {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ── Page hero ── */
-    .page-hero { padding: 2.25rem 0 2.75rem; position: relative; overflow: hidden; border-bottom: 1px solid var(--clr-border); }
-    .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 65% 80% at 20% 50%, rgba(226,183,20,0.10) 0%, transparent 65%); pointer-events: none; }
-    .page-hero .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--clr-muted); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 0.2s; margin-bottom: 1.5rem; }
-    .page-hero .back-link:hover { color: var(--clr-accent); text-decoration: none; }
-    .hero-layout { display: flex; align-items: flex-start; justify-content: space-between; gap: 2.5rem; }
-    .hero-main { flex: 1; min-width: 0; }
-    .hero-main .card-category { display: inline-block; margin-bottom: 0.6rem; }
-    .hero-main h1 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; letter-spacing: -0.5px; line-height: 1.15; color: var(--clr-text); margin-bottom: 0.75rem; }
-    .hero-main p { color: var(--clr-muted); font-size: 1rem; line-height: 1.65; max-width: 560px; margin-bottom: 1.25rem; }
-    .hero-tags { display: flex; flex-wrap: wrap; gap: 7px; }
-    /* Stats card */
-    .hero-stats { display: flex; flex-direction: column; gap: 1px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 14px; overflow: hidden; flex-shrink: 0; align-self: flex-start; margin-top: 0.25rem; box-shadow: 0 4px 12px rgba(0,0,0,0.04); min-width: 130px; }
-    .stat-row { display: flex; align-items: center; gap: 12px; padding: 12px 18px; border-bottom: 1px solid var(--clr-border); }
-    .stat-row:last-child { border-bottom: none; }
-    .stat-row-icon { width: 30px; height: 30px; border-radius: 8px; background: rgba(226,183,20,0.09); display: flex; align-items: center; justify-content: center; color: var(--clr-accent); font-size: 0.8rem; flex-shrink: 0; }
-    .stat-row-info { display: flex; flex-direction: column; gap: 1px; }
-    .stat-row-value { font-size: 1.05rem; font-weight: 700; color: var(--clr-text); line-height: 1; font-variant-numeric: tabular-nums; }
-    .stat-row-label { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--clr-muted); }
-    /* Takeaways */
-    .takeaways-section { padding: 3.5rem 0 2.5rem; border-bottom: 1px solid var(--clr-border); margin-bottom: 2.5rem; }
-    .section-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--clr-accent); margin-bottom: 0.5rem; }
-    .takeaways-section h2 { margin-bottom: 1.75rem; }
-    .takeaways-numbered { display: flex; flex-direction: column; gap: 14px; }
-    .takeaway-item { display: flex; align-items: flex-start; gap: 20px; padding: 1.25rem 1.5rem; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; cursor: default; }
-    .takeaway-item:hover { transform: translateX(5px); box-shadow: 0 6px 20px rgba(226,183,20,0.09); border-color: rgba(226,183,20,0.22); }
-    .takeaway-num { font-size: 1.5rem; font-weight: 800; color: rgba(226,183,20,0.20); line-height: 1; min-width: 34px; font-variant-numeric: tabular-nums; padding-top: 2px; transition: color 0.2s; }
-    .takeaway-item:hover .takeaway-num { color: rgba(226,183,20,0.45); }
-    .takeaway-text { font-size: 0.97rem; line-height: 1.68; color: var(--clr-text); padding-top: 2px; }
-    /* CTA */
-    .cta-section { padding-bottom: 3.5rem; display: flex; flex-direction: column; gap: 16px; }
-    .cta-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--clr-muted); }
-    .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-    /* ── Slider banner ── */
-    .mls-slider { padding: 8px 0; background: #fff; border-bottom: 1px solid #eee; position: relative; z-index: 2; }
-    .mls-slider .swiper { padding-bottom: 4px; }
-    .mls-slider .swiper-slide { display: flex; justify-content: center; align-items: center; }
-    .mls-slider .swiper-slide img { max-height: 90px; width: auto; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,.15)); transition: transform 0.3s, filter 0.3s; }
-    .mls-slider .swiper-slide img:hover { transform: scale(1.15); filter: drop-shadow(0 2px 8px rgba(226,183,20,0.35)); }
-    .swiper-button-next, .swiper-button-prev { color: var(--clr-accent); width: 28px; height: 28px; }
-    /* ── Data tables ── */
-    .data-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
-    .data-table th, .data-table td { border: 1px solid #e5e5e5; text-align: left; }
-    .data-table thead { background: #fafafa; font-weight: 600; }
-    .data-table tbody tr:nth-child(even) { background: #f7f7f7; }
-    .data-table.compact { font-size: 0.58rem; width: 100%; }
-    .data-table.compact th, .data-table.compact td { padding: 2px 4px; }
-    .data-table.error { width: 88%; margin: 1rem auto 2rem; font-size: 0.75rem; }
-    .data-table.error th, .data-table.error td { border: 1px solid #e0dede; padding: 4px 6px; }
-    .data-table.error thead { background: #fff4f4; font-weight: 600; }
-    .data-table.error tbody tr:nth-child(even) { background: #fdf7f7; }
-    .table-wrap { overflow-x: auto; margin: .75rem 0 1.25rem; }
-    /* ── KPI table ── */
-    .kpi-table { margin: 1rem auto; }
-    .kpi-table caption { caption-side: top; text-align: center; font-weight: 600; margin-bottom: .5rem; }
-    .kpi-table th, .kpi-table td { text-align: center; }
-    /* ── Text block ── */
-    .steps-left { margin: .5rem 0 1.25rem; }
-    .steps-left .intro { margin: 0 0 .75rem; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
-    .steps-left ol { list-style: decimal; padding-left: 1.25rem; margin: 1rem 0 0; }
-    .steps-left li { margin: .35rem 0; }
-    /* Responsive */
-    @media screen and (max-width: 720px) {
-      .hero-layout { flex-direction: column; gap: 1.75rem; }
-      .hero-stats { flex-direction: row; min-width: unset; width: 100%; border-radius: 12px; }
-      .stat-row { flex: 1; flex-direction: column; align-items: center; text-align: center; gap: 6px; border-bottom: none; border-right: 1px solid var(--clr-border); }
-      .stat-row:last-child { border-right: none; }
-      .stat-row-info { align-items: center; }
-    }
-    @media (max-width: 600px) {
-      .takeaway-item { padding: 1rem 1.1rem; gap: 14px; }
-      .takeaway-num { font-size: 1.2rem; min-width: 26px; }
-    }
-
-    /* Google Slides embed */
-    .presentation-section { padding: 2rem 0 1.5rem; }
-    .slides-wrapper { position: relative; width: 100%; padding-top: 56.25%; border-radius: 12px; overflow: hidden; border: 1px solid var(--clr-border); box-shadow: 0 4px 16px rgba(0,0,0,0.07); margin-top: 1.25rem; background: var(--clr-surface); }
-    .slides-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-    .slides-hint { margin-top: 0.65rem; font-size: 0.83rem; color: var(--clr-muted); display: flex; align-items: center; gap: 6px; }
+  <style>
+    .page-hero { padding:2.25rem 0 2.75rem; position:relative; overflow:hidden; border-bottom:1px solid var(--clr-border); }
+    .page-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 65% 80% at 20% 50%, rgba(226,183,20,0.10) 0%, transparent 65%); pointer-events:none; }
+    .page-hero .back-link { display:inline-flex; align-items:center; gap:6px; color:var(--clr-muted); font-size:.875rem; font-weight:500; text-decoration:none; transition:color .2s; margin-bottom:1.5rem; }
+    .page-hero .back-link:hover { color:var(--clr-accent); text-decoration:none; }
+    .hero-layout { display:flex; align-items:flex-start; justify-content:space-between; gap:2.5rem; }
+    .hero-main { flex:1; min-width:0; }
+    .hero-main .card-category { display:inline-block; margin-bottom:.6rem; }
+    .hero-main h1 { font-size:clamp(1.75rem,3.5vw,2.5rem); font-weight:800; letter-spacing:-.5px; line-height:1.15; color:var(--clr-text); margin-bottom:.75rem; }
+    .hero-main p { color:var(--clr-muted); font-size:1rem; line-height:1.65; max-width:560px; margin-bottom:1.25rem; }
+    .hero-tags { display:flex; flex-wrap:wrap; gap:7px; }
+    .hero-stats { display:flex; flex-direction:column; gap:1px; background:var(--clr-surface); border:1px solid var(--clr-border); border-radius:14px; overflow:hidden; flex-shrink:0; align-self:flex-start; margin-top:.25rem; box-shadow:0 4px 12px rgba(0,0,0,.04); min-width:130px; }
+    .stat-row { display:flex; align-items:center; gap:12px; padding:12px 18px; border-bottom:1px solid var(--clr-border); }
+    .stat-row:last-child { border-bottom:none; }
+    .stat-row-icon { width:30px; height:30px; border-radius:8px; background:rgba(226,183,20,.09); display:flex; align-items:center; justify-content:center; color:var(--clr-accent); font-size:.8rem; flex-shrink:0; }
+    .stat-row-info { display:flex; flex-direction:column; gap:1px; }
+    .stat-row-value { font-size:1.05rem; font-weight:700; color:var(--clr-text); line-height:1; font-variant-numeric:tabular-nums; }
+    .stat-row-label { font-size:.68rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--clr-muted); }
+    .section-label { font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:var(--clr-accent); margin-bottom:.5rem; }
+    .project-section { margin-top:2rem; margin-bottom:2.5rem; }
+    .presentation-section { padding:2rem 0 1.5rem; }
+    .slides-wrapper { position:relative; width:100%; padding-top:56.25%; border-radius:12px; overflow:hidden; border:1px solid var(--clr-border); box-shadow:0 4px 16px rgba(0,0,0,.07); margin-top:1.25rem; background:var(--clr-surface); }
+    .slides-wrapper iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+    .slides-hint { margin-top:.65rem; font-size:.83rem; color:var(--clr-muted); display:flex; align-items:center; gap:6px; }
+    .cta-section { padding-bottom:3.5rem; display:flex; flex-direction:column; gap:16px; }
+    .cta-label { font-size:.75rem; font-weight:600; text-transform:uppercase; letter-spacing:1.5px; color:var(--clr-muted); }
+    .cta-actions { display:flex; gap:12px; flex-wrap:wrap; }
+    @media screen and (max-width:720px) { .hero-layout { flex-direction:column; gap:1.75rem; } .hero-stats { flex-direction:row; min-width:unset; width:100%; border-radius:12px; } .stat-row { flex:1; flex-direction:column; align-items:center; text-align:center; gap:6px; border-bottom:none; border-right:1px solid var(--clr-border); } .stat-row:last-child { border-right:none; } .stat-row-info { align-items:center; } }
   </style>
 </head>
 <body>
-
-<!-- ══ MLS BACKGROUND: PITCH OVERLAY ══ -->
-<div class="mls-pitch-bg"></div>
-
-<!-- ══ MLS BACKGROUND: FLOATING CRESTS ══ -->
-<div class="mls-bg-particles" id="mlsBg"></div>
-
-<!-- ========= NAVBAR ========= -->
 <header class="navbar">
   <div class="container">
-    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <nav class="nav-right" id="nav-right">
       <a href="../index.html">Home</a>
       <a href="../index.html#about">About me</a>
@@ -194,53 +64,9 @@
     </nav>
   </div>
 </header>
-
-<!-- ========= MLS LOGOS SLIDER ========= -->
-<section class="mls-slider">
-  <div class="swiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide"><img src="../img/mls/atlanta.png"          alt="Atlanta United FC" /></div>
-      <div class="swiper-slide"><img src="../img/mls/austin.png"           alt="Austin FC" /></div>
-      <div class="swiper-slide"><img src="../img/mls/charlotte.png"        alt="Charlotte FC" /></div>
-      <div class="swiper-slide"><img src="../img/mls/chicago.png"          alt="Chicago Fire FC" /></div>
-      <div class="swiper-slide"><img src="../img/mls/cincinnati.png"       alt="FC Cincinnati" /></div>
-      <div class="swiper-slide"><img src="../img/mls/colorado.png"         alt="Colorado Rapids" /></div>
-      <div class="swiper-slide"><img src="../img/mls/columbus.png"         alt="Columbus Crew" /></div>
-      <div class="swiper-slide"><img src="../img/mls/dallas.png"           alt="FC Dallas" /></div>
-      <div class="swiper-slide"><img src="../img/mls/dcunited.png"         alt="D.C. United" /></div>
-      <div class="swiper-slide"><img src="../img/mls/houstondynamo.png"    alt="Houston Dynamo FC" /></div>
-      <div class="swiper-slide"><img src="../img/mls/intermiami.png"       alt="Inter Miami CF" /></div>
-      <div class="swiper-slide"><img src="../img/mls/kansascity.png"       alt="Sporting Kansas City" /></div>
-      <div class="swiper-slide"><img src="../img/mls/losangeles.png"       alt="Los Angeles FC" /></div>
-      <div class="swiper-slide"><img src="../img/mls/losangelesgalaxy.png" alt="LA Galaxy" /></div>
-      <div class="swiper-slide"><img src="../img/mls/minnesota.png"        alt="Minnesota United FC" /></div>
-      <div class="swiper-slide"><img src="../img/mls/montreal.png"         alt="CF Montréal" /></div>
-      <div class="swiper-slide"><img src="../img/mls/nashville.png"        alt="Nashville SC" /></div>
-      <div class="swiper-slide"><img src="../img/mls/newengland.png"       alt="New England Revolution" /></div>
-      <div class="swiper-slide"><img src="../img/mls/newyork.png"          alt="New York Red Bulls" /></div>
-      <div class="swiper-slide"><img src="../img/mls/newyorkcity.png"      alt="New York City FC" /></div>
-      <div class="swiper-slide"><img src="../img/mls/orlandocity.png"      alt="Orlando City SC" /></div>
-      <div class="swiper-slide"><img src="../img/mls/philadelphia.png"     alt="Philadelphia Union" /></div>
-      <div class="swiper-slide"><img src="../img/mls/portland.png"         alt="Portland Timbers" /></div>
-      <div class="swiper-slide"><img src="../img/mls/realstallake.png"     alt="Real Salt Lake" /></div>
-      <div class="swiper-slide"><img src="../img/mls/sandiego.png"         alt="San Diego FC" /></div>
-      <div class="swiper-slide"><img src="../img/mls/sanjose.png"          alt="San Jose Earthquakes" /></div>
-      <div class="swiper-slide"><img src="../img/mls/seattle.png"          alt="Seattle Sounders FC" /></div>
-      <div class="swiper-slide"><img src="../img/mls/st_louis_city.png"    alt="St. Louis City SC" /></div>
-      <div class="swiper-slide"><img src="../img/mls/toronto.png"          alt="Toronto FC" /></div>
-      <div class="swiper-slide"><img src="../img/mls/vancouver.png"        alt="Vancouver Whitecaps FC" /></div>
-    </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-  </div>
-</section>
-
-<!-- ========= PROJECT HERO ========= -->
 <header class="page-hero">
   <div class="container">
-    <a href="../index.html#projects" class="back-link">
-      <i class="fas fa-arrow-left"></i> Back to Portfolio
-    </a>
+    <a href="../index.html#projects" class="back-link"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
     <div class="hero-layout">
       <div class="hero-main">
         <span class="card-category">Web Scraping &middot; Python</span>
@@ -255,69 +81,32 @@
         </div>
       </div>
       <div class="hero-stats">
-        <div class="stat-row">
-          <div class="stat-row-icon"><i class="fas fa-futbol"></i></div>
-          <div class="stat-row-info">
-            <span class="stat-row-value">513</span>
-            <span class="stat-row-label">Matches</span>
-          </div>
-        </div>
-        <div class="stat-row">
-          <div class="stat-row-icon"><i class="fas fa-tools"></i></div>
-          <div class="stat-row-info">
-            <span class="stat-row-value">5</span>
-            <span class="stat-row-label">Tools</span>
-          </div>
-        </div>
-        <div class="stat-row">
-          <div class="stat-row-icon"><i class="fas fa-calendar-alt"></i></div>
-          <div class="stat-row-info">
-            <span class="stat-row-value">2024</span>
-            <span class="stat-row-label">Year</span>
-          </div>
-        </div>
+        <div class="stat-row"><div class="stat-row-icon"><i class="fas fa-futbol"></i></div><div class="stat-row-info"><span class="stat-row-value">513</span><span class="stat-row-label">Matches</span></div></div>
+        <div class="stat-row"><div class="stat-row-icon"><i class="fas fa-tools"></i></div><div class="stat-row-info"><span class="stat-row-value">5</span><span class="stat-row-label">Tools</span></div></div>
+        <div class="stat-row"><div class="stat-row-icon"><i class="fas fa-calendar-alt"></i></div><div class="stat-row-info"><span class="stat-row-value">2024</span><span class="stat-row-label">Year</span></div></div>
       </div>
     </div>
   </div>
 </header>
-
-<!-- ========= MAIN CONTENT ========= -->
 <main class="container">
-
-  <!-- PRESENTATION -->
   <section class="project-section presentation-section">
     <p class="section-label">Project Presentation</p>
     <div class="slides-wrapper">
-      <iframe
-        src="https://docs.google.com/presentation/d/YOUR_PRESENTATION_ID_HERE/embed?start=false&loop=false&delayms=3000"
-        frameborder="0"
-        allowfullscreen="true"
-        mozallowfullscreen="true"
-        webkitallowfullscreen="true">
-      </iframe>
+      <iframe src="https://docs.google.com/presentation/d/YOUR_PRESENTATION_ID_HERE/embed?start=false&loop=false&delayms=3000" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
     </div>
     <p class="slides-hint">
-      <i class="fas fa-external-link-alt" style="font-size:0.75rem;"></i>
+      <i class="fas fa-external-link-alt" style="font-size:.75rem;"></i>
       <a href="https://docs.google.com/presentation/d/YOUR_PRESENTATION_ID_HERE" target="_blank" rel="noopener">Open presentation in full screen</a>
     </p>
   </section>
-
-  <!-- CTA -->
   <div class="cta-section reveal">
     <span class="cta-label">Explore the project</span>
     <div class="cta-actions">
-      <a href="https://github.com/Deunich/mls-web-scraping" target="_blank" rel="noopener" class="btn btn-primary">
-        <i class="fab fa-github"></i> View on GitHub
-      </a>
-      <a href="../index.html#projects" class="btn btn-secondary">
-        <i class="fas fa-arrow-left"></i> Back to Portfolio
-      </a>
+      <a href="https://github.com/Deunich/mls-web-scraping" target="_blank" rel="noopener" class="btn btn-primary"><i class="fab fa-github"></i> View on GitHub</a>
+      <a href="../index.html#projects" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
     </div>
   </div>
-
 </main>
-
-<!-- ========= FOOTER ========= -->
 <footer class="footer">
   <div class="container">
     <div class="footer-links">
@@ -329,58 +118,10 @@
     <p>&copy; 2026 Camilo Sierra &mdash; Master's Business Analyst</p>
   </div>
 </footer>
-
-<!-- ========= IMAGE MODAL ========= -->
 <div id="img-modal" class="modal" role="dialog" aria-modal="true" aria-label="Image preview">
   <span class="close" aria-label="Close">&times;</span>
   <img class="modal-content" id="modal-img" alt="">
 </div>
-
-<!-- ══ FLOATING CRESTS GENERATOR ══ -->
-<script>
-(function() {
-  // All 30 MLS crests
-  const crests = [
-    "atlanta.png","austin.png","charlotte.png","chicago.png","cincinnati.png",
-    "colorado.png","columbus.png","dallas.png","dcunited.png","houstondynamo.png",
-    "intermiami.png","kansascity.png","losangeles.png","losangelesgalaxy.png","minnesota.png",
-    "montreal.png","nashville.png","newengland.png","newyork.png","newyorkcity.png",
-    "orlandocity.png","philadelphia.png","portland.png","realstallake.png","sandiego.png",
-    "sanjose.png","seattle.png","st_louis_city.png","toronto.png","vancouver.png"
-  ];
-  const container = document.getElementById('mlsBg');
-  if (!container) return;
-
-  crests.forEach(function(name, i) {
-    const div = document.createElement('div');
-    div.className = 'mls-particle';
-    div.innerHTML = '<img src="../img/mls/' + name + '" alt="" loading="lazy">';
-    div.style.left = (Math.random() * 94 + 3) + '%';
-    div.style.animationDuration = (22 + Math.random() * 16) + 's';
-    div.style.animationDelay = (-Math.random() * 28) + 's';
-    var size = 35 + Math.random() * 35;
-    div.style.width = size + 'px';
-    div.style.height = size + 'px';
-    container.appendChild(div);
-  });
-})();
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script>
-  new Swiper('.swiper', {
-    slidesPerView: 5,
-    spaceBetween: 10,
-    loop: true,
-    autoplay: { delay: 2500, disableOnInteraction: false },
-    breakpoints: {
-      0:    { slidesPerView: 3 },
-      640:  { slidesPerView: 4 },
-      1024: { slidesPerView: 6 }
-    },
-    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
-  });
-</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
 <script src="../js/app.js"></script>
