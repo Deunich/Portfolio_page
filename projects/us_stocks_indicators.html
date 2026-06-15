@@ -160,11 +160,11 @@
     <div class="overview-grid">
       <div class="overview-card">
         <h3><i class="fas fa-question-circle"></i> Business Question</h3>
-        <p>¿Pueden los indicadores financieros de una compañía ayudar a anticipar si su acción tendrá una variación positiva de precio y, al mismo tiempo, revelar grupos de compañías con comportamientos financieros similares?</p>
+        <p>Can a company's financial indicators help anticipate whether its stock will experience a positive price variation, while simultaneously revealing groups of companies with similar financial behaviors?</p>
       </div>
       <div class="overview-card">
         <h3><i class="fas fa-bullseye"></i> Business Value</h3>
-        <p>Este proyecto puede funcionar como una herramienta inicial de <strong>screening financiero</strong>. No busca predecir precios exactos, sino clasificar compañías según señales financieras que podrían estar asociadas con variaciones positivas o negativas de precio. Apoya procesos de análisis de inversión, priorización de compañías y exploración de perfiles financieros por sector.</p>
+        <p>This project can function as an initial <strong>financial screening</strong> tool. It does not aim to predict exact prices, but to classify companies based on financial signals that could be associated with positive or negative price variations. It supports investment analysis processes, company prioritization, and exploration of financial profiles by sector.</p>
       </div>
     </div>
   </section>
@@ -174,10 +174,10 @@
     <p class="section-label">Methodology</p>
     <h2>STAR Framework</h2>
     <div class="star-grid">
-      <div class="star-card"><div class="star-letter">S</div><h4>Situation</h4><p>Base de datos de 11,566 registros con 173 variables financieras de acciones de EE.UU. (2014–2018) en 11 sectores. Se necesita evaluar si estos indicadores pueden clasificar variaciones de precio.</p></div>
-      <div class="star-card"><div class="star-letter">T</div><h4>Task</h4><p>Construir un flujo analítico que clasifique acciones con variación positiva/negativa usando modelos supervisados y complemente con segmentación no supervisada.</p></div>
-      <div class="star-card"><div class="star-letter">A</div><h4>Action</h4><p>Preparación de datos, escalamiento, codificación One-Hot de Sector, división temporal 70/15/15. Comparación de Logistic Regression, Random Forest, SVM RBF y XGBoost. Segmentación con PCA, t-SNE, UMAP y K-Means.</p></div>
-      <div class="star-card"><div class="star-letter">R</div><h4>Result</h4><p>Random Forest alcanzó AUC ~0.62. XGBoost ofreció mejor equilibrio F1 (~0.22). Los clusters de t-SNE/UMAP revelaron grupos consistentes de perfiles financieros.</p></div>
+            <div class="star-card"><div class="star-letter">S</div><h4>Situation</h4><p>Database of 11,566 records with 173 financial variables of US stocks (2014–2018) across 11 sectors. Need to evaluate whether these indicators can classify price variations.</p></div>
+      <div class="star-card"><div class="star-letter">T</div><h4>Task</h4><p>Build an analytical pipeline to classify stocks with positive/negative variation using supervised models and complement with unsupervised segmentation.</p></div>
+      <div class="star-card"><div class="star-letter">A</div><h4>Action</h4><p>Data preparation, scaling, One-Hot encoding of Sector, temporal split 70/15/15. Comparison of Logistic Regression, Random Forest, SVM RBF, and XGBoost. Segmentation with PCA, t-SNE, UMAP, and K-Means.</p></div>
+      <div class="star-card"><div class="star-letter">R</div><h4>Result</h4><p>Random Forest achieved AUC ~0.62. XGBoost offered better F1 balance (~0.22). t-SNE/UMAP clusters revealed consistent groups of financial profiles.</p></div>
     </div>
   </section>
 
@@ -268,7 +268,7 @@
       <div class="viz-item"><i class="fas fa-chart-pie"></i> Class variable distribution</div>
       <div class="viz-item"><i class="fas fa-chart-bar"></i> Average Price Var per year</div>
       <div class="viz-item"><i class="fas fa-chart-column"></i> Model comparison: Accuracy, F1, AUC</div>
-      <div class="viz-item"><i class="fas fa-map-alt"></i> 2D cluster map with t-SNE and UMAP</div>
+      <div class="viz-item"><i class="fas fa-map-marked-alt"></i> 2D cluster map with t-SNE and UMAP</div>
       <div class="viz-item"><i class="fas fa-th"></i> Heatmap: clusters vs Price Var deciles</div>
       <div class="viz-item"><i class="fas fa-star"></i> Feature importance (best model)</div>
       <div class="viz-item"><i class="fas fa-table"></i> Confusion matrix (selected model)</div>
