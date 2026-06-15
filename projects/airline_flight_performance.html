@@ -64,9 +64,26 @@
     .insight-text strong { display:block; font-size:.93rem; color:var(--clr-text); margin-bottom:2px; }
     .insight-text span { font-size:.86rem; color:var(--clr-muted); line-height:1.5; }
     .dashboard-section { margin:2rem 0 2.5rem; }
-    .dashboard-wrapper { position:relative; width:100%; max-width:1200px; margin:1.25rem auto 0; background:var(--clr-surface); border:1px solid var(--clr-border); border-radius:14px; overflow:hidden; box-shadow:0 6px 24px rgba(0,0,0,.07); }
-    .dashboard-wrapper .tableauPlaceholder { width:100% !important; }
-    .dashboard-wrapper .tableauViz { width:100% !important; }
+    .dashboard-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      margin: 1.25rem auto 0;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--clr-border);
+      box-shadow: 0 6px 24px rgba(0,0,0,.07);
+      background: var(--clr-surface);
+    }
+    .dashboard-wrapper tableau-viz,
+    .dashboard-wrapper iframe,
+    .dashboard-wrapper .tableauPlaceholder,
+    .dashboard-wrapper .tableauViz {
+      display: block;
+      width: 100% !important;
+      height: auto !important;
+      min-height: 500px;
+    }
     .presentation-section { padding:2rem 0 1.5rem; }
     .slides-wrapper { position:relative; width:100%; padding-top:56.25%; border-radius:14px; overflow:hidden; border:1px solid var(--clr-border); box-shadow:0 4px 16px rgba(0,0,0,.07); margin-top:1.25rem; background:var(--clr-surface); }
     .slides-wrapper iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
@@ -171,35 +188,13 @@
     <h2>Interactive Tableau Dashboard</h2>
     <p style="color:var(--clr-muted); margin-bottom:0;">Explore flight performance data interactively. Analyze delays, cancellations, and on-time performance by airport, continent, passenger demographics, and time.</p>
     <div class="dashboard-wrapper">
-      <div class='tableauPlaceholder' id='viz1781496785668' style='position: relative'>
-        <noscript><a href='#'><img alt='Airline Flight Performance Dashboard' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ai&#47;AirlineFlightPerformanceDashboard&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript>
-        <object class='tableauViz' style='display:none;'>
-          <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-          <param name='embed_code_version' value='3' />
-          <param name='site_root' value='' />
-          <param name='name' value='AirlineFlightPerformanceDashboard&#47;Dashboard1' />
-          <param name='tabs' value='no' />
-          <param name='toolbar' value='yes' />
-          <param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ai&#47;AirlineFlightPerformanceDashboard&#47;Dashboard1&#47;1.png' />
-          <param name='animate_transition' value='yes' />
-          <param name='display_static_image' value='yes' />
-          <param name='display_spinner' value='yes' />
-          <param name='display_overlay' value='yes' />
-          <param name='display_count' value='yes' />
-          <param name='language' value='es-ES' />
-          <param name='filter' value='publish=yes' />
-        </object>
-      </div>
-      <script type='text/javascript'>
-        var divElement = document.getElementById('viz1781496785668');
-        var vizElement = divElement.getElementsByTagName('object')[0];
-        if ( divElement.offsetWidth > 800 ) { vizElement.style.minWidth='800px';vizElement.style.maxWidth='1200px';vizElement.style.width='100%';vizElement.style.minHeight='1027px';vizElement.style.maxHeight='1427px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';}
-        else if ( divElement.offsetWidth > 500 ) { vizElement.style.minWidth='800px';vizElement.style.maxWidth='1200px';vizElement.style.width='100%';vizElement.style.minHeight='1027px';vizElement.style.maxHeight='1427px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';}
-        else { vizElement.style.width='100%';vizElement.style.height='2677px';}
-        var scriptElement = document.createElement('script');
-        scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-        vizElement.parentNode.insertBefore(scriptElement, vizElement);
-      </script>
+      <tableau-viz
+        id="airline-viz"
+        src="https://public.tableau.com/views/AirlineFlightPerformanceDashboard/Dashboard1"
+        toolbar="bottom"
+        hide-tabs>
+      </tableau-viz>
+      <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
     </div>
     <p class="slides-hint">
       <i class="fas fa-external-link-alt" style="font-size:.75rem;"></i>
