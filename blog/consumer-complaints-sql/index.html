@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analyzing 6.9 Million Consumer Complaints with SQL &amp; GCP — Camilo Sierra</title>
+  <meta name="description" content="Exploratory data analysis of 13 years of CFPB consumer complaints data using BigQuery SQL, uncovering credit-report errors as the top complaint driver and geographic hotspots.">
+  <meta name="author" content="Camilo Sierra">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" href="/icon.png">
+  <link rel="canonical" href="https://www.camiloanalytics.dev/blog/consumer-complaints-sql/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.camiloanalytics.dev/blog/consumer-complaints-sql/">
+  <meta property="og:title" content="Analyzing 6.9 Million Consumer Complaints with SQL &amp; GCP">
+  <meta property="og:description" content="EDA of 13 years of CFPB complaints using BigQuery SQL and Looker Studio dashboards.">
+  <meta property="og:image" content="https://www.camiloanalytics.dev/img/imgog-image.png">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-05-15">
+  <meta property="article:author" content="Camilo Sierra">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    .article-hero { padding:2.5rem 0 2rem; border-bottom:1px solid var(--clr-border); margin-bottom:2.5rem; }
+    .article-hero .back-link { display:inline-flex; align-items:center; gap:6px; color:var(--clr-muted); font-size:.875rem; font-weight:500; text-decoration:none; transition:color .2s; margin-bottom:1.5rem; }
+    .article-hero .back-link:hover { color:var(--clr-accent); }
+    .article-hero .cat { font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:var(--clr-accent); margin-bottom:.5rem; display:block; }
+    .article-hero h1 { font-size:clamp(1.6rem,3.2vw,2.2rem); font-weight:800; letter-spacing:-.5px; line-height:1.2; color:var(--clr-text); margin-bottom:.5rem; }
+    .article-hero .meta { color:var(--clr-muted); font-size:.85rem; display:flex; gap:16px; flex-wrap:wrap; margin-top:.5rem; }
+    .article-hero .meta span { display:inline-flex; align-items:center; gap:5px; }
+    .article-content { max-width:740px; margin:0 auto 3rem; }
+    .article-content h2 { font-size:1.4rem; font-weight:700; margin:2rem 0 .8rem; color:var(--clr-text); }
+    .article-content h3 { font-size:1.1rem; font-weight:600; margin:1.5rem 0 .5rem; color:var(--clr-text); }
+    .article-content p { color:var(--clr-muted); font-size:.95rem; line-height:1.75; margin-bottom:1rem; }
+    .article-content ul { margin:1rem 0; padding-left:1.2rem; }
+    .article-content li { color:var(--clr-muted); font-size:.93rem; line-height:1.7; margin-bottom:.4rem; }
+    .article-content strong { color:var(--clr-text); }
+    .article-content .hl { color:var(--clr-accent); font-weight:600; }
+    .article-content code { background:rgba(230,237,243,.06); padding:2px 6px; border-radius:4px; font-size:.85rem; color:var(--clr-accent); }
+    .article-content .highlight-box { background:var(--clr-surface); border:1px solid var(--clr-border); border-left:3px solid var(--clr-accent); border-radius:8px; padding:1.2rem 1.4rem; margin:1.5rem 0; }
+    .article-content .highlight-box p { margin-bottom:.3rem; }
+    .article-content pre { background:var(--clr-surface); border:1px solid var(--clr-border); border-radius:10px; padding:1rem 1.2rem; overflow-x:auto; margin:1rem 0; }
+    .article-content pre code { background:none; padding:0; font-size:.82rem; line-height:1.6; color:var(--clr-text); }
+    .article-footer { border-top:1px solid var(--clr-border); padding-top:2rem; margin-top:3rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+    @media (max-width:600px) { .article-hero { padding:1.5rem 0 1.5rem; } }
+  </style>
+</head>
+<body>
+<header class="navbar">
+  <div class="container">
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav-right" id="nav-right">
+      <a href="../../index.html">Home</a>
+      <a href="../../index.html#about">About me</a>
+      <a href="../../index.html#projects">Projects</a>
+      <a href="../../index.html#contact">Contact</a>
+      <a href="../">Insights</a>
+      <a href="https://github.com/Deunich/" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/deunich" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    </nav>
+  </div>
+</header>
+<section class="article-hero">
+  <div class="container">
+    <a href="../" class="back-link"><i class="fas fa-arrow-left"></i> Back to Insights</a>
+    <span class="cat">SQL · Google Cloud · EDA</span>
+    <h1>Analyzing 6.9 Million Consumer Complaints with SQL &amp; GCP</h1>
+    <div class="meta">
+      <span><i class="far fa-calendar-alt"></i> May 2026</span>
+      <span><i class="far fa-clock"></i> 6 min read</span>
+    </div>
+  </div>
+</section>
+<main class="container">
+  <article class="article-content">
+    <p>The Consumer Financial Protection Bureau (CFPB) maintains a public database of consumer complaints about financial products and services. With <strong>6.9 million records spanning 2011–2024</strong>, this dataset offers a rich picture of consumer financial disputes in the United States.</p>
+
+    <h2>Dataset Overview</h2>
+    <p>The dataset captures complaints across multiple financial products — credit reporting, mortgages, debt collection, credit cards, bank accounts, and more. Each record includes the complaint date, product category, issue type, company response, and geographic location.</p>
+
+    <div class="highlight-box">
+      <p><strong>Dataset size:</strong> 6.9M records · 13 years (2011–2024) · 10+ product categories · Nationwide coverage</p>
+    </div>
+
+    <h2>Data Preparation with BigQuery</h2>
+    <p>I loaded the dataset into <span class="hl">Google Cloud BigQuery</span> for analysis. The first step was understanding the schema and data quality:</p>
+
+    <pre><code>-- Check record count and date range
+SELECT COUNT(*) as total_records,
+       MIN(date_received) as earliest,
+       MAX(date_received) as latest
+FROM `cfpb_complaints.consumer_complaints`;</code></pre>
+
+    <h2>Key Findings</h2>
+
+    <h3>1. Credit Reporting Dominates</h3>
+    <p>The analysis revealed that <span class="hl">credit reporting</span> is the single largest complaint category, accounting for the highest volume of disputes — particularly around incorrect information appearing on credit reports.</p>
+
+    <h3>2. Post-2020 Volume Spike</h3>
+    <p>There's a clear <strong>post-2020 surge</strong> in complaint volumes across nearly all product categories, likely tied to economic disruptions from the pandemic and increased consumer financial stress.</p>
+
+    <h3>3. Geographic Hotspots</h3>
+    <p>Complaint density varies significantly by state and metro area, with higher volumes correlating with <strong>population centers</strong> and regions that experienced greater economic volatility.</p>
+
+    <h3>4. Company Response Patterns</h3>
+    <p>Analysis of company responses showed that while many complaints result in "Closed with explanation," there are meaningful differences in resolution rates across companies and product types.</p>
+
+    <h2>Visualization in Looker Studio</h2>
+    <p>I connected BigQuery to <span class="hl">Looker Studio</span> (formerly Google Data Studio) to build an interactive dashboard that allows users to explore complaint trends by product, geography, and time period.</p>
+
+    <div class="highlight-box">
+      <p><strong>Business Value:</strong> This analysis helps financial institutions identify systemic issues, regulators monitor consumer protection trends, and consumers understand the complaint landscape before engaging with financial products.</p>
+    </div>
+
+    <div class="article-footer">
+      <a href="../../projects/consumer_financial.html" class="btn btn-primary"><i class="fas fa-folder-open"></i> View Full Project</a>
+      <a href="../" class="btn btn-outline"><i class="fas fa-arrow-left"></i> More Insights</a>
+    </div>
+  </article>
+</main>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-links">
+      <a href="mailto:sierra@camiloanalytics.dev" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      <a href="https://github.com/Deunich" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/deunich" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    </div>
+    <p class="footer-tagline">Turning complex data into clear decisions.</p>
+    <p>&copy; 2026 Camilo Sierra &mdash; Master's Business Analyst</p>
+  </div>
+</footer>
+<script src="../../js/app.js"></script>
+</body>
+</html>

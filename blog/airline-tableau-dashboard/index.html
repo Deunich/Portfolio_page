@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building an Airline Flight Performance Dashboard in Tableau — Camilo Sierra</title>
+  <meta name="description" content="How I designed and built an interactive Tableau dashboard analyzing 98K synthetic airline flight records. Covers data preparation, calculated fields, dashboard layout, and key design decisions for business analytics.">
+  <meta name="author" content="Camilo Sierra">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" href="/icon.png">
+  <link rel="canonical" href="https://www.camiloanalytics.dev/blog/airline-tableau-dashboard/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.camiloanalytics.dev/blog/airline-tableau-dashboard/">
+  <meta property="og:title" content="Building an Airline Flight Performance Dashboard in Tableau — Camilo Sierra">
+  <meta property="og:description" content="How I designed and built an interactive Tableau dashboard analyzing 98K flight records. Step-by-step walkthrough of the analytical process.">
+  <meta property="og:image" content="https://www.camiloanalytics.dev/img/imgog-image.png">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-06-01">
+  <meta property="article:author" content="Camilo Sierra">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Building an Airline Flight Performance Dashboard in Tableau">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    .article-hero { padding:2.5rem 0 2rem; border-bottom:1px solid var(--clr-border); margin-bottom:2.5rem; }
+    .article-hero .back-link { display:inline-flex; align-items:center; gap:6px; color:var(--clr-muted); font-size:.875rem; font-weight:500; text-decoration:none; transition:color .2s; margin-bottom:1.5rem; }
+    .article-hero .back-link:hover { color:var(--clr-accent); }
+    .article-hero .cat { font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:var(--clr-accent); margin-bottom:.5rem; display:block; }
+    .article-hero h1 { font-size:clamp(1.6rem,3.2vw,2.2rem); font-weight:800; letter-spacing:-.5px; line-height:1.2; color:var(--clr-text); margin-bottom:.5rem; }
+    .article-hero .meta { color:var(--clr-muted); font-size:.85rem; display:flex; gap:16px; flex-wrap:wrap; margin-top:.5rem; }
+    .article-hero .meta span { display:inline-flex; align-items:center; gap:5px; }
+    .article-content { max-width:740px; margin:0 auto 3rem; }
+    .article-content h2 { font-size:1.4rem; font-weight:700; margin:2rem 0 .8rem; color:var(--clr-text); }
+    .article-content h3 { font-size:1.1rem; font-weight:600; margin:1.5rem 0 .5rem; color:var(--clr-text); }
+    .article-content p { color:var(--clr-muted); font-size:.95rem; line-height:1.75; margin-bottom:1rem; }
+    .article-content ul { margin:1rem 0; padding-left:1.2rem; }
+    .article-content li { color:var(--clr-muted); font-size:.93rem; line-height:1.7; margin-bottom:.4rem; }
+    .article-content strong { color:var(--clr-text); }
+    .article-content .hl { color:var(--clr-accent); font-weight:600; }
+    .article-content code { background:rgba(230,237,243,.06); padding:2px 6px; border-radius:4px; font-size:.85rem; color:var(--clr-accent); }
+    .article-content .highlight-box { background:var(--clr-surface); border:1px solid var(--clr-border); border-left:3px solid var(--clr-accent); border-radius:8px; padding:1.2rem 1.4rem; margin:1.5rem 0; }
+    .article-content .highlight-box p { margin-bottom:.3rem; }
+    .article-footer { border-top:1px solid var(--clr-border); padding-top:2rem; margin-top:3rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+    @media (max-width:600px) { .article-hero { padding:1.5rem 0 1.5rem; } }
+  </style>
+</head>
+<body>
+<header class="navbar">
+  <div class="container">
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav-right" id="nav-right">
+      <a href="../../index.html">Home</a>
+      <a href="../../index.html#about">About me</a>
+      <a href="../../index.html#projects">Projects</a>
+      <a href="../../index.html#contact">Contact</a>
+      <a href="../">Insights</a>
+      <a href="https://github.com/Deunich/" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/deunich" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    </nav>
+  </div>
+</header>
+<section class="article-hero">
+  <div class="container">
+    <a href="../" class="back-link"><i class="fas fa-arrow-left"></i> Back to Insights</a>
+    <span class="cat">Tableau · Data Visualization</span>
+    <h1>Building an Airline Flight Performance Dashboard in Tableau</h1>
+    <div class="meta">
+      <span><i class="far fa-calendar-alt"></i> June 2026</span>
+      <span><i class="far fa-clock"></i> 5 min read</span>
+    </div>
+  </div>
+</section>
+<main class="container">
+  <article class="article-content">
+    <p>Dashboards are one of the most effective ways to communicate analytical findings. In this article, I walk through the process of building an <strong>interactive Tableau dashboard</strong> that analyzes airline flight performance — from data exploration to final publication.</p>
+
+    <h2>The Dataset</h2>
+    <p>The dataset used is a <span class="hl">synthetic airline dataset</span> from Kaggle, containing <strong>98,619 passenger-flight records</strong>. Each record includes information about the flight status (On Time, Delayed, Cancelled), passenger demographics (age, gender, nationality), geographic details (airport, continent), and temporal data.</p>
+
+    <div class="highlight-box">
+      <p><strong>Key stats:</strong> 98.6K records · 3 flight status classes · Passengers from 100+ nationalities · Global coverage across continents</p>
+    </div>
+
+    <h2>Step 1: Data Exploration &amp; Preparation</h2>
+    <p>Before building any visualizations, I explored the dataset to understand its structure and quality. I checked for:</p>
+    <ul>
+      <li><strong>Missing values</strong> — the dataset was clean with no nulls</li>
+      <li><strong>Class balance</strong> — the target variable (Flight Status) was artificially balanced at ~33% each for On Time, Delayed, and Cancelled</li>
+      <li><strong>Data types</strong> — ensured dates were parsed correctly, categorical variables were properly formatted</li>
+      <li><strong>Cardinality</strong> — checked dimensions like nationality and airport for high cardinality issues</li>
+    </ul>
+
+    <h2>Step 2: Creating Calculated Fields</h2>
+    <p>To make the dashboard more insightful, I created several calculated fields in Tableau:</p>
+    <ul>
+      <li><strong>Flight Status Grouping</strong> — used as the primary dimension for filtering and coloring</li>
+      <li><strong>Percentage Calculations</strong> — computed delay and cancellation rates as percentages for easier comparison</li>
+      <li><strong>Continent Standardization</strong> — some country names needed mapping to their correct continent</li>
+      <li><strong>Age Group Buckets</strong> — created bins (18-24, 25-34, 35-44, etc.) for demographic analysis</li>
+    </ul>
+
+    <h2>Step 3: Designing the Dashboard Layout</h2>
+    <p>I organized the dashboard into four key analytical areas:</p>
+    <ul>
+      <li><strong>Global Overview</strong> — map visualizing delay and cancellation rates by continent and airport</li>
+      <li><strong>Temporal Trends</strong> — line charts showing flight status distribution over time</li>
+      <li><strong>Demographic Breakdown</strong> — age group and gender analysis of flight status patterns</li>
+      <li><strong>Airport-Level Detail</strong> — performance metrics for individual airports with drill-down capability</li>
+    </ul>
+
+    <h2>Step 4: Key Design Decisions</h2>
+    <p>Several design choices were made to ensure clarity and usability:</p>
+    <ul>
+      <li><span class="hl">Color palette:</span> Used green (On Time), amber (Delayed), and red (Cancelled) for intuitive status recognition</li>
+      <li><span class="hl">Filters:</span> Added interactive filters for continent, airport, and time period</li>
+      <li><span class="hl">Tooltips:</span> Customized tooltips to show exact percentages and record counts</li>
+      <li><span class="hl">Mobile responsiveness:</span> Ensured the dashboard works on different screen sizes</li>
+    </ul>
+
+    <h2>Key Insights Uncovered</h2>
+    <p>The analysis revealed several interesting patterns:</p>
+    <ul>
+      <li><strong>Europe</strong> showed the highest delay rate at approximately <span class="hl">33.9%</span></li>
+      <li><strong>South America</strong> had the highest cancellation rate at <span class="hl">34.0%</span></li>
+      <li>Gender-based performance metrics showed <strong>no significant imbalance</strong></li>
+      <li>Some nationalities appeared with very few records — a cautionary note on interpreting small sample sizes</li>
+    </ul>
+
+    <div class="highlight-box">
+      <p><strong>Business Value:</strong> While the dataset is synthetic, this dashboard demonstrates how airlines and analysts can monitor operational performance, identify at-risk routes, and make data-driven decisions to improve customer experience.</p>
+    </div>
+
+    <h2>Tools Used</h2>
+    <ul>
+      <li><strong>Tableau Public</strong> — for visualization and dashboard creation</li>
+      <li><strong>Kaggle</strong> — dataset source</li>
+      <li><strong>Google Slides</strong> — for the project presentation</li>
+    </ul>
+
+    <div class="article-footer">
+      <a href="../../projects/airline_flight_performance.html" class="btn btn-primary"><i class="fas fa-chart-bar"></i> View Live Dashboard</a>
+      <a href="../" class="btn btn-outline"><i class="fas fa-arrow-left"></i> More Insights</a>
+    </div>
+  </article>
+</main>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-links">
+      <a href="mailto:sierra@camiloanalytics.dev" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      <a href="https://github.com/Deunich" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/deunich" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    </div>
+    <p class="footer-tagline">Turning complex data into clear decisions.</p>
+    <p>&copy; 2026 Camilo Sierra &mdash; Master's Business Analyst</p>
+  </div>
+</footer>
+<script src="../../js/app.js"></script>
+</body>
+</html>
