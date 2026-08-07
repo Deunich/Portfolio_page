@@ -135,6 +135,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+    /* ── Central project URL resolver (local file:// vs HTTP/S) ── */
+  // Single source of truth. Keeps public URLs clean (/projects/<slug>/) in
+  // production, but appends index.html when opened over the local file://
+  // protocol (where browsers do not auto-resolve directory indexes).
+  function projectUrl(slug) {
+    var clean = 'projects/' + slug + '/';
+    if (window.location.protocol === 'file:') {
+      return clean + 'index.html';
+    }
+    return clean;
+  }
+  window.projectUrl = projectUrl;
+
+  // When running over file://, explicit project cards must point directly to
+  // index.html to avoid the browser showing the directory listing. Leave them
+  // untouched over http(s):// so the public URLs remain clean.
+  function fixProjectCardLinks() {
+    if (window.location.protocol !== 'file:') return;
+    document.querySelectorAll('a.proj-row').forEach(function (a) {
+      var h = a.getAttribute('href') || '';
+      var m = h.match(/^projects\/([^/]+)\/$/);
+      if (m) a.setAttribute('href', 'projects/' + m[1] + '/index.html');
+    });
+  }
+  fixProjectCardLinks();
+
   /* ── Active nav link on scroll ───────────────────────── */
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-right a[href^="#"]');

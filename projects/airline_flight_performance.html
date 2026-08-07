@@ -1,13 +1,20 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="robots" content="noindex">
-  <meta http-equiv="refresh" content="0; url=/projects/airline-flight-performance/">
+  <meta http-equiv="refresh" content="0; url=airline-flight-performance/">
   <link rel="canonical" href="https://www.camiloanalytics.dev/projects/airline-flight-performance/">
   <title>Redirect</title>
 </head>
 <body>
-  <p>Redirecting to <a href="/projects/airline-flight-performance/">airline-flight-performance/</a></p>
+  <script>
+    (function () {
+      var dest = "airline-flight-performance/";
+      if (window.location.protocol === "file:") dest += "index.html";
+      window.location.replace(dest);
+    })();
+  </script>
+  <p>Redirecting to <a href="airline-flight-performance/">Airline Flight Performance Analysis</a></p>
 </body>
 </html>
