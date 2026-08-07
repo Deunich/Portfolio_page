@@ -1,16 +1,16 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oil Iran Shock: Crude Inventories vs. Pump Prices â€“ Camilo Sierra</title>
+  <title>Oil Iran Shock: Crude Inventories vs. Pump Prices – Camilo Sierra</title>
   <meta name="description" content="A short data analytics case study using the U.S. Energy Information Administration (EIA) API to explore the relationship between weekly crude oil inventories and retail gasoline prices in the United States around the Iran conflict.">
   <meta name="author" content="Camilo Sierra">
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
   <link rel="canonical" href="https://www.camiloanalytics.dev/projects/oil-iran-shock/">
   <meta property="og:type"        content="article">
   <meta property="og:url"         content="https://www.camiloanalytics.dev/projects/oil-iran-shock/">
-  <meta property="og:title"       content="Oil Iran Shock: Crude Inventories vs. Pump Prices â€“ Camilo Sierra">
+  <meta property="og:title"       content="Oil Iran Shock: Crude Inventories vs. Pump Prices – Camilo Sierra">
   <meta property="og:description" content="Short EIA data analytics case study exploring how quickly crude oil inventory changes pass through to retail gasoline prices during the Iran conflict.">
   <meta property="og:image"       content="https://www.camiloanalytics.dev/img/og-oil-iran-shock.png?v=2">
   <meta property="og:image:alt"   content="Oil Iran Shock - inventories vs price time series visual - Camilo Sierra">
@@ -18,7 +18,7 @@
   <meta property="og:image:height" content="630">
   <meta property="og:locale"      content="en_US">
   <meta name="twitter:card"        content="summary_large_image">
-  <meta name="twitter:title"       content="Oil Iran Shock: Crude Inventories vs. Pump Prices â€“ Camilo Sierra">
+  <meta name="twitter:title"       content="Oil Iran Shock: Crude Inventories vs. Pump Prices – Camilo Sierra">
   <meta name="twitter:description" content="EIA API data analytics case study on crude oil inventories and gasoline prices during the Iran conflict.">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
@@ -65,10 +65,10 @@
   <div class="container">
     <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <nav class="nav-right" id="nav-right">
-      <a href="../../index.html">Home</a>
-      <a href="../../index.html#about">About me</a>
-      <a href="../../index.html#projects">Projects</a>
-      <a href="../../index.html#contact">Contact</a>
+      <a href="../../">Home</a>
+      <a href="../../#about">About me</a>
+      <a href="../../#projects">Projects</a>
+      <a href="../../#contact">Contact</a>
       <a href="https://github.com/Deunich/" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
       <a href="https://www.linkedin.com/in/deunich" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
     </nav>
@@ -76,7 +76,7 @@
 </header>
 <header class="page-hero">
   <div class="container">
-    <a href="../../index.html#projects" class="back-link"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+    <a href="../../#projects" class="back-link"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
     <div class="hero-layout">
       <div class="hero-main">
         <span class="card-category">Data Analytics &middot; Time Series</span>
@@ -100,15 +100,15 @@
 </header>
 <main class="container">
   <section class="project-section">
-    <p class="section-label">Project Overview â€” STAR Method</p>
+    <p class="section-label">Project Overview — STAR Method</p>
     <h2 style="font-size:1.5rem; margin-bottom:1.5rem;">Why this analysis was done</h2>
-    <p style="color:var(--clr-muted); line-height:1.7;">This case study follows the <strong style="color:var(--clr-text);">STAR framework</strong> â€” Situation, Task, Action, Result â€” to explain not just what was found, but why the analysis was carried out in the first place.</p>
+    <p style="color:var(--clr-muted); line-height:1.7;">This case study follows the <strong style="color:var(--clr-text);">STAR framework</strong> — Situation, Task, Action, Result — to explain not just what was found, but why the analysis was carried out in the first place.</p>
 
     <div class="star-grid">
       <div class="star-card span-2">
         <span class="star-badge"><i class="fas fa-flag"></i> Situation</span>
         <h3>The geopolitical context that triggered the question</h3>
-        <p>On <strong style="color:var(--clr-text);">February 28, 2026</strong>, a major conflict began involving Iran â€” a key player in global crude supply. Energy markets reacted immediately. As an economist and business analyst, the natural question was: <em>"How quickly do changes in crude oil inventories actually reach the pump price consumers pay?"</em> In calm conditions the answer is textbook, but in a shock episode it is uncertain whether that logic still holds.</p>
+        <p>On <strong style="color:var(--clr-text);">February 28, 2026</strong>, a major conflict began involving Iran — a key player in global crude supply. Energy markets reacted immediately. As an economist and business analyst, the natural question was: <em>"How quickly do changes in crude oil inventories actually reach the pump price consumers pay?"</em> In calm conditions the answer is textbook, but in a shock episode it is uncertain whether that logic still holds.</p>
       </div>
 
       <div class="star-card">
@@ -120,19 +120,19 @@
       <div class="star-card">
         <span class="star-badge"><i class="fas fa-chart-line"></i> Result</span>
         <h3>What the data showed</h3>
-        <p>Between Feb 28 and Apr 13, 2026, inventories rose <strong style="color:var(--clr-accent);">~5%</strong> while pump prices jumped <strong style="color:var(--clr-accent);">~37%</strong>, with a Pearson correlation of <strong style="color:var(--clr-accent);">0.98</strong> â€” the opposite of the textbook supply story.</p>
+        <p>Between Feb 28 and Apr 13, 2026, inventories rose <strong style="color:var(--clr-accent);">~5%</strong> while pump prices jumped <strong style="color:var(--clr-accent);">~37%</strong>, with a Pearson correlation of <strong style="color:var(--clr-accent);">0.98</strong> — the opposite of the textbook supply story.</p>
       </div>
 
       <div class="star-card">
-        <span class="star-badge"><i class="fas fa-code"></i> Action â€” How</span>
+        <span class="star-badge"><i class="fas fa-code"></i> Action — How</span>
         <h3>The analysis pipeline</h3>
         <p>Wrote a Python script using <code style="color:var(--clr-accent);">requests</code> to pull weekly EIA data from two endpoints, merged both series with <code style="color:var(--clr-accent);">pandas</code>, computed the Pearson correlation with <code style="color:var(--clr-accent);">scipy/pandas</code>, and rendered the time series and scatter plots with <code style="color:var(--clr-accent);">matplotlib</code> + <code style="color:var(--clr-accent);">seaborn</code>.</p>
       </div>
 
       <div class="star-card">
-        <span class="star-badge"><i class="fas fa-lightbulb"></i> Action â€” Why</span>
+        <span class="star-badge"><i class="fas fa-lightbulb"></i> Action — Why</span>
         <h3>The interpretation behind the numbers</h3>
-        <p>The co-movement is a classic case of <strong style="color:var(--clr-text);">confounding</strong>: inventories and prices both react to the same driver â€” <strong style="color:var(--clr-text);">geopolitical risk</strong> â€” rather than one causing the other. Isolating the true inventory effect would require controlling for an index of geopolitical uncertainty (e.g., the Caldara &amp; Iacoviello GPR index).</p>
+        <p>The co-movement is a classic case of <strong style="color:var(--clr-text);">confounding</strong>: inventories and prices both react to the same driver — <strong style="color:var(--clr-text);">geopolitical risk</strong> — rather than one causing the other. Isolating the true inventory effect would require controlling for an index of geopolitical uncertainty (e.g., the Caldara &amp; Iacoviello GPR index).</p>
       </div>
     </div>
   </section>
@@ -143,11 +143,11 @@
     <p style="color:var(--clr-muted); line-height:1.7;">Weekly EIA series for national commercial crude inventories (thousand bbl) and regular gasoline pump prices (USD/gallon), with the post-conflict window shaded.</p>
     <div class="problem-img">
       <img src="../../img/timeseries_dual_panel.png" alt="Dual-panel time series of crude inventories and gasoline prices" loading="lazy">
-      <figcaption>Dual-panel time series â€” crude inventories (top) vs. retail gasoline prices (bottom). Source: U.S. EIA (series stoc/wstk and pri/gnd).</figcaption>
+      <figcaption>Dual-panel time series — crude inventories (top) vs. retail gasoline prices (bottom). Source: U.S. EIA (series stoc/wstk and pri/gnd).</figcaption>
     </div>
     <div class="problem-img">
       <img src="../../img/scatter_correlation.png" alt="Scatter plot of inventories vs gasoline price" loading="lazy">
-      <figcaption>Correlation scatter â€” the tight upward pattern (Pearson r â‰ˆ 0.98) reflects a shared geopolitical driver, not causation.</figcaption>
+      <figcaption>Correlation scatter — the tight upward pattern (Pearson r ≈ 0.98) reflects a shared geopolitical driver, not causation.</figcaption>
     </div>
   </section>
 
@@ -178,7 +178,7 @@
         </tr>
         <tr style="border-top:1px solid var(--clr-border);">
           <td style="padding:12px 16px; color:var(--clr-muted);">Pearson correlation</td>
-          <td style="padding:12px 16px; color:var(--clr-muted);" colspan="2">â€”</td>
+          <td style="padding:12px 16px; color:var(--clr-muted);" colspan="2">—</td>
           <td style="padding:12px 16px; color:var(--clr-accent); font-weight:700;">0.98</td>
         </tr>
       </tbody>
@@ -202,21 +202,21 @@
   <section class="project-section">
     <p class="section-label">The Interpretation</p>
     <h2 style="font-size:1.5rem; margin-bottom:1.5rem;">A classic case of confounding</h2>
-    <p style="color:var(--clr-muted); line-height:1.7;">During a geopolitical shock, the simple supply-and-demand relationship between inventories and prices breaks down. Refineries <strong style="color:var(--clr-text);">stockpile crude as a precaution</strong>, while traders price in a <strong style="color:var(--clr-text);">risk premium</strong> that flows from futures to the pump. Both effects move in the same direction at the same time â€” a textbook case of <strong style="color:var(--clr-text);">confounding</strong> rather than causation.</p>
-    <p style="color:var(--clr-muted); line-height:1.7; margin-top:.75rem;">To isolate the true effect of inventories on prices, the analysis would need to control for a measure of geopolitical uncertainty â€” for example, the <strong style="color:var(--clr-text);">Caldara &amp; Iacoviello Geopolitical Risk Index</strong>.</p>
+    <p style="color:var(--clr-muted); line-height:1.7;">During a geopolitical shock, the simple supply-and-demand relationship between inventories and prices breaks down. Refineries <strong style="color:var(--clr-text);">stockpile crude as a precaution</strong>, while traders price in a <strong style="color:var(--clr-text);">risk premium</strong> that flows from futures to the pump. Both effects move in the same direction at the same time — a textbook case of <strong style="color:var(--clr-text);">confounding</strong> rather than causation.</p>
+    <p style="color:var(--clr-muted); line-height:1.7; margin-top:.75rem;">To isolate the true effect of inventories on prices, the analysis would need to control for a measure of geopolitical uncertainty — for example, the <strong style="color:var(--clr-text);">Caldara &amp; Iacoviello Geopolitical Risk Index</strong>.</p>
   </section>
 
   <section class="project-section">
     <p class="section-label">Why It Matters</p>
     <h2 style="font-size:1.5rem; margin-bottom:1.5rem;">Don't confuse co-movement with cause</h2>
-    <p style="color:var(--clr-muted); line-height:1.7;">When analyzing business and economic data, a strong correlation is only a starting point. Identifying the <strong style="color:var(--clr-text);">common underlying driver</strong> â€” and separating signal from shared shocks â€” is what turns a number into a defensible decision.</p>
+    <p style="color:var(--clr-muted); line-height:1.7;">When analyzing business and economic data, a strong correlation is only a starting point. Identifying the <strong style="color:var(--clr-text);">common underlying driver</strong> — and separating signal from shared shocks — is what turns a number into a defensible decision.</p>
   </section>
 
   <div class="cta-section reveal">
     <span class="cta-label">Explore the project</span>
     <div class="cta-actions">
       <a href="https://github.com/Deunich/oil-iran-shock" target="_blank" rel="noopener" class="btn btn-primary"><i class="fab fa-github"></i> View on GitHub</a>
-      <a href="../../index.html#projects" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+      <a href="../../#projects" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
     </div>
   </div>
 </main>

@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Presentation Viewer â€“ Camilo Sierra</title>
+    <title>PDF Presentation Viewer – Camilo Sierra</title>
   <meta name="description" content="Interactive PDF slide viewer with paginated navigation, fullscreen mode, keyboard shortcuts, and mobile-responsive fallback. Built with PDF.js.">
     <meta name="author" content="Camilo Sierra">
     <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
@@ -12,7 +12,7 @@
   <!-- Open Graph -->
   <meta property="og:type"        content="article">
   <meta property="og:url"         content="https://www.camiloanalytics.dev/projects/pdf-presentation-viewer/">
-  <meta property="og:title"       content="PDF Presentation Viewer â€“ Camilo Sierra">
+  <meta property="og:title"       content="PDF Presentation Viewer – Camilo Sierra">
   <meta property="og:description" content="Interactive PDF slide viewer with paginated navigation, fullscreen mode, keyboard shortcuts, and mobile-responsive fallback. Built with PDF.js.">
   <meta property="og:image"       content="https://www.camiloanalytics.dev/img/og-pdf-viewer.png?v=2">
   <meta property="og:image:alt"   content="PDF Presentation Viewer - slide thumbnails visual - Camilo Sierra">
@@ -22,37 +22,37 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image">
-  <meta name="twitter:title"       content="PDF Presentation Viewer â€“ Camilo Sierra">
+  <meta name="twitter:title"       content="PDF Presentation Viewer – Camilo Sierra">
   <meta name="twitter:description" content="Interactive slide viewer with PDF.js, paginated navigation, and fullscreen mode.">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="../../css/style.css">
 
-  <!-- â”€â”€â”€ CONFIGURE YOUR PROJECT HERE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ─── CONFIGURE YOUR PROJECT HERE ─────────────────────────── -->
   <script>
     const PROJECT = {
-      title:       "Consumer Complaints EDA (CFPB 2011â€“2024)",
+      title:       "Consumer Complaints EDA (CFPB 2011–2024)",
       description: "6.9 M CFPB cases: credit-report woes, post-2020 spike, and FL-TX-CA hotspots visualised with heat-maps & dashboards.",
-      category:    "Data Analysis Â· EDA",
+      category:    "Data Analysis · EDA",
       year:        "2024",
       tags:        ["R", "ggplot2", "usmap", "tidyverse"],
       pdfUrl:      "../../files/cfpb_presentation.pdf",
       takeaways: [
         "Credit-report disputes account for 40 % of all CFPB complaints filed since 2011.",
-        "Complaints surged 3Ã— after 2020, driven by pandemic-era financial hardship.",
+        "Complaints surged 3× after 2020, driven by pandemic-era financial hardship.",
         "FL, TX, and CA concentrate over 35 % of total complaint volume nationally.",
       ],
       downloadUrl: "../../files/cfpb_presentation.pdf",
     };
   </script>
-  <!-- â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+  <!-- ──────────────────────────────────────────────────────────── -->
 
   <style>
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    /* ══════════════════════════════════════════════════════════
        PAGE-SPECIFIC OVERRIDES
-       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+       ══════════════════════════════════════════════════════════ */
 
-    /* â”€â”€ Hero â”€â”€ */
+    /* ── Hero ── */
     .page-hero {
       padding: 2.25rem 0 2.75rem;
       position: relative;
@@ -272,7 +272,7 @@
       box-shadow: 0 16px 60px rgba(0,0,0,0.55);
     }
 
-    /* Fullscreen button lives inside the toolbar row now â€” remove absolute */
+    /* Fullscreen button lives inside the toolbar row now — remove absolute */
     .stage-toolbar .pres-fullscreen-btn {
       position: static;
       width: 30px;
@@ -303,7 +303,7 @@
       margin: 0 auto;
     }
 
-    /* Controls bar â€” always visible */
+    /* Controls bar — always visible */
     .stage-controls-bar {
       background: #1c1c1c;
       border-top: 1px solid rgba(255,255,255,0.06);
@@ -321,7 +321,7 @@
       height: 36px;
     }
 
-    /* â”€â”€ Takeaways redesign â”€â”€ */
+    /* ── Takeaways redesign ── */
     .takeaways-section {
       padding: 3.5rem 0 2.5rem;
       border-bottom: 1px solid var(--clr-border);
@@ -384,7 +384,7 @@
       padding-top: 2px;
     }
 
-    /* â”€â”€ Zoom controls â”€â”€ */
+    /* ── Zoom controls ── */
     .controls-sep {
       width: 1px;
       height: 20px;
@@ -430,7 +430,7 @@
 
     .pres-zoom-level:hover { color: #bbb; }
 
-    /* â”€â”€ CTA section â”€â”€ */
+    /* ── CTA section ── */
     .cta-section {
       padding-bottom: 3.5rem;
       display: flex;
@@ -448,7 +448,7 @@
 
     .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 
-    /* â”€â”€ Responsive â”€â”€ */
+    /* ── Responsive ── */
     @media screen and (max-width: 720px) {
       .hero-layout { flex-direction: column; gap: 1.75rem; }
       .hero-stats { flex-direction: row; min-width: unset; width: 100%; border-radius: 12px; }
@@ -468,27 +468,27 @@
 
 <body>
 
-<!-- â•â• NAVBAR â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ══ NAVBAR ══════════════════════════════════════════════════════ -->
 <header class="navbar">
   <div class="container">
     <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
     <nav class="nav-right" id="nav-right">
-      <a href="../../index.html">Home</a>
-      <a href="../../index.html#about">About me</a>
-      <a href="../../index.html#projects" class="active">Projects</a>
-      <a href="../../index.html#contact">Contact</a>
+      <a href="../../">Home</a>
+      <a href="../../#about">About me</a>
+      <a href="../../#projects" class="active">Projects</a>
+      <a href="../../#contact">Contact</a>
       <a href="https://github.com/Deunich/" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
       <a href="https://www.linkedin.com/in/deunich" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
     </nav>
   </div>
 </header>
 
-<!-- â•â• HERO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ══ HERO ════════════════════════════════════════════════════════ -->
 <header class="page-hero">
   <div class="container">
-    <a href="../../index.html#projects" class="back-link">
+    <a href="../../#projects" class="back-link">
       <i class="fas fa-arrow-left"></i> Back to Portfolio
     </a>
 
@@ -507,21 +507,21 @@
         <div class="stat-row">
           <div class="stat-row-icon"><i class="fas fa-layer-group"></i></div>
           <div class="stat-row-info">
-            <span class="stat-row-value" id="pres-slides-val">â€”</span>
+            <span class="stat-row-value" id="pres-slides-val">—</span>
             <span class="stat-row-label">Slides</span>
           </div>
         </div>
         <div class="stat-row">
           <div class="stat-row-icon"><i class="fas fa-tools"></i></div>
           <div class="stat-row-info">
-            <span class="stat-row-value" id="pres-tools-val">â€”</span>
+            <span class="stat-row-value" id="pres-tools-val">—</span>
             <span class="stat-row-label">Tools</span>
           </div>
         </div>
         <div class="stat-row">
           <div class="stat-row-icon"><i class="fas fa-calendar-alt"></i></div>
           <div class="stat-row-info">
-            <span class="stat-row-value" id="pres-year-val">â€”</span>
+            <span class="stat-row-value" id="pres-year-val">—</span>
             <span class="stat-row-label">Year</span>
           </div>
         </div>
@@ -531,7 +531,7 @@
   </div>
 </header>
 
-<!-- â•â• STAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ══ STAGE ═══════════════════════════════════════════════════════ -->
 <div class="stage-outer">
 <div class="pres-stage" id="pres-stage">
 
@@ -549,7 +549,7 @@
       </span>
     </div>
     <div class="stage-toolbar-right">
-      <span class="toolbar-page-badge" id="pres-toolbar-indicator">â€” / â€”</span>
+      <span class="toolbar-page-badge" id="pres-toolbar-indicator">— / —</span>
       <button class="pres-fullscreen-btn" id="pres-fs-btn" aria-label="Enter fullscreen">
         <i class="fas fa-expand"></i>
       </button>
@@ -571,7 +571,7 @@
     <div id="pres-desktop">
       <div class="pres-loader" id="pres-loader">
         <div class="pres-spinner"></div>
-        <span>Loading presentationâ€¦</span>
+        <span>Loading presentation…</span>
       </div>
       <div class="pres-canvas-wrap pres-fade-in" id="pres-canvas-wrap">
         <canvas id="pres-canvas" class="pres-canvas"></canvas>
@@ -580,14 +580,14 @@
 
   </div>
 
-  <!-- Controls bar at bottom of stage â€” always visible -->
+  <!-- Controls bar at bottom of stage — always visible -->
   <div class="stage-controls-bar" id="pres-controls">
 
     <!-- Slide navigation -->
     <button class="pres-nav-btn" id="pres-prev" aria-label="Previous slide" disabled>
       <i class="fas fa-chevron-left"></i>
     </button>
-    <span class="pres-page-indicator" id="pres-indicator">â€” / â€”</span>
+    <span class="pres-page-indicator" id="pres-indicator">— / —</span>
     <button class="pres-nav-btn" id="pres-next" aria-label="Next slide">
       <i class="fas fa-chevron-right"></i>
     </button>
@@ -610,7 +610,7 @@
 
 </div><!-- /.stage-outer -->
 
-<!-- â•â• BELOW THE STAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ══ BELOW THE STAGE ═════════════════════════════════════════════ -->
 <main class="container">
 
   <!-- Key Takeaways -->
@@ -627,7 +627,7 @@
       <a id="pres-download" href="#" class="btn btn-primary" download>
         <i class="fas fa-download"></i> Download PDF
       </a>
-      <a href="../../index.html#projects" class="btn btn-secondary">
+      <a href="../../#projects" class="btn btn-secondary">
         <i class="fas fa-arrow-left"></i> Back to Portfolio
       </a>
     </div>
@@ -635,7 +635,7 @@
 
 </main>
 
-<!-- â•â• FOOTER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ══ FOOTER ══════════════════════════════════════════════════════ -->
 <footer class="footer">
   <div class="container">
     <p>&copy; 2026 Camilo Sierra &mdash; Master's Business Analyst</p>
@@ -648,16 +648,16 @@ import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs';
 
-/* â”€â”€ Populate static content â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Populate static content ─────────────────────────────────── */
 document.getElementById('pres-title').textContent     = PROJECT.title;
 document.getElementById('pres-desc').textContent      = PROJECT.description;
 document.getElementById('pres-category').textContent  = PROJECT.category  ?? '';
-document.getElementById('pres-year-val').textContent  = PROJECT.year      ?? 'â€”';
+document.getElementById('pres-year-val').textContent  = PROJECT.year      ?? '—';
 document.getElementById('pres-tools-val').textContent = PROJECT.tags.length;
 document.getElementById('pres-download').href         = PROJECT.downloadUrl;
 document.getElementById('pres-download').download     = PROJECT.title;
 document.getElementById('pres-iframe').src            = PROJECT.pdfUrl;
-document.title = PROJECT.title + ' â€“ Camilo Sierra';
+document.title = PROJECT.title + ' – Camilo Sierra';
 
 // Filename from URL
 const fname = PROJECT.pdfUrl.split('/').pop();
@@ -684,7 +684,7 @@ PROJECT.takeaways.slice(0, 3).forEach((text, i) => {
   listEl.appendChild(item);
 });
 
-/* â”€â”€ Mobile detection â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Mobile detection ────────────────────────────────────────── */
 const BREAKPOINT = 600;
 const isMobile   = () => window.innerWidth < BREAKPOINT;
 
@@ -699,14 +699,14 @@ function applyLayout() {
 applyLayout();
 window.addEventListener('resize', applyLayout);
 
-/* â”€â”€ PDF viewer state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── PDF viewer state ────────────────────────────────────────── */
 let pdfDoc      = null;
 let currentPage = 1;
 let totalPages  = 0;
 let renderTask  = null;
 let fitWidth    = 820; // base fit width, updated each render
 
-/* â”€â”€ Zoom state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Zoom state ──────────────────────────────────────────────── */
 const MIN_ZOOM  = 0.5;
 const MAX_ZOOM  = 2.5;
 const ZOOM_STEP = 0.25;
@@ -742,7 +742,7 @@ function applyZoom() {
   zoomInBtn.disabled  = zoomLevel >= MAX_ZOOM;
 }
 
-/* â”€â”€ Render one page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Render one page ─────────────────────────────────────────── */
 async function renderPage(num) {
   if (!pdfDoc) return;
   if (renderTask) { try { renderTask.cancel(); } catch(_){} }
@@ -774,7 +774,7 @@ async function renderPage(num) {
   updateUI(num);
 }
 
-/* â”€â”€ Load PDF â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Load PDF ────────────────────────────────────────────────── */
 (async () => {
   try {
     pdfDoc      = await pdfjsLib.getDocument(PROJECT.pdfUrl).promise;
@@ -790,7 +790,7 @@ async function renderPage(num) {
   }
 })();
 
-/* â”€â”€ Navigation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Navigation ──────────────────────────────────────────────── */
 prevBtn.addEventListener('click', () => {
   if (currentPage > 1) { currentPage--; renderPage(currentPage); }
 });
@@ -807,7 +807,7 @@ document.addEventListener('keydown', e => {
   }
 });
 
-/* â”€â”€ Zoom â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Zoom ────────────────────────────────────────────────────── */
 zoomInBtn.addEventListener('click', () => {
   if (zoomLevel < MAX_ZOOM) {
     zoomLevel = Math.min(MAX_ZOOM, parseFloat((zoomLevel + ZOOM_STEP).toFixed(2)));
@@ -828,7 +828,7 @@ zoomLevelEl.addEventListener('click', () => {
   applyZoom();
 });
 
-/* â”€â”€ Fullscreen â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Fullscreen ──────────────────────────────────────────────── */
 const fsBtn   = document.getElementById('pres-fs-btn');
 const stage   = document.getElementById('pres-stage');
 const fsIcon  = fsBtn.querySelector('i');
@@ -845,14 +845,14 @@ document.addEventListener('fullscreenchange', () => {
   setTimeout(() => renderPage(currentPage), 80);
 });
 
-/* â”€â”€ Scroll reveal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Scroll reveal ───────────────────────────────────────────── */
 const observer = new IntersectionObserver(
   entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
   { threshold: 0.1 }
 );
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-/* â”€â”€ Hamburger â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Hamburger ───────────────────────────────────────────────── */
 const hamburger = document.getElementById('hamburger');
 const navRight  = document.getElementById('nav-right');
 hamburger?.addEventListener('click', () => {
