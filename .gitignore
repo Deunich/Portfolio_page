@@ -9,3 +9,11 @@ dist
 .vscode
 .playwright-mcp
 .continue
+
+# Internal tooling & temporary files (not for public site)
+og-generator/
+imagen-linkedin.html
+og-*-preview.png
+og-*-check.png
+Thumbs.db
+
