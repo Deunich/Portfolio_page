@@ -1119,17 +1119,51 @@ main.container {
 }
 
 /* ----------- PROJECT PAGE SHARED STYLES ----------- */
+/* Sistema de ritmo vertical consistente: el espaciado entre secciones
+   se controla con padding-block (evita duplicar margin+padding).
+   El divider (borde inferior) queda a ~32px del contenido a cada lado. */
 .project-section {
-  margin: 2.5rem 0;
+  margin: 0;
+  padding-top: 32px;
+  padding-bottom: 32px;
 }
 
-.project-section:not(:last-child) {
-  border-bottom: 1px solid #e5e5e5;
-  padding-bottom: 2.5rem;
+.project-section:first-of-type { padding-top: 22px; }
+.project-section:not(:last-of-type) { border-bottom: 1px solid #e5e5e5; }
+.project-section:last-of-type { padding-bottom: 48px; }
+
+/* Normaliza el espaciado: evita que el primer/último hijo de cada sección
+   aporte margen vertical que se duplique con el padding del `.project-section`. */
+.project-section > :first-child { margin-top: 0; }
+.project-section > :last-child  { margin-bottom: 0; }
+
+/* Secciones que combinan `.project-section` con presentación/dashboard:
+   el ritmo vertical lo controla únicamente `.project-section` (especificidad
+   superior a los overrides de layout en cada página), evitando doble espaciado. */
+.project-section.presentation-section,
+.project-section.dashboard-section {
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+/* Ritmo vertical responsive de secciones de proyecto */
+@media screen and (max-width: 800px) {
+  .project-section { padding-top: 24px; padding-bottom: 24px; }
+  .project-section.presentation-section,
+  .project-section.dashboard-section { padding-top: 24px; padding-bottom: 24px; }
+  .project-section:first-of-type { padding-top: 18px; }
+  .project-section:last-of-type { padding-bottom: 40px; }
+}
+@media screen and (max-width: 600px) {
+  .project-section { padding-top: 20px; padding-bottom: 20px; }
+  .project-section.presentation-section,
+  .project-section.dashboard-section { padding-top: 20px; padding-bottom: 20px; }
+  .project-section:first-of-type { padding-top: 14px; }
+  .project-section:last-of-type { padding-bottom: 36px; }
 }
 
 .problem-img {
-  margin: 1.5rem 0;
+  margin: 1rem 0 1.5rem;
   text-align: center;
 }
 

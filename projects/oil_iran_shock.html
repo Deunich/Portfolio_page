@@ -39,8 +39,8 @@
     .stat-row-value { font-size:1.05rem; font-weight:700; color:var(--clr-text); line-height:1; font-variant-numeric:tabular-nums; }
     .stat-row-label { font-size:.68rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--clr-muted); }
     .section-label { font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:var(--clr-accent); margin-bottom:.5rem; }
-    .project-section { margin-top:2rem; margin-bottom:2.5rem; }
-    .problem-img { margin:1.5rem 0; text-align:center; }
+    .project-section { margin:0; }
+    .problem-img { margin:1rem 0 1.5rem; text-align:center; }
     .problem-img img { width:100%; max-width:720px; height:auto; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,.08); display:block; margin:0 auto; }
     .problem-img figcaption { margin-top:.4rem; font-size:.9rem; color:var(--clr-muted); }
     .star-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:1rem; }
@@ -98,7 +98,7 @@
 <main class="container">
   <section class="project-section">
     <p class="section-label">Project Overview — STAR Method</p>
-    <h2 style="font-size:1.5rem; margin-bottom:.5rem;">Why this analysis was done</h2>
+    <h2 style="font-size:1.5rem; margin-bottom:1.5rem;">Why this analysis was done</h2>
     <p style="color:var(--clr-muted); line-height:1.7;">This case study follows the <strong style="color:var(--clr-text);">STAR framework</strong> — Situation, Task, Action, Result — to explain not just what was found, but why the analysis was carried out in the first place.</p>
 
     <div class="star-grid">
@@ -136,7 +136,7 @@
 
   <section class="project-section">
     <p class="section-label">Visualizations</p>
-    <h2 style="font-size:1.5rem; margin-bottom:.5rem;">Time series &amp; correlation</h2>
+    <h2 style="font-size:1.5rem; margin-bottom:1.5rem;">Time series &amp; correlation</h2>
     <p style="color:var(--clr-muted); line-height:1.7;">Weekly EIA series for national commercial crude inventories (thousand bbl) and regular gasoline pump prices (USD/gallon), with the post-conflict window shaded.</p>
     <div class="problem-img">
       <img src="../img/timeseries_dual_panel.png" alt="Dual-panel time series of crude inventories and gasoline prices" loading="lazy">
@@ -150,7 +150,7 @@
 
   <section class="project-section">
     <p class="section-label">Key Findings</p>
-    <h2 style="font-size:1.5rem; margin-bottom:.5rem;">The numbers behind the story</h2>
+    <h2 style="font-size:1.5rem; margin-bottom:1.5rem;">The numbers behind the story</h2>
     <table style="width:100%; border-collapse:collapse; margin-top:.75rem; background:var(--clr-surface); border-radius:10px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,.04);">
       <thead>
         <tr style="background:rgba(226,183,20,.08);">
@@ -184,7 +184,7 @@
 
   <section class="project-section">
     <p class="section-label">Methodology</p>
-    <h2 style="font-size:1.5rem; margin-bottom:.5rem;">From API to insight</h2>
+    <h2 style="font-size:1.5rem; margin-bottom:1.5rem;">From API to insight</h2>
     <ol style="color:var(--clr-muted); line-height:1.9; padding-left:1.2rem; margin-top:.5rem;">
       <li>Fetched weekly commercial crude oil stocks via the EIA endpoint <code style="color:var(--clr-accent);">/v2/petroleum/stoc/wstk/data/</code> (facet <code style="color:var(--clr-accent);">EPC0</code>, U.S. national <code style="color:var(--clr-accent);">duoarea=NUS</code>).</li>
       <li>Fetched weekly retail gasoline prices via <code style="color:var(--clr-accent);">/v2/petroleum/pri/gnd/data/</code> (facet <code style="color:var(--clr-accent);">EPMR</code>).</li>
@@ -198,14 +198,14 @@
 
   <section class="project-section">
     <p class="section-label">The Interpretation</p>
-    <h2 style="font-size:1.5rem; margin-bottom:.5rem;">A classic case of confounding</h2>
+    <h2 style="font-size:1.5rem; margin-bottom:1.5rem;">A classic case of confounding</h2>
     <p style="color:var(--clr-muted); line-height:1.7;">During a geopolitical shock, the simple supply-and-demand relationship between inventories and prices breaks down. Refineries <strong style="color:var(--clr-text);">stockpile crude as a precaution</strong>, while traders price in a <strong style="color:var(--clr-text);">risk premium</strong> that flows from futures to the pump. Both effects move in the same direction at the same time — a textbook case of <strong style="color:var(--clr-text);">confounding</strong> rather than causation.</p>
     <p style="color:var(--clr-muted); line-height:1.7; margin-top:.75rem;">To isolate the true effect of inventories on prices, the analysis would need to control for a measure of geopolitical uncertainty — for example, the <strong style="color:var(--clr-text);">Caldara &amp; Iacoviello Geopolitical Risk Index</strong>.</p>
   </section>
 
   <section class="project-section">
     <p class="section-label">Why It Matters</p>
-    <h2 style="font-size:1.5rem; margin-bottom:.5rem;">Don't confuse co-movement with cause</h2>
+    <h2 style="font-size:1.5rem; margin-bottom:1.5rem;">Don't confuse co-movement with cause</h2>
     <p style="color:var(--clr-muted); line-height:1.7;">When analyzing business and economic data, a strong correlation is only a starting point. Identifying the <strong style="color:var(--clr-text);">common underlying driver</strong> — and separating signal from shared shocks — is what turns a number into a defensible decision.</p>
   </section>
 
