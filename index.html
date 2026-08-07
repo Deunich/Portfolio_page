@@ -105,9 +105,10 @@
       <div class="hero-text">
         <p class="hero-eyebrow">SQL &middot; Python &middot; Tableau &middot; Data Storytelling</p>
         <h1 class="hero-title">Camilo Sierra<br><span>Business Analytics Portfolio</span></h1>
-        <div class="hero-actions">
+                <div class="hero-actions">
           <a href="#projects" class="btn btn-primary"><i class="fas fa-folder-open"></i> View Projects</a>
           <a href="#contact" class="btn btn-secondary"><i class="fas fa-envelope"></i> Get in Touch</a>
+          <a href="img/Camilo_Sierra_Resume.pdf" class="btn btn-secondary" download><i class="fas fa-file-arrow-down"></i> Download CV</a>
         </div>
       </div>
       <div class="hero-photo-wrap">
@@ -173,26 +174,81 @@
           <span class="skill-name">Data Storytelling</span>
         </div>
       </div>
+        </div>
+  </section>
+
+  <section id="method" class="method-section reveal">
+    <div class="projects-section-header">
+      <div>
+        <h2>How I Work</h2>
+        <p class="projects-subtitle">A pragmatic, iterative process that turns raw data into decisions.</p>
+      </div>
+    </div>
+    <div class="method-steps">
+      <div class="method-step">
+        <span class="step-index">01 &middot; Define</span>
+        <h3>Frame the problem</h3>
+        <p>Translate a business question into a clear analytical objective, defining metrics, scope, and the stakeholders' expectations up front.</p>
+      </div>
+      <div class="method-step">
+        <span class="step-index">02 &middot; Clean</span>
+        <h3>Prepare the data</h3>
+        <p>Ingest, validate, and profile the data. Resolve missing values, outliers, and inconsistencies before analysis.</p>
+      </div>
+      <div class="method-step">
+        <span class="step-index">03 &middot; Analyze</span>
+        <h3>Model &amp; explore</h3>
+        <p>Apply statistics, SQL queries, and machine learning to detect patterns, test hypotheses, and isolate performance drivers.</p>
+      </div>
+      <div class="method-step">
+        <span class="step-index">04 &middot; Visualize</span>
+        <h3>Build the story</h3>
+        <p>Design dashboards and visualizations that highlight the key findings and make complex data intuitive.</p>
+      </div>
+      <div class="method-step">
+        <span class="step-index">05 &middot; Communicate</span>
+        <h3>Drive the action</h3>
+        <p>Deliver clear recommendations with trade-offs, so non-technical stakeholders can act with confidence.</p>
+      </div>
     </div>
   </section>
 
-  <section id="projects">
+    <section id="projects">
     <div class="projects-section-header">
       <div>
         <h2>Projects</h2>
         <p class="projects-subtitle">Turning complex datasets into clear stories.</p>
       </div>
-      <span class="projects-count">9 projects</span>
+      <span class="projects-count">8 projects</span>
     </div>
 
-    <!-- ── Option A: Numbered Showcase ── -->
+    <div class="projects-filter">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="dashboard">Dashboard</button>
+      <button class="filter-btn" data-filter="ml">Machine Learning</button>
+      <button class="filter-btn" data-filter="scraping">Web Scraping</button>
+      <button class="filter-btn" data-filter="eda">Data Analysis</button>
+    </div>
+
         <div class="proj-list">
 
-          <a href="projects/airline_flight_performance.html" class="proj-row reveal">
+                                        <a href="projects/airline_flight_performance.html" class="proj-row reveal" data-category="dashboard">
             <span class="proj-num">01</span>
+            <div class="proj-visual">
+              <svg viewBox="0 0 300 110" preserveAspectRatio="none" aria-hidden="true">
+                <line x1="8" y1="10" x2="8" y2="100" stroke="rgba(230,237,243,.08)" stroke-width="1"/>
+                <line x1="8" y1="100" x2="292" y2="100" stroke="rgba(230,237,243,.08)" stroke-width="1"/>
+                <polyline points="8,88 35,82 62,78 89,70 116,58 143,52 170,46 197,38 224,31 251,24 278,20"
+                          fill="none" stroke="#8b949e" stroke-width="2.5" stroke-linecap="round"/>
+                                <polygon points="8,100 35,100 62,100 89,100 116,100 143,100 170,100 197,100 224,100 251,100 278,100 278,20 251,24 224,31 197,38 170,46 143,52 116,58 89,70 62,78 35,82 8,88"
+                          fill="rgba(139,148,158,.10)"/>
+              </svg>
+              <span class="spark-label">Delays</span>
+            </div>
             <div class="proj-content">
               <span class="card-category">Dashboard &middot; Tableau</span>
               <h3>Airline Flight Performance Analysis</h3>
+              <div class="proj-metric"><span class="metric-value">98K+</span><span class="metric-label">records analyzed</span></div>
               <p>Interactive Tableau dashboard analyzing 98K+ synthetic airline records to uncover patterns in flight delays, cancellations, and on-time performance by continent, demographics, and airport.</p>
               <div class="proj-footer">
                 <div class="card-tags">
@@ -205,11 +261,23 @@
             </div>
           </a>
 
-                    <a href="projects/consumer_financial.html" class="proj-row reveal">
+                                                                                <a href="projects/consumer_financial.html" class="proj-row reveal" data-category="eda">
                       <span class="proj-num">02</span>
+        <div class="proj-visual">
+              <svg viewBox="0 0 300 110" preserveAspectRatio="none" aria-hidden="true">
+                <line x1="8" y1="10" x2="8" y2="100" stroke="rgba(230,237,243,.08)" stroke-width="1"/>
+                <line x1="8" y1="100" x2="292" y2="100" stroke="rgba(230,237,243,.08)" stroke-width="1"/>
+                <polyline points="8,82 35,84 62,85 89,83 116,88 143,90 170,92 197,87 224,60 251,38 278,26"
+                          fill="none" stroke="#e2b714" stroke-width="2.5" stroke-linecap="round"/>
+                <polygon points="8,100 35,100 62,100 89,100 116,100 143,100 170,100 197,100 224,100 251,100 278,100 278,26 251,38 224,60 197,87 170,92 143,90 116,88 89,83 62,85 35,84 8,82"
+                          fill="rgba(226,183,20,.12)"/>
+              </svg>
+              <span class="spark-label">Volume &uarr;</span>
+        </div>
         <div class="proj-content">
           <span class="card-category">Data Analysis &middot; EDA</span>
           <h3>Consumer Complaints EDA (2011–2024)</h3>
+          <div class="proj-metric"><span class="metric-value">6.9M</span><span class="metric-label">CFPB cases</span></div>
           <p>Exploratory analysis of 6.9M CFPB cases spanning 13 years. Uncovers credit-report errors as the top complaint driver, a post-2020 volume spike, and geographic hotspots using SQL, GCP, and Looker Studio.</p>
           <div class="proj-footer">
             <div class="card-tags">
@@ -222,11 +290,26 @@
         </div>
       </a>
 
-                      <a href="projects/us_stocks_indicators.html" class="proj-row reveal">
+                                                                                        <a href="projects/us_stocks_indicators.html" class="proj-row reveal" data-category="ml">
               <span class="proj-num">03</span>
+              <div class="proj-visual">
+              <svg viewBox="0 0 300 110" preserveAspectRatio="none" aria-hidden="true">
+                <line x1="8" y1="10" x2="8" y2="100" stroke="rgba(230,237,243,.08)" stroke-width="1"/>
+                <line x1="8" y1="100" x2="292" y2="100" stroke="rgba(230,237,243,.08)" stroke-width="1"/>
+                <polyline points="8,60 35,45 62,70 89,50 116,80 143,55 170,35 197,65 224,40 251,58 278,30"
+                          fill="none" stroke="#e2b714" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="278" cy="30" r="4" fill="#e2b714"/>
+                <circle cx="35" cy="45" r="3.5" fill="#8b949e"/>
+                <circle cx="62" cy="70" r="3.5" fill="#8b949e"/>
+                <circle cx="116" cy="80" r="3.5" fill="#8b949e"/>
+                <circle cx="197" cy="65" r="3.5" fill="#8b949e"/>
+              </svg>
+              <span class="spark-label">Variation</span>
+              </div>
               <div class="proj-content">
                 <span class="card-category">Machine Learning &middot; Python</span>
                 <h3>US Stocks Indicators</h3>
+                <div class="proj-metric"><span class="metric-value">173</span><span class="metric-label">indicators</span></div>
                 <p>ML pipeline to classify US stocks by price variation using 173 financial indicators (2014–2018). Compares Logistic Regression, Random Forest, SVM RBF, and XGBoost, complemented by unsupervised segmentation with PCA, t-SNE, UMAP, and K-Means.</p>
                 <div class="proj-footer">
                   <div class="card-tags">
@@ -240,11 +323,25 @@
               </div>
             </a>
 
-      <a href="projects/online_retail_sales.html" class="proj-row reveal">
+                        <a href="projects/online_retail_sales.html" class="proj-row reveal" data-category="dashboard">
                   <span class="proj-num">04</span>
+        <div class="proj-visual">
+              <svg viewBox="0 0 300 110" preserveAspectRatio="none" aria-hidden="true">
+                <line x1="8" y1="10" x2="8" y2="100" stroke="rgba(230,237,243,.08)" stroke-width="1"/>
+                <line x1="8" y1="100" x2="292" y2="100" stroke="rgba(230,237,243,.08)" stroke-width="1"/>
+                <rect x="30" y="70" width="30" height="30" rx="2" fill="rgba(139,148,158,.55)"/>
+                <rect x="72" y="55" width="30" height="45" rx="2" fill="rgba(139,148,158,.65)"/>
+                <rect x="114" y="40" width="30" height="60" rx="2" fill="rgba(139,148,158,.75)"/>
+                <rect x="156" y="25" width="30" height="75" rx="2" fill="rgba(226,183,20,.70)"/>
+                <rect x="198" y="15" width="30" height="85" rx="2" fill="rgba(226,183,20,.85)"/>
+                <rect x="240" y="30" width="30" height="70" rx="2" fill="rgba(139,148,158,.60)"/>
+              </svg>
+              <span class="spark-label">Sales</span>
+        </div>
         <div class="proj-content">
           <span class="card-category">Dashboard &middot; Tableau</span>
           <h3>Online Retail Sales</h3>
+          <div class="proj-metric"><span class="metric-value">541K</span><span class="metric-label">transactions</span></div>
           <p>Interactive dashboard analyzing online retail sales performance, customer segments, and product categories using Tableau Public.</p>
           <div class="proj-footer">
             <div class="card-tags">
@@ -257,11 +354,25 @@
                 </div>
       </a>
 
-      <a href="projects/oil_iran_shock.html" class="proj-row reveal">
+                        <a href="projects/oil_iran_shock.html" class="proj-row reveal" data-category="eda">
         <span class="proj-num">05</span>
+        <div class="proj-visual">
+          <svg viewBox="0 0 300 110" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="8" y1="10" x2="8" y2="100" stroke="rgba(230,237,243,.08)" stroke-width="1"/>
+            <line x1="8" y1="100" x2="292" y2="100" stroke="rgba(230,237,243,.08)" stroke-width="1"/>
+            <polyline points="8,52 35,53 62,51 89,49 116,44 143,40 170,37 197,33 224,31 251,28 278,26"
+                      fill="none" stroke="#8b949e" stroke-width="2.5" stroke-linecap="round"/>
+            <polyline points="8,94 35,94 62,94 89,93 116,91 143,88 170,74 197,52 224,34 251,22 278,16"
+                      fill="none" stroke="#e2b714" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="8,100 35,100 62,100 89,100 116,100 143,100 170,100 197,100 224,100 251,100 278,100 278,16 251,22 224,34 197,52 170,74 143,88 116,91 89,93 62,94 35,94 8,94"
+                      fill="rgba(226,183,20,.12)"/>
+          </svg>
+          <span class="spark-label">Inv. vs Price</span>
+        </div>
         <div class="proj-content">
           <span class="card-category">Data Analytics &middot; Time Series</span>
           <h3>Oil Iran Shock: Crude Inventories vs. Pump Prices</h3>
+          <div class="proj-metric"><span class="metric-value">EIA API</span><span class="metric-label">live data</span></div>
           <p>Short data analytics case study using the U.S. Energy Information Administration (EIA) API. Explores how quickly crude oil inventory changes passed on to retail gasoline prices after the Iran conflict began on February 28, 2026 — a classic case of confounding driven by geopolitical risk.</p>
           <div class="proj-footer">
             <div class="card-tags">
@@ -275,11 +386,21 @@
         </div>
       </a>
 
-                                                <a href="projects/web_scraping_mls.html" class="proj-row reveal">
+                                                                                                                                                                                                <a href="projects/web_scraping_mls.html" class="proj-row reveal" data-category="scraping">
                 <span class="proj-num">06</span>
+                        <div class="proj-visual">
+              <svg viewBox="0 0 300 110" preserveAspectRatio="none" aria-hidden="true">
+                <rect x="8" y="10" width="200" height="14" rx="4" fill="rgba(139,148,158,.55)"/>
+                <rect x="8" y="32" width="260" height="14" rx="4" fill="rgba(226,183,20,.70)"/>
+                <rect x="8" y="54" width="180" height="14" rx="4" fill="rgba(139,148,158,.55)"/>
+                <rect x="8" y="76" width="235" height="14" rx="4" fill="rgba(226,183,20,.85)"/>
+              </svg>
+              <span class="spark-label">Team Stats</span>
+                        </div>
                         <div class="proj-content">
                           <span class="card-category">Web Scraping &middot; Python</span>
           <h3>Web Scraping MLS 2024</h3>
+          <div class="proj-metric"><span class="metric-value">29</span><span class="metric-label">MLS teams</span></div>
           <p>Scraped and analyzed soccer league data to extract insights on player stats and team performance using Python and BeautifulSoup.</p>
           <div class="proj-footer">
             <div class="card-tags">
@@ -291,11 +412,25 @@
         </div>
       </a>
 
-                                    <a href="projects/power_bi_dashboard.html" class="proj-row reveal">
+                                                                                                                                                <a href="projects/power_bi_dashboard.html" class="proj-row reveal" data-category="dashboard">
                 <span class="proj-num">07</span>
+                        <div class="proj-visual">
+              <svg viewBox="0 0 300 110" preserveAspectRatio="none" aria-hidden="true">
+                <line x1="8" y1="10" x2="8" y2="100" stroke="rgba(230,237,243,.08)" stroke-width="1"/>
+                <line x1="8" y1="100" x2="292" y2="100" stroke="rgba(230,237,243,.08)" stroke-width="1"/>
+                <rect x="30" y="60" width="30" height="40" rx="2" fill="rgba(139,148,158,.60)"/>
+                <rect x="72" y="45" width="30" height="55" rx="2" fill="rgba(139,148,158,.70)"/>
+                <rect x="114" y="30" width="30" height="70" rx="2" fill="rgba(226,183,20,.75)"/>
+                <rect x="156" y="18" width="30" height="82" rx="2" fill="rgba(226,183,20,.90)"/>
+                <rect x="198" y="35" width="30" height="65" rx="2" fill="rgba(139,148,158,.65)"/>
+                <rect x="240" y="25" width="30" height="75" rx="2" fill="rgba(226,183,20,.70)"/>
+              </svg>
+              <span class="spark-label">KPIs</span>
+                        </div>
                         <div class="proj-content">
                           <span class="card-category">Dashboard &middot; Power BI</span>
           <h3>Power BI Sales Dashboard</h3>
+          <div class="proj-metric"><span class="metric-value">DAX</span><span class="metric-label">data modeling</span></div>
           <p>Interactive business intelligence dashboard built in Power BI, analyzing sales performance, profitability trends, and regional KPIs with dynamic filtering.</p>
           <div class="proj-footer">
             <div class="card-tags">
@@ -308,11 +443,32 @@
         </div>
       </a>
 
-                        <a href="projects/ProjectPresentation-demo.html" class="proj-row reveal">
+                                                                                                <a href="projects/ProjectPresentation-demo.html" class="proj-row reveal" data-category="eda">
                 <span class="proj-num">08</span>
+                        <div class="proj-visual">
+              <svg viewBox="0 0 300 110" preserveAspectRatio="none" aria-hidden="true">
+                <rect x="15" y="12" width="82" height="56" rx="4" fill="rgba(226,183,20,.16)" stroke="rgba(226,183,20,.60)" stroke-width="1.5"/>
+                <rect x="25" y="24" width="62" height="6" rx="3" fill="rgba(226,183,20,.60)"/>
+                <rect x="25" y="36" width="46" height="5" rx="2.5" fill="rgba(230,237,243,.20)"/>
+                <rect x="25" y="46" width="52" height="5" rx="2.5" fill="rgba(230,237,243,.20)"/>
+                <rect x="25" y="56" width="30" height="5" rx="2.5" fill="rgba(230,237,243,.20)"/>
+                <rect x="109" y="12" width="82" height="56" rx="4" fill="rgba(226,183,20,.10)" stroke="rgba(139,148,158,.40)" stroke-width="1.5"/>
+                <rect x="119" y="24" width="62" height="6" rx="3" fill="rgba(139,148,158,.50)"/>
+                <rect x="119" y="36" width="46" height="5" rx="2.5" fill="rgba(230,237,243,.14)"/>
+                <rect x="119" y="46" width="52" height="5" rx="2.5" fill="rgba(230,237,243,.14)"/>
+                <rect x="119" y="56" width="30" height="5" rx="2.5" fill="rgba(230,237,243,.14)"/>
+                <rect x="203" y="12" width="82" height="56" rx="4" fill="rgba(226,183,20,.10)" stroke="rgba(139,148,158,.40)" stroke-width="1.5"/>
+                <rect x="213" y="24" width="62" height="6" rx="3" fill="rgba(139,148,158,.50)"/>
+                <rect x="213" y="36" width="46" height="5" rx="2.5" fill="rgba(230,237,243,.14)"/>
+                <rect x="213" y="46" width="52" height="5" rx="2.5" fill="rgba(230,237,243,.14)"/>
+                <rect x="213" y="56" width="30" height="5" rx="2.5" fill="rgba(230,237,243,.14)"/>
+              </svg>
+              <span class="spark-label">Thumbnails</span>
+                        </div>
                         <div class="proj-content">
                           <span class="card-category">Tool &middot; PDF.js</span>
           <h3>PDF Presentation Viewer</h3>
+          <div class="proj-metric"><span class="metric-value">PDF.js</span><span class="metric-label">presentation tool</span></div>
           <p>Interactive slide viewer with paginated navigation, fullscreen mode, keyboard shortcuts, and a mobile&#8209;responsive fallback.</p>
           <div class="proj-footer">
             <div class="card-tags">
@@ -364,7 +520,7 @@
   </div>
 </footer>
 
-<script src="js/app.js"></script>
+<script src="js/app.js?v=2"></script>
 
 </body>
 </html>

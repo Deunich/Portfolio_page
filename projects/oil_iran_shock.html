@@ -43,6 +43,14 @@
     .problem-img { margin:1.5rem 0; text-align:center; }
     .problem-img img { width:100%; max-width:720px; height:auto; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,.08); display:block; margin:0 auto; }
     .problem-img figcaption { margin-top:.4rem; font-size:.9rem; color:var(--clr-muted); }
+    .star-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:1rem; }
+    .star-card { background:var(--clr-surface); border:1px solid var(--clr-border); border-radius:12px; padding:1.25rem 1.5rem; box-shadow:0 2px 8px rgba(0,0,0,.04); }
+    .star-card.span-2 { grid-column:span 2; }
+    .star-badge { display:inline-flex; align-items:center; gap:8px; font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:var(--clr-accent); margin-bottom:.6rem; }
+    .star-badge i { font-size:.8rem; }
+    .star-card h3 { font-size:1.05rem; color:var(--clr-text); margin-bottom:.35rem; }
+    .star-card p { font-size:.94rem; color:var(--clr-muted); line-height:1.65; }
+    @media screen and (max-width:720px) { .star-grid { grid-template-columns:1fr; } .star-card.span-2 { grid-column:span 1; } }
     .cta-section { padding-bottom:3.5rem; display:flex; flex-direction:column; gap:16px; }
     .cta-label { font-size:.75rem; font-weight:600; text-transform:uppercase; letter-spacing:1.5px; color:var(--clr-muted); }
     .cta-actions { display:flex; gap:12px; flex-wrap:wrap; }
@@ -89,16 +97,41 @@
 </header>
 <main class="container">
   <section class="project-section">
-    <p class="section-label">The Question</p>
-    <h2 style="font-size:1.5rem; margin-bottom:.5rem;">How quickly are inventory changes passed on to pump prices?</h2>
-    <p style="color:var(--clr-muted); line-height:1.7;">The textbook answer says rising inventories should push prices down. But sometimes the data tells a different story — especially when a major geopolitical shock is in the background.</p>
-  </section>
+    <p class="section-label">Project Overview — STAR Method</p>
+    <h2 style="font-size:1.5rem; margin-bottom:.5rem;">Why this analysis was done</h2>
+    <p style="color:var(--clr-muted); line-height:1.7;">This case study follows the <strong style="color:var(--clr-text);">STAR framework</strong> — Situation, Task, Action, Result — to explain not just what was found, but why the analysis was carried out in the first place.</p>
 
-  <section class="project-section">
-    <p class="section-label">The Finding</p>
-    <h2 style="font-size:1.5rem; margin-bottom:.5rem;">A textbook expectation, an unexpected result</h2>
-    <p style="color:var(--clr-muted); line-height:1.7;">Between <strong style="color:var(--clr-text);">February 28 and April 13, 2026</strong>, commercial crude inventories grew by roughly <strong style="color:var(--clr-accent);">5%</strong>, yet regular gasoline prices jumped by around <strong style="color:var(--clr-accent);">37%</strong> over the same window — with a Pearson correlation of <strong style="color:var(--clr-accent);">0.98</strong>.</p>
-    <p style="color:var(--clr-muted); line-height:1.7;">Both inventories and prices moved together in a way that contradicts the simple "bigger stockpiles, cheaper gas" rule.</p>
+    <div class="star-grid">
+      <div class="star-card span-2">
+        <span class="star-badge"><i class="fas fa-flag"></i> Situation</span>
+        <h3>The geopolitical context that triggered the question</h3>
+        <p>On <strong style="color:var(--clr-text);">February 28, 2026</strong>, a major conflict began involving Iran — a key player in global crude supply. Energy markets reacted immediately. As an economist and business analyst, the natural question was: <em>"How quickly do changes in crude oil inventories actually reach the pump price consumers pay?"</em> In calm conditions the answer is textbook, but in a shock episode it is uncertain whether that logic still holds.</p>
+      </div>
+
+      <div class="star-card">
+        <span class="star-badge"><i class="fas fa-tasks"></i> Task</span>
+        <h3>The analytical objective</h3>
+        <p>Quantify the relationship between weekly U.S. <strong style="color:var(--clr-text);">commercial crude inventories</strong> and <strong style="color:var(--clr-text);">retail gasoline prices</strong> in the weeks right after the conflict began, using real public data rather than assumptions.</p>
+      </div>
+
+      <div class="star-card">
+        <span class="star-badge"><i class="fas fa-chart-line"></i> Result</span>
+        <h3>What the data showed</h3>
+        <p>Between Feb 28 and Apr 13, 2026, inventories rose <strong style="color:var(--clr-accent);">~5%</strong> while pump prices jumped <strong style="color:var(--clr-accent);">~37%</strong>, with a Pearson correlation of <strong style="color:var(--clr-accent);">0.98</strong> — the opposite of the textbook supply story.</p>
+      </div>
+
+      <div class="star-card">
+        <span class="star-badge"><i class="fas fa-code"></i> Action — How</span>
+        <h3>The analysis pipeline</h3>
+        <p>Wrote a Python script using <code style="color:var(--clr-accent);">requests</code> to pull weekly EIA data from two endpoints, merged both series with <code style="color:var(--clr-accent);">pandas</code>, computed the Pearson correlation with <code style="color:var(--clr-accent);">scipy/pandas</code>, and rendered the time series and scatter plots with <code style="color:var(--clr-accent);">matplotlib</code> + <code style="color:var(--clr-accent);">seaborn</code>.</p>
+      </div>
+
+      <div class="star-card">
+        <span class="star-badge"><i class="fas fa-lightbulb"></i> Action — Why</span>
+        <h3>The interpretation behind the numbers</h3>
+        <p>The co-movement is a classic case of <strong style="color:var(--clr-text);">confounding</strong>: inventories and prices both react to the same driver — <strong style="color:var(--clr-text);">geopolitical risk</strong> — rather than one causing the other. Isolating the true inventory effect would require controlling for an index of geopolitical uncertainty (e.g., the Caldara &amp; Iacoviello GPR index).</p>
+      </div>
+    </div>
   </section>
 
   <section class="project-section">

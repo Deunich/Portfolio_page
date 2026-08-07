@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ── Scroll reveal ───────────────────────────────────── */
+    /* ── Scroll reveal ───────────────────────────────────── */
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -117,6 +117,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* ── Project category filter ─────────────────────────── */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projRows   = document.querySelectorAll('.proj-row');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+
+      projRows.forEach(card => {
+        const show = filter === 'all' || card.dataset.category === filter;
+        card.classList.toggle('is-hidden', !show);
+      });
+    });
+  });
 
   /* ── Active nav link on scroll ───────────────────────── */
   const sections = document.querySelectorAll('section[id]');

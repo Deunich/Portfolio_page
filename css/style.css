@@ -312,7 +312,7 @@ main.container {
   border-radius: 14px;
   border: 1px solid var(--clr-border);
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
 }
 
 .about-container {
@@ -511,59 +511,110 @@ main.container {
 }
 
 /* ----------- PROJECTS ----------- */
-#projects { margin-bottom: 2rem; }
 
-/* ── Option A: Numbered Showcase ── */
+/* ── Option A: Numbered Showcase (grid + sparkline cards) ── */
+/* Contenedor central consistente con el resto del sitio, alineado
+   horizontalmente con About/Contact. Ya no usa full-bleed (100vw). */
+#projects {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto 2rem;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
 .proj-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
 }
 
 .proj-row {
   position: relative;
+  min-width: 0;
   display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1.8rem 1rem 1.8rem 0.5rem;
-  border-bottom: 1px solid var(--clr-border);
+  flex-direction: column;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: 14px;
+  padding: 22px 22px 18px;
+  min-height: 320px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
   text-decoration: none !important;
   color: inherit;
-  border-radius: 10px;
-  transition: background 0.25s, padding-left 0.25s;
   overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
 }
-
-.proj-row:first-child { border-top: 1px solid var(--clr-border); }
 
 .proj-row:hover {
-  background: rgba(226,183,20,0.04);
-  padding-left: 1.2rem;
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.35);
+  border-color: rgba(226,183,20,0.35);
+  text-decoration: none !important;
+  padding-left: 22px;
 }
 
+/* Número pequeño en la esquina superior derecha */
 .proj-num {
-  font-size: 4.5rem;
-  font-weight: 900;
-  color: var(--clr-accent);
-  opacity: 0.10;
-  line-height: 1;
-  flex-shrink: 0;
-  width: 80px;
-  text-align: center;
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: rgba(226,183,20,0.85);
+  background: rgba(226,183,20,0.08);
+  border: 1px solid rgba(226,183,20,0.25);
+  padding: 2px 10px;
+  border-radius: 20px;
+  z-index: 2;
   transition: opacity 0.25s;
-  user-select: none;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -2px;
 }
 
-.proj-row:hover .proj-num { opacity: 0.22; }
+.proj-row:hover .proj-num { opacity: 0.55; }
 
-.proj-content { flex: 1; }
+/* Área visual superior (sparkline) */
+.proj-visual {
+  height: 100px;
+  margin: 0 0 0.65rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+  border-bottom: 1px solid var(--clr-border);
+  padding-bottom: 0.45rem;
+}
+
+.proj-visual svg {
+  width: 100%;
+  max-width: 300px;
+  height: 92px;
+  display: block;
+}
+
+.spark-label {
+  position: absolute;
+  bottom: 6px;
+  right: 2px;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--clr-muted);
+  text-transform: uppercase;
+}
+
+.proj-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
 
 .proj-content h3 {
-  font-size: 1.2rem;
+  font-size: 0.98rem;
   font-weight: 700;
   color: var(--clr-text);
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.45rem;
+  line-height: 1.25;
   transition: color 0.2s;
 }
 
@@ -571,17 +622,38 @@ main.container {
 
 .proj-content p {
   color: var(--clr-muted);
-  font-size: 0.88rem;
-  margin-bottom: 0.9rem;
-  max-width: 620px;
-  line-height: 1.6;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  margin-bottom: 0.85rem;
+  max-width: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .proj-footer {
+  margin-top: auto;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--clr-border);
+}
+
+/* ── Responsive grid ── */
+@media screen and (max-width: 1024px) {
+  .proj-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .method-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media screen and (max-width: 600px) {
+  .proj-list { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .proj-row { min-height: 0; padding: 20px 18px; }
+  .proj-row:hover { padding-left: 18px; }
+  #projects { padding: 0 16px; }
+  .method-section { padding: 0 16px; }
+  .method-steps { grid-template-columns: 1fr; }
 }
 
 /* Section header */
@@ -625,6 +697,117 @@ main.container {
   letter-spacing: 1.5px;
   color: var(--clr-accent);
   margin-bottom: 0.45rem;
+}
+
+/* ── Impact metric ("big number") on each card ── */
+.proj-metric {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0.15rem 0 0.55rem;
+}
+
+.proj-metric .metric-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--clr-accent);
+  letter-spacing: -0.5px;
+}
+
+.proj-metric .metric-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--clr-muted);
+}
+
+/* ── Category filter buttons ── */
+.projects-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.filter-btn {
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--clr-border);
+  background: var(--clr-surface);
+  color: var(--clr-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: rgba(226,183,20,0.4);
+  color: var(--clr-text);
+}
+
+.filter-btn.active {
+  background: var(--clr-accent);
+  border-color: var(--clr-accent);
+  color: #ffffff;
+}
+
+.proj-row.is-hidden {
+  display: none;
+}
+
+/* ── How I Work / Methodology ── */
+.method-section {
+  max-width: 1120px;
+  margin: 0 auto 2rem;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.method-steps {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 1.25rem;
+}
+
+.method-step {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-top: 3px solid var(--clr-accent);
+  border-radius: 12px;
+  padding: 18px 16px;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.method-step:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+}
+
+.method-step .step-index {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--clr-accent);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.method-step h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.method-step p {
+  font-size: 0.82rem;
+  color: var(--clr-muted);
+  line-height: 1.55;
+  margin-bottom: 0;
 }
 
 /* ── Shared card base ── */
@@ -1202,22 +1385,6 @@ main.container {
     justify-content: center;
   }
 
-  /* Shrink project number to save horizontal space */
-  .proj-num {
-    font-size: 2.4rem;
-    width: 50px;
-    letter-spacing: -1px;
-  }
-
-  /* Stack proj-footer: tags on top, cta below */
-  .proj-footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  .card-cta { align-self: flex-end; }
-
   /* Contact cards: full width stack */
   .contact-cards { flex-direction: column; gap: 12px; }
   .contact-card { min-width: unset; flex-direction: row; padding: 1rem 1.25rem; gap: 16px; }
@@ -1249,9 +1416,7 @@ main.container {
 @media screen and (max-width: 400px) {
   #about { padding: 14px; }
   .hero-actions .btn { max-width: 100%; }
-  .btn { padding: 10px 16px; font-size: 0.88rem; }
-  .proj-row { gap: 1rem; padding: 1.4rem 0.5rem; }
-  .proj-num { font-size: 1.9rem; width: 38px; }
+    .btn { padding: 10px 16px; font-size: 0.88rem; }
   .about-stats { gap: 0.75rem; flex-wrap: wrap; }
 }
 
